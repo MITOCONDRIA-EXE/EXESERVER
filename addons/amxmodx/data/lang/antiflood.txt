@@ -41,10 +41,10 @@ STOP_FLOOD = Lopeta floodiminen!
 STOP_FLOOD = Ne fluudvai servera!
 
 [ro]
-STOP_FLOOD = Oprește-te din a flooda serverul!
+STOP_FLOOD = OpreÈ™te-te din a flooda serverul!
 
 [hu]
-STOP_FLOOD = Ne floodolj és ne spamelj!
+STOP_FLOOD = Ne floodolj Ã©s ne spamelj!
 
 [lt]
 STOP_FLOOD = Nustok greitai rasyti!
@@ -62,13 +62,13 @@ STOP_FLOOD = Prestani opterecivati server porukama!
 STOP_FLOOD = Prestani da opterecujes server porukama!
 
 [ru]
-STOP_FLOOD = Прекратите флуд на сервере!
+STOP_FLOOD = ÐŸÑ€ÐµÐºÑ€Ð°Ñ‚Ð¸Ñ‚Ðµ Ñ„Ð»ÑƒÐ´ Ð½Ð° ÑÐµÑ€Ð²ÐµÑ€Ðµ!
 
 [cn]
-STOP_FLOOD = 请停止愚弄服务器!
+STOP_FLOOD = è¯·åœæ­¢æ„šå¼„æœåŠ¡å™¨!
 
 [al]
-STOP_FLOOD = Ndalo përmbytjen(flood) në këtë server, sepse do të ndëshkoheni( Kontrollo Internetin)!
+STOP_FLOOD = Ndalo pÃ«rmbytjen(flood) nÃ« kÃ«tÃ« server, sepse do tÃ« ndÃ«shkoheni( Kontrollo Internetin)!
 
 [pt]
 STOP_FLOOD = Para com o flood no servidor!

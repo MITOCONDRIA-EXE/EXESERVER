@@ -8,13 +8,13 @@ EXTED_MAP = Extend map %s
 TIME_CHOOSE = It's time to choose the nextmap...
 
 [de]
-CHO_FIN_EXT = Auswahl beendet. Laufende Map wird um %.0f Minuten verlängert.
-CHO_FIN_NEXT = Auswahl beendet. Nächste Map ist %s
-CHOSE_EXT = %s wählte Map-Verlängerung
-X_CHOSE_X = %s wählte %s
-CHOOSE_NEXTM = [AMXX] Wählt die nächste Map
-EXTED_MAP = Verlängere Map %s
-TIME_CHOOSE = Es ist an der Zeit, die nächste Map zu wählen...
+CHO_FIN_EXT = Auswahl beendet. Laufende Map wird um %.0f Minuten verlÃ¤ngert.
+CHO_FIN_NEXT = Auswahl beendet. NÃ¤chste Map ist %s
+CHOSE_EXT = %s wÃ¤hlte Map-VerlÃ¤ngerung
+X_CHOSE_X = %s wÃ¤hlte %s
+CHOOSE_NEXTM = [AMXX] WÃ¤hlt die nÃ¤chste Map
+EXTED_MAP = VerlÃ¤ngere Map %s
+TIME_CHOOSE = Es ist an der Zeit, die nÃ¤chste Map zu wÃ¤hlen...
 
 [sr]
 CHO_FIN_EXT = Biranje zavrseno. Sadasnja mapa ce biti produzena za %.0f minuta
@@ -125,22 +125,22 @@ EXTED_MAP = Udalji kartata %s
 TIME_CHOOSE = Vreme e da se izbere sledvashtata karta...
 
 [ro]
-CHO_FIN_EXT = Votarea s-a terminat. Harta actuală va fi prelungită cu %.0f minute
-CHO_FIN_NEXT = Votarea s-a terminat. Următoarea hartă va fi %s
-CHOSE_EXT = %s a votat pentru prelungirea hărții actuale
+CHO_FIN_EXT = Votarea s-a terminat. Harta actualÄƒ va fi prelungitÄƒ cu %.0f minute
+CHO_FIN_NEXT = Votarea s-a terminat. UrmÄƒtoarea hartÄƒ va fi %s
+CHOSE_EXT = %s a votat pentru prelungirea hÄƒrÈ›ii actuale
 X_CHOSE_X = %s a votat pentru %s
-CHOOSE_NEXTM = AMX Alege harta următoare
-EXTED_MAP = Prelungirea hărții %s
-TIME_CHOOSE = Este timpul să alegeți harta următoare...
+CHOOSE_NEXTM = AMX Alege harta urmÄƒtoare
+EXTED_MAP = Prelungirea hÄƒrÈ›ii %s
+TIME_CHOOSE = Este timpul sÄƒ alegeÈ›i harta urmÄƒtoare...
 
 [hu]
-CHO_FIN_EXT = A választás véget ért. A mostani pálya még %.0f percig lesz.
-CHO_FIN_NEXT = A választás véget ért. A következő pálya a %s lesz.
-CHOSE_EXT = %s még maradni szeretne.
-X_CHOSE_X = %s a %s pályára szavazott.
-CHOOSE_NEXTM = Válaszd ki a következő pályát.
-EXTED_MAP = Maradjunk a %s pályán!
-TIME_CHOOSE = Itt az idő hogy kiválaszd a következő pályát.
+CHO_FIN_EXT = A vÃ¡lasztÃ¡s vÃ©get Ã©rt. A mostani pÃ¡lya mÃ©g %.0f percig lesz.
+CHO_FIN_NEXT = A vÃ¡lasztÃ¡s vÃ©get Ã©rt. A kÃ¶vetkezÅ‘ pÃ¡lya a %s lesz.
+CHOSE_EXT = %s mÃ©g maradni szeretne.
+X_CHOSE_X = %s a %s pÃ¡lyÃ¡ra szavazott.
+CHOOSE_NEXTM = VÃ¡laszd ki a kÃ¶vetkezÅ‘ pÃ¡lyÃ¡t.
+EXTED_MAP = Maradjunk a %s pÃ¡lyÃ¡n!
+TIME_CHOOSE = Itt az idÅ‘ hogy kivÃ¡laszd a kÃ¶vetkezÅ‘ pÃ¡lyÃ¡t.
 
 [lt]
 CHO_FIN_EXT = Pasirinkimai baigti. Sis zemelapis dar bus %.0f minutes
@@ -188,37 +188,37 @@ EXTED_MAP = Produzi mapu %s
 TIME_CHOOSE = Vrijeme je da se izabere slijedeca mapa...
 
 [ru]
-CHO_FIN_EXT = Голосование завершено. Карта продлена на %.0f минут
-CHO_FIN_NEXT = Голосование завершено. Следующая карта %s
-CHOSE_EXT = %s выбрал продление карты
-X_CHOSE_X = %s выбрал %s
-CHOOSE_NEXTM = AMX Выбор следующей карты
-EXTED_MAP = Продление карты на %s
-TIME_CHOOSE = Пора выбирать следующую карту...
+CHO_FIN_EXT = Ð“Ð¾Ð»Ð¾ÑÐ¾Ð²Ð°Ð½Ð¸Ðµ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¾. ÐšÐ°Ñ€Ñ‚Ð° Ð¿Ñ€Ð¾Ð´Ð»ÐµÐ½Ð° Ð½Ð° %.0f Ð¼Ð¸Ð½ÑƒÑ‚
+CHO_FIN_NEXT = Ð“Ð¾Ð»Ð¾ÑÐ¾Ð²Ð°Ð½Ð¸Ðµ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¾. Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð°Ñ ÐºÐ°Ñ€Ñ‚Ð° %s
+CHOSE_EXT = %s Ð²Ñ‹Ð±Ñ€Ð°Ð» Ð¿Ñ€Ð¾Ð´Ð»ÐµÐ½Ð¸Ðµ ÐºÐ°Ñ€Ñ‚Ñ‹
+X_CHOSE_X = %s Ð²Ñ‹Ð±Ñ€Ð°Ð» %s
+CHOOSE_NEXTM = AMX Ð’Ñ‹Ð±Ð¾Ñ€ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰ÐµÐ¹ ÐºÐ°Ñ€Ñ‚Ñ‹
+EXTED_MAP = ÐŸÑ€Ð¾Ð´Ð»ÐµÐ½Ð¸Ðµ ÐºÐ°Ñ€Ñ‚Ñ‹ Ð½Ð° %s
+TIME_CHOOSE = ÐŸÐ¾Ñ€Ð° Ð²Ñ‹Ð±Ð¸Ñ€Ð°Ñ‚ÑŒ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰ÑƒÑŽ ÐºÐ°Ñ€Ñ‚Ñƒ...
 
 [cn]
-CHO_FIN_EXT = 选择结束. 当前地图将被延长 %.0f 分钟
-CHO_FIN_NEXT = 选择结束. 下一张地图为 %s
-CHOSE_EXT = %s 选择延长当前地图
-X_CHOSE_X = %s 选择了 %s
-CHOOSE_NEXTM = AMX 选择下一张地图
-EXTED_MAP = 延长地图 %s
-TIME_CHOOSE = 是该选择下一张地图了...
+CHO_FIN_EXT = é€‰æ‹©ç»“æŸ. å½“å‰åœ°å›¾å°†è¢«å»¶é•¿ %.0f åˆ†é’Ÿ
+CHO_FIN_NEXT = é€‰æ‹©ç»“æŸ. ä¸‹ä¸€å¼ åœ°å›¾ä¸º %s
+CHOSE_EXT = %s é€‰æ‹©å»¶é•¿å½“å‰åœ°å›¾
+X_CHOSE_X = %s é€‰æ‹©äº† %s
+CHOOSE_NEXTM = AMX é€‰æ‹©ä¸‹ä¸€å¼ åœ°å›¾
+EXTED_MAP = å»¶é•¿åœ°å›¾ %s
+TIME_CHOOSE = æ˜¯è¯¥é€‰æ‹©ä¸‹ä¸€å¼ åœ°å›¾äº†...
 
 [al]
-CHO_FIN_EXT = Zgjedhja përfundoi. Harta tanishme do të vazhdohet edhe për %.0f minuta
-CHO_FIN_NEXT = Zgjedhja përfundoi. Harta e ardhëshme do të jetë %s
-CHOSE_EXT = %s zgjedhi vazhdimin e hartës
+CHO_FIN_EXT = Zgjedhja pÃ«rfundoi. Harta tanishme do tÃ« vazhdohet edhe pÃ«r %.0f minuta
+CHO_FIN_NEXT = Zgjedhja pÃ«rfundoi. Harta e ardhÃ«shme do tÃ« jetÃ« %s
+CHOSE_EXT = %s zgjedhi vazhdimin e hartÃ«s
 X_CHOSE_X = %s zgjedhi %s
-CHOOSE_NEXTM = AMX Zgjedh Hartën e Ardhëshme
-EXTED_MAP = Vazhdo hartën %s
-TIME_CHOOSE = Koha është të zgjedhni hartën e ardhëshme...
+CHOOSE_NEXTM = AMX Zgjedh HartÃ«n e ArdhÃ«shme
+EXTED_MAP = Vazhdo hartÃ«n %s
+TIME_CHOOSE = Koha Ã«shtÃ« tÃ« zgjedhni hartÃ«n e ardhÃ«shme...
 
 [pt]
-CHO_FIN_EXT = A votação terminou. O mapa atual vai ser estendido por %.0f minutos
-CHO_FIN_NEXT = A votação terminou. O próximo mapa será %s
+CHO_FIN_EXT = A votaÃ§Ã£o terminou. O mapa atual vai ser estendido por %.0f minutos
+CHO_FIN_NEXT = A votaÃ§Ã£o terminou. O prÃ³ximo mapa serÃ¡ %s
 CHOSE_EXT = %s escolheu estender o mapa
 X_CHOSE_X = %s escolheu %s
-CHOOSE_NEXTM = AMX Escolher próximo mapa
+CHOOSE_NEXTM = AMX Escolher prÃ³ximo mapa
 EXTED_MAP = Estender o mapa %s
-TIME_CHOOSE = É hora de escolher o próximo mapa...
+TIME_CHOOSE = Ã‰ hora de escolher o prÃ³ximo mapa...

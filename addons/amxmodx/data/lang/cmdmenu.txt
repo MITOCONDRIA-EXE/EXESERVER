@@ -4,9 +4,9 @@ CONF_MENU = Configs Menu
 SPE_MENU = Speech Menu
 
 [de]
-CMD_MENU = Menü > Befehle
-CONF_MENU = Menü > Konfiguration
-SPE_MENU = Menü > Sprechen
+CMD_MENU = MenÃ¼ > Befehle
+CONF_MENU = MenÃ¼ > Konfiguration
+SPE_MENU = MenÃ¼ > Sprechen
 
 [sr]
 CMD_MENU = Komandne
@@ -74,9 +74,9 @@ CONF_MENU = Meniu configuri
 SPE_MENU = Meniu Speech
 
 [hu]
-CMD_MENU = Parancs Menü
-CONF_MENU = Beállítás Menü
-SPE_MENU = Beszéd Menü
+CMD_MENU = Parancs MenÃ¼
+CONF_MENU = BeÃ¡llÃ­tÃ¡s MenÃ¼
+SPE_MENU = BeszÃ©d MenÃ¼
 
 [lt]
 CMD_MENU = Komandu meniu
@@ -104,21 +104,21 @@ CONF_MENU = Podesavanja
 SPE_MENU = Govorne Komande
 
 [ru]
-CMD_MENU = Меню команд
-CONF_MENU = Меню настроек
-SPE_MENU = Меню звуков
+CMD_MENU = ÐœÐµÐ½ÑŽ ÐºÐ¾Ð¼Ð°Ð½Ð´
+CONF_MENU = ÐœÐµÐ½ÑŽ Ð½Ð°ÑÑ‚Ñ€Ð¾ÐµÐº
+SPE_MENU = ÐœÐµÐ½ÑŽ Ð·Ð²ÑƒÐºÐ¾Ð²
 
 [cn]
-CMD_MENU = 命令菜单
-CONF_MENU = 配置菜单
-SPE_MENU = 语音菜单
+CMD_MENU = å‘½ä»¤èœå•
+CONF_MENU = é…ç½®èœå•
+SPE_MENU = è¯­éŸ³èœå•
 
 [al]
 CMD_MENU = Lista Komandave
 CONF_MENU = Lista Konfigurimeve
-SPE_MENU = Lista Fjalëve
+SPE_MENU = Lista FjalÃ«ve
 
 [pt]
 CMD_MENU = Menu de Comandos
-CONF_MENU = Menu de Configurações
+CONF_MENU = Menu de ConfiguraÃ§Ãµes
 SPE_MENU = Menu de Voz

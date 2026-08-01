@@ -12,12 +12,12 @@ NO_MATCHING_RESULTS = ^nNo matching results found^n
 
 [de]
 HELP_COMS = AMX Mod X Help: Befehle
-HELP_ENTRIES = Einträge %d - %d von %d
-HELP_USE_MORE = Nutze '%s %d' für die nächste Seite
+HELP_ENTRIES = EintrÃ¤ge %d - %d von %d
+HELP_USE_MORE = Nutze '%s %d' fÃ¼r die nÃ¤chste Seite
 HELP_USE_BEGIN = Nutze '%s 1' um zum Anfang zu gelangen
-TYPE_HELP = Schreibe '%s' '%s' in die Konsole um die verfügbaren Befehle zu sehen.
-TIME_INFO_1 = Verbleibende Zeit: %d:%02d Minuten, nächste Map: %s
-TIME_INFO_2 = Kein Zeitlimit. Nächste Map ist: %s
+TYPE_HELP = Schreibe '%s' '%s' in die Konsole um die verfÃ¼gbaren Befehle zu sehen.
+TIME_INFO_1 = Verbleibende Zeit: %d:%02d Minuten, nÃ¤chste Map: %s
+TIME_INFO_2 = Kein Zeitlimit. NÃ¤chste Map ist: %s
 
 [sr]
 HELP_COMS = AMX Mod X Pomoc: Komande
@@ -134,24 +134,24 @@ TIME_INFO_2 = Nqma limit na vremeto. Sledvashta karta: %s
 
 [ro]
 HELP_COMS = Ajutor AMX Mod X: Comenzi
-HELP_ENTRIES = Se afișează %d - %d din %d
+HELP_ENTRIES = Se afiÈ™eazÄƒ %d - %d din %d
 HELP_USE_MORE = Scrie '%s %d' pentru mai multe comenzi
-HELP_USE_BEGIN = Scrie '%s 1' pentru a începe
-TYPE_HELP = Scrie '%s' '%s' în consolă pentru a afișa lista de comenzi disponibile
-TIME_INFO_1 = Timp rămas: %d:%02d. Următoarea hartă: %s
-TIME_INFO_2 = Fără limită de timp. Următoarea hartă: %s
+HELP_USE_BEGIN = Scrie '%s 1' pentru a Ã®ncepe
+TYPE_HELP = Scrie '%s' '%s' Ã®n consolÄƒ pentru a afiÈ™a lista de comenzi disponibile
+TIME_INFO_1 = Timp rÄƒmas: %d:%02d. UrmÄƒtoarea hartÄƒ: %s
+TIME_INFO_2 = FÄƒrÄƒ limitÄƒ de timp. UrmÄƒtoarea hartÄƒ: %s
 
 [hu]
-HELP_COMS = AMX Mod X segítség: Parancsok
-HELP_ENTRIES = Bejegyzés %d - %d / %d
-HELP_USE_MORE = Írj 'amx_help %d' többhöz
-HELP_USE_BEGIN = Írj 'amx_help 1'-et az első oldalhoz
-TYPE_HELP = Írj 'amx_help'-et a konzolba, hogy láthasd a parancsokat
-TIME_INFO_1 = Hátrálévő idő: %d:%02d perc. Következő pálya: %s
-TIME_INFO_2 = Nincs időhatár. A következő pálya: %s
-HELP_CMD_INFO = <bejegyzés száma> [megjelenítendő bejegyzések száma (csak szerver)] - információt nyújt az elérhető parancsokhoz
-SEARCH_CMD_INFO = <egyezés> <bejegyzés száma> [megjelenítendő bejegyzések száma (csak szerver)] - információt nyújt a talált parancsokhoz
-NO_MATCHING_RESULTS = ^nNem található egyezés^n
+HELP_COMS = AMX Mod X segÃ­tsÃ©g: Parancsok
+HELP_ENTRIES = BejegyzÃ©s %d - %d / %d
+HELP_USE_MORE = Ãrj 'amx_help %d' tÃ¶bbhÃ¶z
+HELP_USE_BEGIN = Ãrj 'amx_help 1'-et az elsÅ‘ oldalhoz
+TYPE_HELP = Ãrj 'amx_help'-et a konzolba, hogy lÃ¡thasd a parancsokat
+TIME_INFO_1 = HÃ¡trÃ¡lÃ©vÅ‘ idÅ‘: %d:%02d perc. KÃ¶vetkezÅ‘ pÃ¡lya: %s
+TIME_INFO_2 = Nincs idÅ‘hatÃ¡r. A kÃ¶vetkezÅ‘ pÃ¡lya: %s
+HELP_CMD_INFO = <bejegyzÃ©s szÃ¡ma> [megjelenÃ­tendÅ‘ bejegyzÃ©sek szÃ¡ma (csak szerver)] - informÃ¡ciÃ³t nyÃºjt az elÃ©rhetÅ‘ parancsokhoz
+SEARCH_CMD_INFO = <egyezÃ©s> <bejegyzÃ©s szÃ¡ma> [megjelenÃ­tendÅ‘ bejegyzÃ©sek szÃ¡ma (csak szerver)] - informÃ¡ciÃ³t nyÃºjt a talÃ¡lt parancsokhoz
+NO_MATCHING_RESULTS = ^nNem talÃ¡lhatÃ³ egyezÃ©s^n
 
 [lt]
 HELP_COMS = AMX Mod X Pagalba: Komandos
@@ -199,43 +199,43 @@ TIME_INFO_1 = Preostalo Vrijeme: %d:%02d min. Slijedeca Mapa: %s
 TIME_INFO_2 = Nema vremenskog ogranicenja. Slijedeca Mapa: %s
 
 [ru]
-HELP_COMS = AMX Mod X Помощь: Команды
-HELP_ENTRIES = Список доступных команд с %d по %d. Всего команд - %d
-HELP_USE_MORE = Напишите '%s %d" для продолжения
-HELP_USE_BEGIN = Напишите '%s 1' для просмотра с начала
-TYPE_HELP = Напишите в консоле '%s' '%s' для просмотра доступных команд
-TIME_INFO_1 = До смены карты осталось: %d:%02d мин. Следующая карта: %s
-TIME_INFO_2 = Ограничения по времени нет. Следующая карта: %s
+HELP_COMS = AMX Mod X ÐŸÐ¾Ð¼Ð¾Ñ‰ÑŒ: ÐšÐ¾Ð¼Ð°Ð½Ð´Ñ‹
+HELP_ENTRIES = Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ñ… ÐºÐ¾Ð¼Ð°Ð½Ð´ Ñ %d Ð¿Ð¾ %d. Ð’ÑÐµÐ³Ð¾ ÐºÐ¾Ð¼Ð°Ð½Ð´ - %d
+HELP_USE_MORE = ÐÐ°Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ '%s %d" Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ
+HELP_USE_BEGIN = ÐÐ°Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ '%s 1' Ð´Ð»Ñ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° Ñ Ð½Ð°Ñ‡Ð°Ð»Ð°
+TYPE_HELP = ÐÐ°Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ Ð² ÐºÐ¾Ð½ÑÐ¾Ð»Ðµ '%s' '%s' Ð´Ð»Ñ Ð¿Ñ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€Ð° Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ñ… ÐºÐ¾Ð¼Ð°Ð½Ð´
+TIME_INFO_1 = Ð”Ð¾ ÑÐ¼ÐµÐ½Ñ‹ ÐºÐ°Ñ€Ñ‚Ñ‹ Ð¾ÑÑ‚Ð°Ð»Ð¾ÑÑŒ: %d:%02d Ð¼Ð¸Ð½. Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð°Ñ ÐºÐ°Ñ€Ñ‚Ð°: %s
+TIME_INFO_2 = ÐžÐ³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð¸Ñ Ð¿Ð¾ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸ Ð½ÐµÑ‚. Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð°Ñ ÐºÐ°Ñ€Ñ‚Ð°: %s
 
 [cn]
-HELP_COMS = AMX Mod X 帮助: 命令
-HELP_ENTRIES = 目前第 %d 条 - %d 条,共 %d 条
-HELP_USE_MORE = 使用 '%s %d' 获取更多
-HELP_USE_BEGIN = 使用 '%s 1' 返回首页
-TYPE_HELP = 在控制台输入 '%s' '%s' 查看有效的命令
-TIME_INFO_1 = 剩余时间: %d:%02d 分钏. 下一张地图为: %s
-TIME_INFO_2 = 无时间限制. 下一张地图为: %s
+HELP_COMS = AMX Mod X å¸®åŠ©: å‘½ä»¤
+HELP_ENTRIES = ç›®å‰ç¬¬ %d æ¡ - %d æ¡,å…± %d æ¡
+HELP_USE_MORE = ä½¿ç”¨ '%s %d' èŽ·å–æ›´å¤š
+HELP_USE_BEGIN = ä½¿ç”¨ '%s 1' è¿”å›žé¦–é¡µ
+TYPE_HELP = åœ¨æŽ§åˆ¶å°è¾“å…¥ '%s' '%s' æŸ¥çœ‹æœ‰æ•ˆçš„å‘½ä»¤
+TIME_INFO_1 = å‰©ä½™æ—¶é—´: %d:%02d åˆ†é’. ä¸‹ä¸€å¼ åœ°å›¾ä¸º: %s
+TIME_INFO_2 = æ— æ—¶é—´é™åˆ¶. ä¸‹ä¸€å¼ åœ°å›¾ä¸º: %s
 
 [al]
 HELP_COMS = AMX Mod X Ndihma: Komandat
 HELP_ENTRIES = Hyrje %d - %d prej %d
-HELP_USE_MORE = Përdorë '%s %d' për më shumë
-HELP_USE_BEGIN = Përdorë '%s 1' për të filluar
-TYPE_HELP = Shkruaj '%s' '%s' në konsole për ti shikuar komandat e lira
-TIME_INFO_1 = Koha Mbetur: %d:%02d min. Harta Ardhëshme: %s
-TIME_INFO_2 = Pakufizuar. Harta Ardhëshme: %s
-HELP_CMD_INFO = <hyrja nr.> [nr. e hyrjeve për t'u shfaqur (vetem serveri)] - tregon informacion në lidhje me komandat në dispozicion
-SEARCH_CMD_INFO = <ndeshje> <hyrja nr.> [nr. e hyrjeve për t'u shfaqur (vetem serveri)] - shfaq informacione rreth komandave të përputhura
-NO_MATCHING_RESULTS = ^nNuk u gjetën rezultate^n
+HELP_USE_MORE = PÃ«rdorÃ« '%s %d' pÃ«r mÃ« shumÃ«
+HELP_USE_BEGIN = PÃ«rdorÃ« '%s 1' pÃ«r tÃ« filluar
+TYPE_HELP = Shkruaj '%s' '%s' nÃ« konsole pÃ«r ti shikuar komandat e lira
+TIME_INFO_1 = Koha Mbetur: %d:%02d min. Harta ArdhÃ«shme: %s
+TIME_INFO_2 = Pakufizuar. Harta ArdhÃ«shme: %s
+HELP_CMD_INFO = <hyrja nr.> [nr. e hyrjeve pÃ«r t'u shfaqur (vetem serveri)] - tregon informacion nÃ« lidhje me komandat nÃ« dispozicion
+SEARCH_CMD_INFO = <ndeshje> <hyrja nr.> [nr. e hyrjeve pÃ«r t'u shfaqur (vetem serveri)] - shfaq informacione rreth komandave tÃ« pÃ«rputhura
+NO_MATCHING_RESULTS = ^nNuk u gjetÃ«n rezultate^n
 
 [pt]
 HELP_COMS = Ajuda do AMX Mod X: Comandos
 HELP_ENTRIES = Entradas %d - %d de %d
 HELP_USE_MORE = Usa '%s %d' para mostrar mais
-HELP_USE_BEGIN = Usa '%s 1' para voltar ao início
-TYPE_HELP = Escreve '%s' '%s' na consola para ver os comandos disponíveis
-TIME_INFO_1 = Tempo Restante: %d:%02d min. Próximo Mapa: %s
-TIME_INFO_2 = Sem Limite de Tempo. Próximo Mapa: %s
-HELP_CMD_INFO = <entrada no.> [no. de entradas para mostrar (do servidor)] - mostra informação acerca de comandos disponíveis
-SEARCH_CMD_INFO = <correspondência> <entrada no.> [no. de entradas para mostrar (do servidor)] - mostra informações acerca de comandos correspondentes á pesquisa
+HELP_USE_BEGIN = Usa '%s 1' para voltar ao inÃ­cio
+TYPE_HELP = Escreve '%s' '%s' na consola para ver os comandos disponÃ­veis
+TIME_INFO_1 = Tempo Restante: %d:%02d min. PrÃ³ximo Mapa: %s
+TIME_INFO_2 = Sem Limite de Tempo. PrÃ³ximo Mapa: %s
+HELP_CMD_INFO = <entrada no.> [no. de entradas para mostrar (do servidor)] - mostra informaÃ§Ã£o acerca de comandos disponÃ­veis
+SEARCH_CMD_INFO = <correspondÃªncia> <entrada no.> [no. de entradas para mostrar (do servidor)] - mostra informaÃ§Ãµes acerca de comandos correspondentes Ã¡ pesquisa
 NO_MATCHING_RESULTS = ^nSem resultados correspondentes^n

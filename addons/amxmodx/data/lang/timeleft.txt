@@ -9,7 +9,7 @@ SECONDS = seconds
 
 [de]
 THE_TIME = Es ist
-TIME_LEFT = Zeit übrig
+TIME_LEFT = Zeit Ã¼brig
 NO_T_LIMIT = Kein Zeitlimit
 MINUTE = Minute
 MINUTES = Minuten
@@ -125,22 +125,22 @@ SECOND = sekunda
 SECONDS = sekundi
 
 [ro]
-THE_TIME = Ora și data
-TIME_LEFT = Timp rămas
-NO_T_LIMIT = Fără limită de timp
+THE_TIME = Ora È™i data
+TIME_LEFT = Timp rÄƒmas
+NO_T_LIMIT = FÄƒrÄƒ limitÄƒ de timp
 MINUTE = minut
 MINUTES = minute
-SECOND = secundă
+SECOND = secundÄƒ
 SECONDS = secunde
 
 [hu]
-THE_TIME = Az idő
-TIME_LEFT = Hátralévő idő
-NO_T_LIMIT = Nincs időhatár
+THE_TIME = Az idÅ‘
+TIME_LEFT = HÃ¡tralÃ©vÅ‘ idÅ‘
+NO_T_LIMIT = Nincs idÅ‘hatÃ¡r
 MINUTE = perc
 MINUTES = perc
-SECOND = másodperc
-SECONDS = másodperc
+SECOND = mÃ¡sodperc
+SECONDS = mÃ¡sodperc
 
 [lt]
 THE_TIME = Laikas
@@ -188,22 +188,22 @@ SECOND = sekund
 SECONDS = sekunde
 
 [ru]
-THE_TIME = Время
-TIME_LEFT = Осталось
-NO_T_LIMIT = Неограниченно
-MINUTE = минута
-MINUTES = минут
-SECOND = секунда
-SECONDS = секунд
+THE_TIME = Ð’Ñ€ÐµÐ¼Ñ
+TIME_LEFT = ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ
+NO_T_LIMIT = ÐÐµÐ¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾
+MINUTE = Ð¼Ð¸Ð½ÑƒÑ‚Ð°
+MINUTES = Ð¼Ð¸Ð½ÑƒÑ‚
+SECOND = ÑÐµÐºÑƒÐ½Ð´Ð°
+SECONDS = ÑÐµÐºÑƒÐ½Ð´
 
 [cn]
-THE_TIME = 当前时间
-TIME_LEFT = 剩余时间
-NO_T_LIMIT = 无时间限制
-MINUTE = 分钟
-MINUTES = 分钟
-SECOND = 秒
-SECONDS = 秒
+THE_TIME = å½“å‰æ—¶é—´
+TIME_LEFT = å‰©ä½™æ—¶é—´
+NO_T_LIMIT = æ— æ—¶é—´é™åˆ¶
+MINUTE = åˆ†é’Ÿ
+MINUTES = åˆ†é’Ÿ
+SECOND = ç§’
+SECONDS = ç§’
 
 [al]
 THE_TIME = Ora

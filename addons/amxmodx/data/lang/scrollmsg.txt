@@ -4,7 +4,7 @@ MSG_FREQ = Scrolling message displaying frequency: %d:%02d minutes
 MSG_DISABLED = Scrolling message disabled
 
 [de]
-MIN_FREQ = Die minimale Frequenz für diese Anzeige sind %d Sekunden
+MIN_FREQ = Die minimale Frequenz fÃ¼r diese Anzeige sind %d Sekunden
 MSG_FREQ = Anzeigefrequenz der Scrollnachricht: %d:%02d Minuten
 MSG_DISABLED = Scrollnachrichten abgeschaltet
 
@@ -69,14 +69,14 @@ MSG_FREQ = Skrolvashtoto suobshtenie se pokazva vseki: %d:%02d minuti
 MSG_DISABLED = Skrolvashtoto suobshtenie e izkliucheno
 
 [ro]
-MIN_FREQ = Frecvența minimă pentru acest mesaj este de %d secunde
-MSG_FREQ = Frecvența afișării mesajului rulant: %d:%02d minute
+MIN_FREQ = FrecvenÈ›a minimÄƒ pentru acest mesaj este de %d secunde
+MSG_FREQ = FrecvenÈ›a afiÈ™Äƒrii mesajului rulant: %d:%02d minute
 MSG_DISABLED = Mesaj rulant dezactivat
 
 [hu]
-MIN_FREQ = A minimum idő erre az üzenetre %d másodperc
-MSG_FREQ = Mozgó üzenet: %d:%02d percenként
-MSG_DISABLED = A gördülő üzenet kikapcsolva
+MIN_FREQ = A minimum idÅ‘ erre az Ã¼zenetre %d mÃ¡sodperc
+MSG_FREQ = MozgÃ³ Ã¼zenet: %d:%02d percenkÃ©nt
+MSG_DISABLED = A gÃ¶rdÃ¼lÅ‘ Ã¼zenet kikapcsolva
 
 [lt]
 MIN_FREQ = Minimalus daznumas siai zinutei yra %d sekundes
@@ -104,21 +104,21 @@ MSG_FREQ = Vrijeme prikazivanja prolazece poruke: %d:%02d minut(a)
 MSG_DISABLED = Prolazeca poruka iskljucena
 
 [ru]
-MIN_FREQ = Частота появления этого сообщения %d секунд
-MSG_FREQ = Частота появления бегущей строки: %d:%02d минут
-MSG_DISABLED = Бегущая строка заблокирована
+MIN_FREQ = Ð§Ð°ÑÑ‚Ð¾Ñ‚Ð° Ð¿Ð¾ÑÐ²Ð»ÐµÐ½Ð¸Ñ ÑÑ‚Ð¾Ð³Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ %d ÑÐµÐºÑƒÐ½Ð´
+MSG_FREQ = Ð§Ð°ÑÑ‚Ð¾Ñ‚Ð° Ð¿Ð¾ÑÐ²Ð»ÐµÐ½Ð¸Ñ Ð±ÐµÐ³ÑƒÑ‰ÐµÐ¹ ÑÑ‚Ñ€Ð¾ÐºÐ¸: %d:%02d Ð¼Ð¸Ð½ÑƒÑ‚
+MSG_DISABLED = Ð‘ÐµÐ³ÑƒÑ‰Ð°Ñ ÑÑ‚Ñ€Ð¾ÐºÐ° Ð·Ð°Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð°
 
 [cn]
-MIN_FREQ = 此消息的最小频率为 %d 秒
-MSG_FREQ = 滚动信息的显示频率为每 ％d：％02d 分钟显示一次
-MSG_DISABLED = 滚动消息已禁用
+MIN_FREQ = æ­¤æ¶ˆæ¯çš„æœ€å°é¢‘çŽ‡ä¸º %d ç§’
+MSG_FREQ = æ»šåŠ¨ä¿¡æ¯çš„æ˜¾ç¤ºé¢‘çŽ‡ä¸ºæ¯ ï¼…dï¼šï¼…02d åˆ†é’Ÿæ˜¾ç¤ºä¸€æ¬¡
+MSG_DISABLED = æ»šåŠ¨æ¶ˆæ¯å·²ç¦ç”¨
 
 [al]
-MIN_FREQ = Vlera minimale e frekuencës për këtë mesazhë është %d sekonda
-MSG_FREQ = Mesazhi që shfaq frekuencën qdo: %d:%02d minuta
-MSG_DISABLED = Diskutimi mesazhit është i q'aktivizuar
+MIN_FREQ = Vlera minimale e frekuencÃ«s pÃ«r kÃ«tÃ« mesazhÃ« Ã«shtÃ« %d sekonda
+MSG_FREQ = Mesazhi qÃ« shfaq frekuencÃ«n qdo: %d:%02d minuta
+MSG_DISABLED = Diskutimi mesazhit Ã«shtÃ« i q'aktivizuar
 
 [pt]
-MIN_FREQ = A Frequência Mínima para esta mensagem é de %d segundos
-MSG_FREQ = Frequência de exibição da Mensagem Rolante: %d:%02d minutos
+MIN_FREQ = A FrequÃªncia MÃ­nima para esta mensagem Ã© de %d segundos
+MSG_FREQ = FrequÃªncia de exibiÃ§Ã£o da Mensagem Rolante: %d:%02d minutos
 MSG_DISABLED = Mensagem Rolante desativada

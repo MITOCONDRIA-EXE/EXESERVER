@@ -6,7 +6,7 @@ CVAR_HIDESLOTS = If you set this to 1, you can hide slots on your server.^nIf th
 [de]
 DROPPED_RES = Sorry, dieser Slot ist reserviert
 CVAR_RESERVATION = Anzahl der zu reservierenden Slots
-CVAR_HIDESLOTS = Wenn diese CVAR auf 1 gesetzt wird, können Slots auf Ihrem Server ausgeblendet werden.^nWenn die öffentlichen Slots auf dem Server "voll" sind und weitere freie Slots ausgeblendet sind, müssen Sie die Verbindung manuell über den Konsolenbefehl "connect" herstellen.
+CVAR_HIDESLOTS = Wenn diese CVAR auf 1 gesetzt wird, kÃ¶nnen Slots auf Ihrem Server ausgeblendet werden.^nWenn die Ã¶ffentlichen Slots auf dem Server "voll" sind und weitere freie Slots ausgeblendet sind, mÃ¼ssen Sie die Verbindung manuell Ã¼ber den Konsolenbefehl "connect" herstellen.
 
 [sr]
 DROPPED_RES = Server je pun, nemate pristup rezervisanim mestima
@@ -46,11 +46,11 @@ DROPPED_RES = Premahnat poradi rezervaciq na slot
 
 [ro]
 DROPPED_RES = Ai primit kick deoarece locul pe server este rezervat.
-CVAR_RESERVATION = Numărul de locuri rezervate
-CVAR_HIDESLOTS = Dacă setezi asta pe 1, poți ascunde locuri de pe server.^nDacă locurile publice și ascunse ale serverului sunt pline, trebuie să te conectezi manual în consolă cu comanda "connect".
+CVAR_RESERVATION = NumÄƒrul de locuri rezervate
+CVAR_HIDESLOTS = DacÄƒ setezi asta pe 1, poÈ›i ascunde locuri de pe server.^nDacÄƒ locurile publice È™i ascunse ale serverului sunt pline, trebuie sÄƒ te conectezi manual Ã®n consolÄƒ cu comanda "connect".
 
 [hu]
-DROPPED_RES = Helyfenntartás miatt kidobva.
+DROPPED_RES = HelyfenntartÃ¡s miatt kidobva.
 
 [lt]
 DROPPED_RES = Atjungtas, nes nera laisvos vietos
@@ -68,15 +68,15 @@ DROPPED_RES = Server je pun, nemate pristup rezerviranim mjestima
 DROPPED_RES = Server je pun, nemate pristup rezervisanim mjestima
 
 [ru]
-DROPPED_RES = Извините мест нет, это зарезервированный слот!
+DROPPED_RES = Ð˜Ð·Ð²Ð¸Ð½Ð¸Ñ‚Ðµ Ð¼ÐµÑÑ‚ Ð½ÐµÑ‚, ÑÑ‚Ð¾ Ð·Ð°Ñ€ÐµÐ·ÐµÑ€Ð²Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ð¹ ÑÐ»Ð¾Ñ‚!
 
 [cn]
-DROPPED_RES = 由于你无法使用预留通道,以至于与服务器连接断开
+DROPPED_RES = ç”±äºŽä½ æ— æ³•ä½¿ç”¨é¢„ç•™é€šé“,ä»¥è‡³äºŽä¸ŽæœåŠ¡å™¨è¿žæŽ¥æ–­å¼€
 
 [al]
-DROPPED_RES = U largua për shkak të rezervimit të vendit që është plugini aktiv në server!
+DROPPED_RES = U largua pÃ«r shkak tÃ« rezervimit tÃ« vendit qÃ« Ã«shtÃ« plugini aktiv nÃ« server!
 
 [pt]
-DROPPED_RES = Foste desconectado por causa da reservação de slots
+DROPPED_RES = Foste desconectado por causa da reservaÃ§Ã£o de slots
 CVAR_RESERVATION = Quantidade de slots para reservar
-CVAR_HIDESLOTS = Se tu definires isto para 1, tu podes esconder slots no teu servidor.^nSe os slots públicos e escondidos do servidor estiverem cheios, tu deverás manualmente conectar com o comando de consola "connect".
+CVAR_HIDESLOTS = Se tu definires isto para 1, tu podes esconder slots no teu servidor.^nSe os slots pÃºblicos e escondidos do servidor estiverem cheios, tu deverÃ¡s manualmente conectar com o comando de consola "connect".
