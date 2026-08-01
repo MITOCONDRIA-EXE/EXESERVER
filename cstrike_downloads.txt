@@ -1,3 +1,5 @@
+models/v_explosive.mdl
+models/w_explosive.mdl
 models/reapi_healthnade/v_botiquin.mdl
 models/reapi_healthnade/v_healthnade.mdl
 models/reapi_healthnade/w_healthnade.mdl

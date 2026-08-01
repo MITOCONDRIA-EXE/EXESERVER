@@ -4,6 +4,7 @@
 #include <fakemeta_util>
 #include <cstrike>
 #include <engine>
+#include <hamsandwich>
 
 new g_iHealthBonus
 new g_pRadius
@@ -17,6 +18,7 @@ new const HEAL_SOUND[] = "weapons/reapi_healthnade/heal.wav"
 new bool:g_bHasBomb[33]
 new bool:g_bRound[33]
 new bool:g_bThrowing[33]
+new bool:g_bPlGive[33]
 new Float:g_fThrowTime[33]
 new Float:g_fExplodeOrigin[33][3]
 
@@ -25,7 +27,7 @@ new g_iHealExplodeSpr
 
 public plugin_init()
 {
-	register_plugin("Bomba Da Vida", "7.4", "MITO")
+	register_plugin("Bomba Da Vida", "7.10", "MITO")
 
 	g_iHealthBonus = register_cvar("bomba_vida", "50")
 	g_pRadius = register_cvar("bomba_vida_radius", "350.0")
@@ -36,16 +38,28 @@ public plugin_init()
 	register_touch("grenade", "*", "fw_GrenadeTouch")
 	register_logevent("round_start", 2, "1=World triggered", "2=Round_Start")
 	register_event("ResetHUD", "reset_hud", "b")
+	RegisterHam(Ham_AddPlayerItem, "player", "ham_AddPlayerItem_post", 1)
+	register_forward(FM_EmitSound, "fw_EmitSound")
 }
 
 public fw_UpdateClientData(id, sendweapons, cd_handle)
 {
-	if (!is_user_alive(id) || get_user_weapon(id) != CSW_HEGRENADE)
+	if (!is_user_alive(id))
 		return FMRES_IGNORED
 
-	set_cd(cd_handle, CD_ViewModel, VIEW_BOMB)
+	new iWpn = get_user_weapon(id)
+	if (iWpn == CSW_HEGRENADE && g_bHasBomb[id])
+	{
+		set_cd(cd_handle, CD_ViewModel, VIEW_BOMB)
+		return FMRES_HANDLED
+	}
+	if (iWpn == CSW_FLASHBANG)
+	{
+		set_cd(cd_handle, CD_ViewModel, "models/v_explosive.mdl")
+		return FMRES_HANDLED
+	}
 
-	return FMRES_HANDLED
+	return FMRES_IGNORED
 }
 
 public reset_hud(id)
@@ -59,6 +73,22 @@ public reset_hud(id)
 
 	if (get_pcvar_num(g_iGive) && give_bomb(id))
 		g_bHasBomb[id] = true
+}
+
+public ham_AddPlayerItem_post(id, item)
+{
+	if (!pev_valid(item))
+		return
+
+	static classname[32]
+	pev(item, pev_classname, classname, charsmax(classname))
+	if (equal(classname, "weapon_hegrenade"))
+	{
+		if (g_bPlGive[id])
+			return
+
+		g_bHasBomb[id] = false
+	}
 }
 
 public round_start()
@@ -80,12 +110,78 @@ public round_start()
 		if (give_bomb(i))
 			g_bHasBomb[i] = true
 	}
+
+	set_task(2.0, "convert_map_nades", 54321)
+}
+
+public convert_map_nades()
+{
+	new ent = -1
+	while ((ent = fm_find_ent_by_class(ent, "weapon_hegrenade")) > 0)
+	{
+		new owner = pev(ent, pev_owner)
+		if (owner > 0 && owner <= 32)
+			continue
+
+		new Float:origin[3]
+		pev(ent, pev_origin, origin)
+		engfunc(EngFunc_RemoveEntity, ent)
+
+		new fb = engfunc(EngFunc_CreateNamedEntity, engfunc(EngFunc_AllocString, "weapon_flashbang"))
+		if (pev_valid(fb))
+		{
+			set_pev(fb, pev_origin, origin)
+			DispatchSpawn(fb)
+			set_pev(fb, pev_model, "models/w_explosive.mdl")
+		}
+
+		ent = -1
+	}
+}
+
+public fw_EmitSound(ent, channel, const sample[])
+{
+	if (!pev_valid(ent))
+		return FMRES_IGNORED
+
+	if (containi(sample, "flashbang-1") != -1 || containi(sample, "flashbang-2") != -1)
+	{
+		new Float:origin[3]
+		pev(ent, pev_origin, origin)
+
+		new owner = pev(ent, pev_owner)
+
+		new players[32], pnum
+		get_players(players, pnum, "a")
+		for (new i = 0; i < pnum; i++)
+		{
+			new pid = players[i]
+			if (pid == owner)
+				continue
+
+			new Float:pOrigin[3]
+			pev(pid, pev_origin, pOrigin)
+			new Float:dist = get_distance_f(origin, pOrigin)
+			if (dist > 250.0)
+				continue
+
+			new Float:dmg = 80.0 * (1.0 - dist / 250.0)
+			if (dmg < 1.0)
+				continue
+
+			ExecuteHam(Ham_TakeDamage, pid, ent, owner, dmg, DMG_BLAST)
+		}
+	}
+
+	return FMRES_IGNORED
 }
 
 public plugin_precache()
 {
 	precache_model(VIEW_BOMB)
 	precache_model(WORLD_BOMB)
+	precache_model("models/v_explosive.mdl")
+	precache_model("models/w_explosive.mdl")
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
 	g_iHealExplodeSpr = precache_model("sprites/reapi_healthnade/heal_explode.spr")
@@ -139,24 +235,37 @@ public fw_PlayerPreThink(id)
 
 	if (get_user_weapon(id) == CSW_HEGRENADE)
 	{
-		set_pev(id, pev_weaponmodel2, WORLD_BOMB)
+		if (g_bHasBomb[id])
+		{
+			set_pev(id, pev_weaponmodel2, WORLD_BOMB)
 
-		new iWeapon = fm_find_ent_by_owner(-1, "weapon_hegrenade", id)
+			new iWeapon = fm_find_ent_by_owner(-1, "weapon_hegrenade", id)
+			if (iWeapon)
+			{
+				set_pev(iWeapon, pev_viewmodel2, VIEW_BOMB)
+				set_pev(iWeapon, pev_weaponmodel2, WORLD_BOMB)
+			}
+
+			if ((oldbuttons & IN_ATTACK) && !(buttons & IN_ATTACK) && !g_bThrowing[id])
+			{
+				g_bThrowing[id] = true
+				g_bHasBomb[id] = false
+				g_fThrowTime[id] = get_gametime()
+				pev(id, pev_origin, g_fExplodeOrigin[id])
+
+				remove_task(id)
+				set_task(3.0, "heal_blast", id)
+			}
+		}
+	}
+
+	if (get_user_weapon(id) == CSW_FLASHBANG)
+	{
+		new iWeapon = fm_find_ent_by_owner(-1, "weapon_flashbang", id)
 		if (iWeapon)
 		{
-			set_pev(iWeapon, pev_viewmodel2, VIEW_BOMB)
-			set_pev(iWeapon, pev_weaponmodel2, WORLD_BOMB)
-		}
-
-		if ((oldbuttons & IN_ATTACK) && !(buttons & IN_ATTACK) && !g_bThrowing[id])
-		{
-			g_bThrowing[id] = true
-			g_bHasBomb[id] = false
-			g_fThrowTime[id] = get_gametime()
-			pev(id, pev_origin, g_fExplodeOrigin[id])
-
-			remove_task(id)
-			set_task(3.0, "heal_blast", id)
+			set_pev(iWeapon, pev_viewmodel2, "models/v_explosive.mdl")
+			set_pev(iWeapon, pev_weaponmodel2, "models/w_explosive.mdl")
 		}
 	}
 
@@ -236,12 +345,16 @@ public give_bomb(id)
 	if (!is_user_alive(id) || !get_pcvar_num(g_iGive))
 		return 0
 
+	g_bPlGive[id] = true
+
 	if (fm_give_item(id, "weapon_hegrenade") > 0)
 	{
+		g_bPlGive[id] = false
 		cs_set_user_bpammo(id, CSW_HEGRENADE, 1)
 		return 1
 	}
 
+	g_bPlGive[id] = false
 	return 0
 }
 
