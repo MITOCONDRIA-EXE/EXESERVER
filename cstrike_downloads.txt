@@ -1,0 +1,9 @@
+models/reapi_healthnade/v_botiquin.mdl
+models/reapi_healthnade/v_healthnade.mdl
+models/reapi_healthnade/w_healthnade.mdl
+models/reapi_healthnade/p_healthnade.mdl
+sprites/reapi_healthnade/640hud128.spr
+sprites/reapi_healthnade/heal_explode.spr
+sprites/reapi_healthnade/heal_shape.spr
+sprites/reapi_healthnade/weapon_healthnade.txt
+sound/weapons/reapi_healthnade/heal.wav
