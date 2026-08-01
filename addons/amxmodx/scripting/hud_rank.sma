@@ -54,7 +54,7 @@ public ShowRankHUD()
 			if (iKillsNeeded < 1)
 				iKillsNeeded = 0
 
-			set_hudmessage(255, 255, 255, 0.75, 0.02, 0, 0.0, 2.0, 0.0, 0.0, 1)
+			set_hudmessage(255, 255, 255, -1.0, 0.02, 0, 0.0, 2.1, 0.0, 0.0, 8)
 			ShowSyncHudMsg(iPlayer, g_iSyncHud, "Rango: #%d de %d^nNombre: %s^nKills: %d  |  Muertes: %d^nHeadShots: %d^nProx. Rango: %d kills^nKDR: %.2f",
 				iRankPos, iTotal, szName, iKills, iDeaths, iHS, iKillsNeeded,
 				(iDeaths > 0) ? (float(iKills) / float(iDeaths)) : float(iKills))
