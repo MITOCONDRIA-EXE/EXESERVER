@@ -26,6 +26,7 @@ new Float:g_fLecheroCooldown
 
 new g_iHealShapeSpr
 new g_iHealExplodeSpr
+new g_iGlowSpr
 
 public plugin_init()
 {
@@ -140,6 +141,7 @@ public plugin_precache()
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
 	g_iHealExplodeSpr = precache_model("sprites/reapi_healthnade/heal_explode.spr")
+	g_iGlowSpr = precache_model("sprites/glow01.spr")
 }
 
 public client_disconnected(id)
@@ -299,8 +301,24 @@ public fw_PlayerPreThink(id)
 					set_pev(ent, pev_rendermode, kRenderTransAdd)
 					set_pev(ent, pev_renderamt, 80.0)
 					set_pev(ent, pev_rendercolor, fColor)
-					set_pev(ent, pev_iuser3, 1)
 					set_pev(ent, pev_dmgtime, get_gametime() + 30.0)
+
+					if (pev(ent, pev_iuser3) == 0)
+					{
+						message_begin(MSG_BROADCAST, SVC_TEMPENTITY)
+						write_byte(TE_BEAMFOLLOW)
+						write_short(ent)
+						write_short(g_iGlowSpr)
+						write_byte(5)
+						write_byte(3)
+						write_byte(0)
+						write_byte(255)
+						write_byte(0)
+						write_byte(200)
+						message_end()
+					}
+
+					set_pev(ent, pev_iuser3, 1)
 					pev(ent, pev_origin, g_fExplodeOrigin[id])
 
 					if (pev(ent, pev_flags) & FL_ONGROUND)
@@ -332,6 +350,19 @@ public fw_PlayerPreThink(id)
 		set_pev(fent, pev_rendermode, kRenderTransAdd)
 		set_pev(fent, pev_renderamt, 80.0)
 		set_pev(fent, pev_rendercolor, fRed2)
+
+		message_begin(MSG_BROADCAST, SVC_TEMPENTITY)
+		write_byte(TE_BEAMFOLLOW)
+		write_short(fent)
+		write_short(g_iGlowSpr)
+		write_byte(5)
+		write_byte(3)
+		write_byte(255)
+		write_byte(0)
+		write_byte(0)
+		write_byte(200)
+		message_end()
+
 		set_pev(fent, pev_iuser3, 2)
 	}
 

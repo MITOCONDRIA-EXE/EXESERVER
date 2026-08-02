@@ -5,14 +5,14 @@
 #include <hamsandwich>
 #include <nvault>
 
-#define AK_MAX 6
-#define M4_MAX 6
+#define AK_MAX 5
+#define M4_MAX 5
 #define AWP_MAX 5
 #define DG_MAX 5
 #define KN_MAX 11
 
 new const gszAkNames[AK_MAX][] = {
-	"Bloody", "Violeta", "Blanca", "Golden", "Celeste", "Mitocondria"
+	"Bloody", "Violeta", "Blanca", "Golden", "Celeste"
 }
 
 new const gszAkModels[AK_MAX][] = {
@@ -20,12 +20,11 @@ new const gszAkModels[AK_MAX][] = {
 	"models/skins/ak47/violeta.mdl",
 	"models/skins/ak47/blanca.mdl",
 	"models/skins/ak47/v_golden_ak47.mdl",
-	"models/skins/ak47/celeste.mdl",
-	"models/skins/ak47/v_ak47_revo.mdl"
+	"models/skins/ak47/celeste.mdl"
 }
 
 new const gszM4Names[M4_MAX][] = {
-	"Eagle", "Emperor", "Rainbow", "Sangrienta", "Lava", "Mitocondria"
+	"Eagle", "Emperor", "Rainbow", "Sangrienta", "Lava"
 }
 
 new const gszM4Models[M4_MAX][] = {
@@ -33,8 +32,7 @@ new const gszM4Models[M4_MAX][] = {
 	"models/skins/m4a1/v_m4a1_emperor.mdl",
 	"models/skins/m4a1/v_m4a1_rainbow.mdl",
 	"models/skins/m4a1/sangrienta.mdl",
-	"models/skins/m4a1/v_m4a1_lava.mdl",
-	"models/skins/m4a1/v_m4a1_revo.mdl"
+	"models/skins/m4a1/v_m4a1_lava.mdl"
 }
 
 new const gszAwpNames[AWP_MAX][] = {
@@ -63,7 +61,7 @@ new const gszDgModels[DG_MAX][] = {
 
 new const gszKnNames[KN_MAX][] = {
 	"Combat", "Hacha", "Huntsman", "Dragon", "Daga Verde",
-	"Bayonet", "Kukri", "Bowie", "Stiletto", "Karambit", "Mitocondria"
+	"Bayonet", "Kukri", "Bowie", "Stiletto", "Karambit", "Violet (VIP)"
 }
 
 new const gszKnModels[KN_MAX][] = {
@@ -77,7 +75,7 @@ new const gszKnModels[KN_MAX][] = {
 	"models/skins/knife/v_bowie.mdl",
 	"models/skins/knife/v_k_stiletto.mdl",
 	"models/skins/knife/v_karambit.mdl",
-	"models/skins/knife/v_knife_revo.mdl"
+	"models/skins/knife/v_violet.mdl"
 }
 
 new g_ak[33]
@@ -152,6 +150,15 @@ public client_putinserver(id)
 		g_awp[id] = clamp(str_to_num(s3), 0, AWP_MAX)
 		g_dg[id] = clamp(str_to_num(s4), 0, DG_MAX)
 		g_kn[id] = clamp(str_to_num(s5), 0, KN_MAX)
+	}
+	else
+	{
+		g_ak[id] = random_num(1, AK_MAX)
+		g_m4[id] = random_num(1, M4_MAX)
+		g_awp[id] = random_num(1, AWP_MAX)
+		g_dg[id] = random_num(1, DG_MAX)
+		g_kn[id] = random_num(1, KN_MAX - 1)
+		save_skins(id)
 	}
 }
 
@@ -258,6 +265,13 @@ public skin_menu_pick(id, menu, item, type)
 		selected = item + 1
 	else
 	{
+		menu_destroy(menu)
+		return PLUGIN_HANDLED
+	}
+
+	if (type == 4 && selected == 11 && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
+	{
+		client_print(id, print_chat, "[MITO] Violet es solo para VIPs!")
 		menu_destroy(menu)
 		return PLUGIN_HANDLED
 	}
