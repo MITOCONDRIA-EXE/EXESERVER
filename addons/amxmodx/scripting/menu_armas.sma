@@ -3,6 +3,9 @@
 #include <fakemeta>
 #include <fakemeta_util>
 #include <engine>
+#include <hamsandwich>
+
+new bool:g_bAutoMenu[33]
 
 enum _:WeaponCombo
 {
@@ -30,8 +33,42 @@ public plugin_init()
 {
 	register_plugin("Menu de Armas", "1.0", "MITO")
 
-	register_clcmd("say /armas", "show_menu_armas")
-	register_clcmd("say armas", "show_menu_armas")
+	register_clcmd("say /armas", "cmd_armas")
+	register_clcmd("say armas", "cmd_armas")
+
+	RegisterHam(Ham_Spawn, "player", "fw_PlayerSpawn", 1)
+}
+
+public client_putinserver(id)
+{
+	g_bAutoMenu[id] = true
+}
+
+public fw_PlayerSpawn(id)
+{
+	if (is_user_alive(id) && g_bAutoMenu[id])
+		set_task(0.5, "task_show_menu", id)
+}
+
+public task_show_menu(id)
+{
+	show_menu_armas(id)
+}
+
+public cmd_armas(id)
+{
+	new szArg[6]
+	read_argv(1, szArg, charsmax(szArg))
+
+	if (equali(szArg, "auto"))
+	{
+		g_bAutoMenu[id] = !g_bAutoMenu[id]
+		client_print(id, print_chat, "[MITO] Menu automatico al spawnear: %s", g_bAutoMenu[id] ? "ON" : "OFF")
+		return PLUGIN_HANDLED
+	}
+
+	show_menu_armas(id)
+	return PLUGIN_HANDLED
 }
 
 public show_menu_armas(id)
