@@ -1,5 +1,5 @@
-models/v_smokegrenade.mdl
-models/w_smokegrenade.mdl
+sound/misc/llego_el_lechero.wav
+sound/misc/sape.wav
 models/reapi_healthnade/v_botiquin.mdl
 models/reapi_healthnade/v_healthnade.mdl
 models/reapi_healthnade/w_healthnade.mdl

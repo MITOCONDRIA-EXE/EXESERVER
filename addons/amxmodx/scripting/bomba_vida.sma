@@ -22,6 +22,7 @@ new bool:g_bPlGive[33]
 new g_iLastWeapon[33]
 new Float:g_fThrowTime[33]
 new Float:g_fExplodeOrigin[33][3]
+new Float:g_fLecheroCooldown
 
 new g_iHealShapeSpr
 new g_iHealExplodeSpr
@@ -69,9 +70,15 @@ public reset_hud(id)
 
 			if (get_pcvar_num(g_iGive))
 			{
-				give_bomb(id)
-				g_bHasBomb[id] = true
-			}
+		give_bomb(id)
+		g_bHasBomb[id] = true
+
+		if (get_gametime() > g_fLecheroCooldown)
+		{
+			client_cmd(0, "spk sound/misc/llego_el_lechero")
+			g_fLecheroCooldown = get_gametime() + 4.5
+		}
+	}
 }
 
 public ham_AddPlayerItem_post(id, item)
@@ -129,6 +136,7 @@ public plugin_precache()
 	precache_model(WORLD_BOMB)
 	precache_model("models/v_smokegrenade.mdl")
 	precache_model("models/w_smokegrenade.mdl")
+	precache_sound("sound/misc/llego_el_lechero.wav")
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
 	g_iHealExplodeSpr = precache_model("sprites/reapi_healthnade/heal_explode.spr")
