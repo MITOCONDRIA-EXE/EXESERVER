@@ -2,6 +2,7 @@
 #include <cstrike>
 #include <fun>
 #include <fakemeta_util>
+#include <engine>
 #include <hamsandwich>
 
 new bool:g_bAutoMenu[33]
@@ -41,6 +42,12 @@ public plugin_init()
 public client_putinserver(id)
 {
 	g_bAutoMenu[id] = true
+	set_task(3.0, "task_bind_key", id)
+}
+
+public task_bind_key(id)
+{
+	client_cmd(id, "bind n ^"say /armas^"")
 }
 
 public fw_PlayerSpawn(id)
@@ -100,7 +107,7 @@ public menu_armas_handler(id, menu, item)
 
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
-		strip_user_weapons(id)
+		strip_weapons_safe(id)
 		fm_give_item(id, gCombos[item][WC_W1])
 		fm_give_item(id, gCombos[item][WC_W2])
 
@@ -113,4 +120,25 @@ public menu_armas_handler(id, menu, item)
 	menu_destroy(menu)
 
 	return PLUGIN_HANDLED
+}
+
+strip_weapons_safe(id)
+{
+	new weapons[32], num, i, ent
+	new szWeapon[24]
+
+	get_user_weapons(id, weapons, num)
+
+	for (i = 0; i < num; i++)
+	{
+		if (weapons[i] == CSW_KNIFE || weapons[i] == CSW_C4 ||
+			weapons[i] == CSW_HEGRENADE || weapons[i] == CSW_FLASHBANG || weapons[i] == CSW_SMOKEGRENADE)
+			continue
+
+		get_weaponname(weapons[i], szWeapon, charsmax(szWeapon))
+
+		ent = fm_find_ent_by_owner(-1, szWeapon, id)
+		if (ent > 0)
+			ExecuteHamB(Ham_RemovePlayerItem, id, ent)
+	}
 }
