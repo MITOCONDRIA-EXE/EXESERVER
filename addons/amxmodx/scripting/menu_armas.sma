@@ -42,12 +42,6 @@ public plugin_init()
 public client_putinserver(id)
 {
 	g_bAutoMenu[id] = true
-	set_task(3.0, "task_bind_key", id)
-}
-
-public task_bind_key(id)
-{
-	client_cmd(id, "bind b ^"say /armas^"")
 }
 
 public fw_PlayerSpawn(id)
