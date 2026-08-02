@@ -47,7 +47,7 @@ public client_putinserver(id)
 public fw_PlayerSpawn(id)
 {
 	if (is_user_alive(id) && g_bAutoMenu[id])
-		set_task(0.5, "task_show_menu", id)
+		set_task(1.0, "task_show_menu", id)
 }
 
 public task_show_menu(id)
@@ -101,8 +101,6 @@ public menu_armas_handler(id, menu, item)
 
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
-		engclient_cmd(id, "weapon_knife")
-
 		strip_weapons(id)
 
 		fm_give_item(id, gCombos[item][WC_W1])
