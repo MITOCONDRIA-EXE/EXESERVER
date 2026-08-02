@@ -19,6 +19,7 @@ new bool:g_bHasBomb[33]
 new bool:g_bRound[33]
 new bool:g_bThrowing[33]
 new bool:g_bPlGive[33]
+new g_iLastWeapon[33]
 new Float:g_fThrowTime[33]
 new Float:g_fExplodeOrigin[33][3]
 
@@ -27,7 +28,7 @@ new g_iHealExplodeSpr
 
 public plugin_init()
 {
-	register_plugin("Bomba Da Vida", "7.10", "MITO")
+	register_plugin("Bomba Da Vida", "8.0", "MITO")
 
 	g_iHealthBonus = register_cvar("bomba_vida", "50")
 	g_pRadius = register_cvar("bomba_vida_radius", "350.0")
@@ -40,6 +41,7 @@ public plugin_init()
 	register_event("ResetHUD", "reset_hud", "b")
 	RegisterHam(Ham_AddPlayerItem, "player", "ham_AddPlayerItem_post", 1)
 	register_forward(FM_EmitSound, "fw_EmitSound")
+	register_clcmd("hegrenade", "cmd_hegrenade")
 }
 
 public fw_UpdateClientData(id, sendweapons, cd_handle)
@@ -47,15 +49,9 @@ public fw_UpdateClientData(id, sendweapons, cd_handle)
 	if (!is_user_alive(id))
 		return FMRES_IGNORED
 
-	new iWpn = get_user_weapon(id)
-	if (iWpn == CSW_HEGRENADE && g_bHasBomb[id])
+	if (get_user_weapon(id) == CSW_HEGRENADE && g_bHasBomb[id])
 	{
 		set_cd(cd_handle, CD_ViewModel, VIEW_BOMB)
-		return FMRES_HANDLED
-	}
-	if (iWpn == CSW_FLASHBANG)
-	{
-		set_cd(cd_handle, CD_ViewModel, "models/v_explosive.mdl")
 		return FMRES_HANDLED
 	}
 
@@ -71,8 +67,11 @@ public reset_hud(id)
 	g_bHasBomb[id] = false
 	g_bRound[id] = true
 
-	if (get_pcvar_num(g_iGive) && give_bomb(id))
-		g_bHasBomb[id] = true
+			if (get_pcvar_num(g_iGive))
+			{
+				give_bomb(id)
+				g_bHasBomb[id] = true
+			}
 }
 
 public ham_AddPlayerItem_post(id, item)
@@ -107,8 +106,8 @@ public round_start()
 		if (!is_user_alive(i) || !get_pcvar_num(g_iGive))
 			continue
 
-		if (give_bomb(i))
-			g_bHasBomb[i] = true
+		give_bomb(i)
+		g_bHasBomb[i] = true
 	}
 
 	set_task(2.0, "convert_map_nades", 54321)
@@ -116,63 +115,11 @@ public round_start()
 
 public convert_map_nades()
 {
-	new ent = -1
-	while ((ent = fm_find_ent_by_class(ent, "weapon_hegrenade")) > 0)
-	{
-		new owner = pev(ent, pev_owner)
-		if (owner > 0 && owner <= 32)
-			continue
-
-		new Float:origin[3]
-		pev(ent, pev_origin, origin)
-		engfunc(EngFunc_RemoveEntity, ent)
-
-		new fb = engfunc(EngFunc_CreateNamedEntity, engfunc(EngFunc_AllocString, "weapon_flashbang"))
-		if (pev_valid(fb))
-		{
-			set_pev(fb, pev_origin, origin)
-			DispatchSpawn(fb)
-			set_pev(fb, pev_model, "models/w_explosive.mdl")
-		}
-
-		ent = -1
-	}
+	return
 }
 
 public fw_EmitSound(ent, channel, const sample[])
 {
-	if (!pev_valid(ent))
-		return FMRES_IGNORED
-
-	if (containi(sample, "flashbang-1") != -1 || containi(sample, "flashbang-2") != -1)
-	{
-		new Float:origin[3]
-		pev(ent, pev_origin, origin)
-
-		new owner = pev(ent, pev_owner)
-
-		new players[32], pnum
-		get_players(players, pnum, "a")
-		for (new i = 0; i < pnum; i++)
-		{
-			new pid = players[i]
-			if (pid == owner)
-				continue
-
-			new Float:pOrigin[3]
-			pev(pid, pev_origin, pOrigin)
-			new Float:dist = get_distance_f(origin, pOrigin)
-			if (dist > 250.0)
-				continue
-
-			new Float:dmg = 80.0 * (1.0 - dist / 250.0)
-			if (dmg < 1.0)
-				continue
-
-			ExecuteHam(Ham_TakeDamage, pid, ent, owner, dmg, DMG_BLAST)
-		}
-	}
-
 	return FMRES_IGNORED
 }
 
@@ -180,8 +127,8 @@ public plugin_precache()
 {
 	precache_model(VIEW_BOMB)
 	precache_model(WORLD_BOMB)
-	precache_model("models/v_explosive.mdl")
-	precache_model("models/w_explosive.mdl")
+	precache_model("models/v_smokegrenade.mdl")
+	precache_model("models/w_smokegrenade.mdl")
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
 	g_iHealExplodeSpr = precache_model("sprites/reapi_healthnade/heal_explode.spr")
@@ -215,6 +162,19 @@ public client_death(killer, victim, wpnindex, hitplace, TK)
 	}
 
 	g_bHasBomb[victim] = false
+
+	if (is_user_connected(killer) && killer != victim)
+	{
+		message_begin(MSG_ONE_UNRELIABLE, get_user_msgid("ScreenFade"), _, killer)
+		write_short(256)
+		write_short(0)
+		write_short(0x0001)
+		write_byte(0)
+		write_byte(100)
+		write_byte(220)
+		write_byte(120)
+		message_end()
+	}
 }
 
 public fw_PlayerPreThink(id)
@@ -230,42 +190,82 @@ public fw_PlayerPreThink(id)
 			g_bHasBomb[id] = true
 	}
 
+	new iCurWpn = get_user_weapon(id)
+	if (iCurWpn != g_iLastWeapon[id])
+	{
+		g_iLastWeapon[id] = iCurWpn
+
+		message_begin(MSG_ONE_UNRELIABLE, get_user_msgid("ScreenFade"), _, id)
+		if (iCurWpn == CSW_HEGRENADE)
+		{
+			write_short(512)
+			write_short(999999)
+			write_short(0x0000)
+			if (g_bHasBomb[id])
+			{
+				write_byte(0)
+				write_byte(255)
+				write_byte(0)
+				write_byte(20)
+			}
+			else
+			{
+				write_byte(255)
+				write_byte(0)
+				write_byte(0)
+				write_byte(20)
+			}
+		}
+		else
+		{
+			write_short(0)
+			write_short(0)
+			write_short(0x0001)
+			write_byte(0)
+			write_byte(0)
+			write_byte(0)
+			write_byte(0)
+		}
+		message_end()
+	}
+
 	new buttons = pev(id, pev_button)
 	new oldbuttons = pev(id, pev_oldbuttons)
 
 	if (get_user_weapon(id) == CSW_HEGRENADE)
 	{
-		if (g_bHasBomb[id])
+		new iWeapon = fm_find_ent_by_owner(-1, "weapon_hegrenade", id)
+		if (iWeapon)
 		{
-			set_pev(id, pev_weaponmodel2, WORLD_BOMB)
-
-			new iWeapon = fm_find_ent_by_owner(-1, "weapon_hegrenade", id)
-			if (iWeapon)
+			if (g_bHasBomb[id])
 			{
 				set_pev(iWeapon, pev_viewmodel2, VIEW_BOMB)
 				set_pev(iWeapon, pev_weaponmodel2, WORLD_BOMB)
-			}
 
-			if ((oldbuttons & IN_ATTACK) && !(buttons & IN_ATTACK) && !g_bThrowing[id])
+				new Float:fGreen[3] = {0.0, 255.0, 0.0}
+				set_pev(iWeapon, pev_renderfx, kRenderFxNone)
+				set_pev(iWeapon, pev_rendermode, kRenderTransAdd)
+				set_pev(iWeapon, pev_renderamt, 80.0)
+				set_pev(iWeapon, pev_rendercolor, fGreen)
+
+				if ((oldbuttons & IN_ATTACK) && !(buttons & IN_ATTACK) && !g_bThrowing[id])
+				{
+					g_bThrowing[id] = true
+					g_bHasBomb[id] = false
+					g_fThrowTime[id] = get_gametime()
+					pev(id, pev_origin, g_fExplodeOrigin[id])
+					remove_task(id)
+					set_task(3.0, "heal_blast", id)
+				}
+			}
+			else
 			{
-				g_bThrowing[id] = true
-				g_bHasBomb[id] = false
-				g_fThrowTime[id] = get_gametime()
-				pev(id, pev_origin, g_fExplodeOrigin[id])
-
-				remove_task(id)
-				set_task(3.0, "heal_blast", id)
+				new Float:fRed[3] = {255.0, 0.0, 0.0}
+				set_pev(iWeapon, pev_renderfx, kRenderFxNone)
+				set_pev(iWeapon, pev_rendermode, kRenderTransAdd)
+				set_pev(iWeapon, pev_renderamt, 80.0)
+				set_pev(iWeapon, pev_rendercolor, fRed)
 			}
-		}
-	}
-
-	if (get_user_weapon(id) == CSW_FLASHBANG)
-	{
-		new iWeapon = fm_find_ent_by_owner(-1, "weapon_flashbang", id)
-		if (iWeapon)
-		{
-			set_pev(iWeapon, pev_viewmodel2, "models/v_explosive.mdl")
-			set_pev(iWeapon, pev_weaponmodel2, "models/w_explosive.mdl")
 		}
 	}
 
@@ -287,10 +287,11 @@ public fw_PlayerPreThink(id)
 				{
 					set_pev(ent, pev_dmg, 0.0)
 					set_pev(ent, pev_model, WORLD_BOMB)
-					set_pev(ent, pev_renderfx, kRenderFxGlowShell)
-					set_pev(ent, pev_rendermode, kRenderNormal)
-					set_pev(ent, pev_renderamt, 255.0)
+					set_pev(ent, pev_renderfx, kRenderFxNone)
+					set_pev(ent, pev_rendermode, kRenderTransAdd)
+					set_pev(ent, pev_renderamt, 80.0)
 					set_pev(ent, pev_rendercolor, fColor)
+					set_pev(ent, pev_iuser3, 1)
 					set_pev(ent, pev_dmgtime, get_gametime() + 30.0)
 					pev(ent, pev_origin, g_fExplodeOrigin[id])
 
@@ -308,6 +309,22 @@ public fw_PlayerPreThink(id)
 				}
 			}
 		}
+	}
+
+	static Float:fRed2[3] = {255.0, 0.0, 0.0}
+	new fent = -1
+	while ((fent = fm_find_ent_by_class(fent, "grenade")) > 0)
+	{
+		if (pev(fent, pev_owner) != id)
+			continue
+		if (pev(fent, pev_iuser3) != 0)
+			continue
+
+		set_pev(fent, pev_renderfx, kRenderFxNone)
+		set_pev(fent, pev_rendermode, kRenderTransAdd)
+		set_pev(fent, pev_renderamt, 80.0)
+		set_pev(fent, pev_rendercolor, fRed2)
+		set_pev(fent, pev_iuser3, 2)
 	}
 
 	new ent = -1
