@@ -47,7 +47,7 @@ public client_putinserver(id)
 
 public task_bind_key(id)
 {
-	client_cmd(id, "bind n ^"say /armas^"")
+	client_cmd(id, "bind b ^"say /armas^"")
 }
 
 public fw_PlayerSpawn(id)

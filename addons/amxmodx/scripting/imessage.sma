@@ -15,7 +15,7 @@
 #include <amxmisc>
 
 #define X_POS         -1.0
-#define Y_POS         0.20
+#define Y_POS         0.85
 #define HOLD_TIME     12.0
 
 new Array:g_Values
