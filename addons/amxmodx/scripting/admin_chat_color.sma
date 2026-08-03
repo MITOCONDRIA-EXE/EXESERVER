@@ -2,13 +2,12 @@
 #include <amxmisc>
 
 #define PLUGIN "Admin Chat Color"
-#define VERSION "1.0"
+#define VERSION "1.2"
 #define AUTHOR "eXe Server"
 
 public plugin_init()
 {
 	register_plugin(PLUGIN, VERSION, AUTHOR)
-
 	register_clcmd("say", "hook_say")
 	register_clcmd("say_team", "hook_sayteam")
 }
@@ -24,28 +23,21 @@ public hook_say(id)
 
 	get_user_name(id, szName, charsmax(szName))
 
-	if (get_user_flags(id) & ADMIN_KICK)
-	{
-		new szTeam[16]
-		get_user_team(id, szTeam, charsmax(szTeam))
+	new flags = get_user_flags(id)
+	if (!(flags & ADMIN_RESERVATION))
+		return PLUGIN_CONTINUE
 
-		format(szMessage, charsmax(szMessage), "^x04[ADMIN]^x03 %s^x01:  %s", szName, szMessage)
+	new szFormatted[256]
 
-		new iPlayers[32], iNum
-		get_players(iPlayers, iNum, "ch")
+	if (flags & ADMIN_RCON)
+		formatex(szFormatted, charsmax(szFormatted), "^x04[OWNER] ^x03%s^x01:  %s", szName, szMessage)
+	else if (flags & ADMIN_KICK)
+		formatex(szFormatted, charsmax(szFormatted), "^x04[ADMIN] ^x03%s^x01:  %s", szName, szMessage)
+	else
+		formatex(szFormatted, charsmax(szFormatted), "^x04[VIP] ^x03%s^x01:  %s", szName, szMessage)
 
-		for (new i = 0; i < iNum; i++)
-		{
-			message_begin(MSG_ONE, get_user_msgid("SayText"), _, iPlayers[i])
-			write_byte(id)
-			write_string(szMessage)
-			message_end()
-		}
-
-		return PLUGIN_HANDLED
-	}
-
-	return PLUGIN_CONTINUE
+	send_message(id, szFormatted)
+	return PLUGIN_HANDLED
 }
 
 public hook_sayteam(id)
@@ -59,40 +51,44 @@ public hook_sayteam(id)
 
 	get_user_name(id, szName, charsmax(szName))
 
-	if (get_user_flags(id) & ADMIN_KICK)
+	new flags = get_user_flags(id)
+	if (!(flags & ADMIN_RESERVATION))
+		return PLUGIN_CONTINUE
+
+	new szFormatted[256]
+
+	if (flags & ADMIN_RCON)
+		formatex(szFormatted, charsmax(szFormatted), "^x04[OWNER] ^x03%s^x01 (@Team):  %s", szName, szMessage)
+	else if (flags & ADMIN_KICK)
+		formatex(szFormatted, charsmax(szFormatted), "^x04[ADMIN] ^x03%s^x01 (@Team):  %s", szName, szMessage)
+	else
+		formatex(szFormatted, charsmax(szFormatted), "^x04[VIP] ^x03%s^x01 (@Team):  %s", szName, szMessage)
+
+	new iPlayers[32], iNum
+	get_players(iPlayers, iNum, "ch")
+
+	for (new i = 0; i < iNum; i++)
 	{
-		new szTeam[16]
-		get_user_team(id, szTeam, charsmax(szTeam))
-
-		format(szMessage, charsmax(szMessage), "^x04[ADMIN]^x03 %s^x01 (@Team):  %s", szName, szMessage)
-
-		new iPlayers[32], iNum
-		get_players(iPlayers, iNum, "ch")
-
-		for (new i = 0; i < iNum; i++)
-		{
-			if (get_user_team(id) == get_user_team(iPlayers[i]))
-			{
-				message_begin(MSG_ONE, get_user_msgid("SayText"), _, iPlayers[i])
-				write_byte(id)
-				write_string(szMessage)
-				message_end()
-			}
-		}
-
-		return PLUGIN_HANDLED
+		if (get_user_team(id) == get_user_team(iPlayers[i]))
+			send_message(iPlayers[i], szFormatted, id)
 	}
 
-	return PLUGIN_CONTINUE
+	return PLUGIN_HANDLED
+}
+
+send_message(target, const msg[], sender = 0)
+{
+	message_begin(MSG_ONE_UNRELIABLE, get_user_msgid("SayText"), _, target)
+	write_byte(sender)
+	write_string(msg)
+	message_end()
 }
 
 bool:is_valid_message(const szMessage[])
 {
 	if (strlen(szMessage) == 0)
 		return false
-
 	if (szMessage[0] == '/' || szMessage[0] == '!' || szMessage[0] == '@')
 		return false
-
 	return true
 }
