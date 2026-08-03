@@ -63,7 +63,7 @@ public cmd_armas(id)
 	if (equali(szArg, "auto"))
 	{
 		g_bAutoMenu[id] = !g_bAutoMenu[id]
-		client_print(id, print_chat, "[MITO] Menu automatico al spawnear: %s", g_bAutoMenu[id] ? "ON" : "OFF")
+		client_print(id, print_chat, "[eXe] Menu automatico al spawnear: %s", g_bAutoMenu[id] ? "ON" : "OFF")
 		return PLUGIN_HANDLED
 	}
 
@@ -75,7 +75,7 @@ public show_menu_armas(id)
 {
 	if (!is_user_alive(id))
 	{
-		client_print(id, print_chat, "[MITO] Tenes que estar vivo para elegir armas.")
+		client_print(id, print_chat, "[eXe] Tenes que estar vivo para elegir armas.")
 		return PLUGIN_HANDLED
 	}
 
@@ -108,7 +108,7 @@ public menu_armas_handler(id, menu, item)
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW2], gCombos[item][WC_Ammo2])
 
-		client_print(id, print_chat, "[MITO] Armas: %s", gCombos[item][WC_Name])
+		client_print(id, print_chat, "[eXe] Armas: %s", gCombos[item][WC_Name])
 	}
 
 	menu_destroy(menu)
