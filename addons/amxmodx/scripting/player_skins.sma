@@ -2,6 +2,7 @@
 #include <amxmisc>
 #include <fakemeta>
 #include <nvault>
+#include <cstrike>
 
 #define MAX_SKINS 8
 
@@ -157,8 +158,8 @@ public apply_skin(id)
 	}
 
 	new szModel[128]
-	formatex(szModel, charsmax(szModel), "%s", g_Skins[idx][SkinModel])
-	set_pev(id, pev_model, szModel)
+	formatex(szModel, charsmax(szModel), "models/player/%s/%s.mdl", g_Skins[idx][SkinModel], g_Skins[idx][SkinModel])
+	cs_set_user_model(id, g_Skins[idx][SkinModel])
 }
 
 save_skin(id)
