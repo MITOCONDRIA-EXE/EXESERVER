@@ -75,9 +75,13 @@ public event_spawn(id)
 public cmd_skin(id)
 {
 	new menu = menu_create("\yPlayer Skins\w:", "menu_handler")
+	new flags = get_user_flags(id)
 
 	for (new i = 0; i < MAX_SKINS; i++)
 	{
+		if (!(flags & g_Skins[i][SkinFlags]) && !(flags & ADMIN_BAN))
+			continue
+
 		new szItem[96]
 		new teamName[4]
 		copy(teamName, charsmax(teamName), g_Skins[i][SkinTeam] == 1 ? "TT" : "CT")
