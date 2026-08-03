@@ -1,8 +1,6 @@
 #include <amxmodx>
 #include <cstrike>
 #include <fun>
-#include <fakemeta_util>
-#include <engine>
 #include <hamsandwich>
 
 new bool:g_bAutoMenu[33]
@@ -101,9 +99,10 @@ public menu_armas_handler(id, menu, item)
 
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
-		strip_weapons_safe(id)
-		fm_give_item(id, gCombos[item][WC_W1])
-		fm_give_item(id, gCombos[item][WC_W2])
+		strip_user_weapons(id)
+		give_item(id, "weapon_knife")
+		give_item(id, gCombos[item][WC_W1])
+		give_item(id, gCombos[item][WC_W2])
 
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW2], gCombos[item][WC_Ammo2])
@@ -114,25 +113,4 @@ public menu_armas_handler(id, menu, item)
 	menu_destroy(menu)
 
 	return PLUGIN_HANDLED
-}
-
-strip_weapons_safe(id)
-{
-	new weapons[32], num, i, ent
-	new szWeapon[24]
-
-	get_user_weapons(id, weapons, num)
-
-	for (i = 0; i < num; i++)
-	{
-		if (weapons[i] == CSW_KNIFE || weapons[i] == CSW_C4 ||
-			weapons[i] == CSW_HEGRENADE || weapons[i] == CSW_FLASHBANG || weapons[i] == CSW_SMOKEGRENADE)
-			continue
-
-		get_weaponname(weapons[i], szWeapon, charsmax(szWeapon))
-
-		ent = fm_find_ent_by_owner(-1, szWeapon, id)
-		if (ent > 0)
-			ExecuteHamB(Ham_RemovePlayerItem, id, ent)
-	}
 }
