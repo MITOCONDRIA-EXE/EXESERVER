@@ -165,9 +165,7 @@ public apply_skin(id)
 		return
 	}
 
-	new szModel[128]
-	formatex(szModel, charsmax(szModel), "models/player/%s/%s.mdl", g_Skins[idx][SkinModel], g_Skins[idx][SkinModel])
-	entity_set_string(id, EV_SZ_model, szModel)
+	set_user_info(id, "model", g_Skins[idx][SkinModel])
 	cs_reset_user_model(id)
 }
 

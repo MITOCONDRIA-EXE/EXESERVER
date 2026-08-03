@@ -121,7 +121,7 @@ public plugin_precache()
 {
 	precache_model(VIEW_BOMB)
 	precache_model(WORLD_BOMB)
-	precache_sound("sound/misc/llego_el_lechero.wav")
+	precache_sound("misc/llego_el_lechero.wav")
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
 	g_iHealExplodeSpr = precache_model("sprites/reapi_healthnade/heal_explode.spr")
