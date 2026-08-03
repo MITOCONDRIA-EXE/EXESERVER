@@ -37,13 +37,19 @@ public plugin_init()
 	g_vault = nvault_open("player_skins")
 }
 
-public plugin_precache()
+	public plugin_precache()
 {
 	for (new i = 0; i < MAX_SKINS; i++)
 	{
 		new szPath[128]
 		formatex(szPath, charsmax(szPath), "models/player/%s/%s.mdl", g_Skins[i][SkinModel], g_Skins[i][SkinModel])
 		precache_model(szPath)
+
+		if (g_Skins[i][SkinTeam] == 1)
+		{
+			formatex(szPath, charsmax(szPath), "models/player/%s/%sT.mdl", g_Skins[i][SkinModel], g_Skins[i][SkinModel])
+			precache_model(szPath)
+		}
 	}
 }
 
@@ -157,8 +163,7 @@ public apply_skin(id)
 		return
 	}
 
-	new szModel[128]
-	formatex(szModel, charsmax(szModel), "models/player/%s/%s.mdl", g_Skins[idx][SkinModel], g_Skins[idx][SkinModel])
+	cs_reset_user_model(id)
 	cs_set_user_model(id, g_Skins[idx][SkinModel])
 }
 
