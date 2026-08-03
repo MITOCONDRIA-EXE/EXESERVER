@@ -1,6 +1,7 @@
 #include <amxmodx>
 #include <cstrike>
 #include <fun>
+#include <fakemeta_util>
 #include <hamsandwich>
 
 new bool:g_bAutoMenu[33]
@@ -96,9 +97,7 @@ public menu_armas_handler(id, menu, item)
 
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
-		engclient_cmd(id, "weapon_knife")
-		strip_user_weapons(id)
-		give_item(id, "weapon_knife")
+		strip_firearms(id)
 		give_item(id, gCombos[item][WC_W1])
 		give_item(id, gCombos[item][WC_W2])
 
@@ -110,4 +109,23 @@ public menu_armas_handler(id, menu, item)
 
 	menu_destroy(menu)
 	return PLUGIN_HANDLED
+}
+
+strip_firearms(id)
+{
+	new weapons[32], num
+	get_user_weapons(id, weapons, num)
+
+	new szWpn[24], ent
+	for (new i = 0; i < num; i++)
+	{
+		if (weapons[i] == CSW_KNIFE || weapons[i] == CSW_C4 ||
+			weapons[i] == CSW_HEGRENADE || weapons[i] == CSW_FLASHBANG || weapons[i] == CSW_SMOKEGRENADE)
+			continue
+
+		get_weaponname(weapons[i], szWpn, charsmax(szWpn))
+		ent = -1
+		while ((ent = fm_find_ent_by_owner(ent, szWpn, id)) > 0)
+			ExecuteHamB(Ham_RemovePlayerItem, id, ent)
+	}
 }
