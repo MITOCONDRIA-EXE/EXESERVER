@@ -36,7 +36,11 @@ public hook_say(id)
 	else
 		formatex(szFormatted, charsmax(szFormatted), "^x04[VIP] ^x03%s^x01:  %s", szName, szMessage)
 
-	send_message(id, szFormatted)
+	new iPlayers[32], iNum
+	get_players(iPlayers, iNum, "ch")
+	for (new i = 0; i < iNum; i++)
+		send_message(iPlayers[i], szFormatted, id)
+
 	return PLUGIN_HANDLED
 }
 
