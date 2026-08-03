@@ -47,7 +47,7 @@ public client_putinserver(id)
 public fw_PlayerSpawn(id)
 {
 	if (is_user_alive(id) && g_bAutoMenu[id])
-		set_task(1.0, "task_show_menu", id)
+		set_task(0.3, "task_show_menu", id)
 }
 
 public task_show_menu(id)
