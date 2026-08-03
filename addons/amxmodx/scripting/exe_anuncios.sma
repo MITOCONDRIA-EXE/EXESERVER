@@ -5,8 +5,9 @@
 new const g_Mensajes[][] = {
     "^4[eXe]^1 Escribi ^3/armas^1 para abrir el menu de armas.",
     "^4[eXe]^1 Escribi ^3/rank^1 y ^3/top15^1 para ver tus estadisticas.",
-    "^4[eXe]^1 Seguinos en Instagram: ^3@exeserver",
-    "^4[eXe]^1 Conseguí tu VIP por $2000 | WhatsApp: ^33547 51-5201"
+    "^4[eXe]^1 Escribi ^3/vip^1 para conocer los beneficios.",
+    "^4[eXe]^1 Seguinos en ^3Instagram^1: ^4@exeserver",
+    "^4[eXe]^1 Consegui tu ^3VIP^1 por ^4$2000^1 | WhatsApp: ^33547 51-5201"
 };
 
 new g_iMensaje;
