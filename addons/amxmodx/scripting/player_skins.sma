@@ -45,11 +45,8 @@ public plugin_init()
 		formatex(szPath, charsmax(szPath), "models/player/%s/%s.mdl", g_Skins[i][SkinModel], g_Skins[i][SkinModel])
 		precache_model(szPath)
 
-		if (g_Skins[i][SkinTeam] == 1)
-		{
-			formatex(szPath, charsmax(szPath), "models/player/%s/%sT.mdl", g_Skins[i][SkinModel], g_Skins[i][SkinModel])
-			precache_model(szPath)
-		}
+		formatex(szPath, charsmax(szPath), "models/player/%s/%sT.mdl", g_Skins[i][SkinModel], g_Skins[i][SkinModel])
+		precache_model(szPath)
 	}
 }
 
