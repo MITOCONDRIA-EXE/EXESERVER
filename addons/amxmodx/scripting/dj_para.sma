@@ -41,7 +41,7 @@ public toggle_para(id)
 		return PLUGIN_HANDLED
 
 	g_bPara[id] = !g_bPara[id]
-	client_print(id, print_chat, "[MITO] Paracaidas: %s", g_bPara[id] ? "ON" : "OFF")
+	client_print(id, print_chat, "[eXe] Paracaidas: %s", g_bPara[id] ? "ON" : "OFF")
 
 	return PLUGIN_HANDLED
 }

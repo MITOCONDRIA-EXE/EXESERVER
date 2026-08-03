@@ -168,7 +168,7 @@ public client_death(killer, victim, wpnindex, hitplace, TK)
 
 		new name[32]
 		get_user_name(victim, name, charsmax(name))
-		client_print(0, print_chat, "[MITO] %s murio y dejo su bomba de vida en el piso! Robala!", name)
+		client_print(0, print_chat, "[eXe] %s murio y dejo su bomba de vida en el piso! Robala!", name)
 	}
 
 	g_bHasBomb[victim] = false
@@ -385,7 +385,7 @@ public fw_PlayerPreThink(id)
 				if (give_bomb(id))
 				{
 					g_bHasBomb[id] = true
-					client_print(id, print_chat, "[MITO] Robaste una bomba de vida del piso!")
+					client_print(id, print_chat, "[eXe] Robaste una bomba de vida del piso!")
 				}
 			}
 
@@ -518,7 +518,7 @@ public do_heal(id, const Float:eo[3])
 	new name[32]
 	get_user_name(id, name, charsmax(name))
 
-	client_print(0, print_chat, "[MITO] %s lanzo la bomba de vida! +%d de vida a %d aliado(s).", name, bonus, healed)
+	client_print(0, print_chat, "[eXe] %s lanzo la bomba de vida! +%d de vida a %d aliado(s).", name, bonus, healed)
 
 	set_hudmessage(0, 255, 0, -1.0, 0.45, 0, 6.0, 3.0, 0.1, 0.2, -1)
 	show_hudmessage(0, "%s lanzo la bomba de vida! +%d de vida en el radio.", name, bonus)

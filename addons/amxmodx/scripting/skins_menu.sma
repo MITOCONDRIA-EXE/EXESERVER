@@ -271,7 +271,7 @@ public skin_menu_pick(id, menu, item, type)
 
 	if (type == 4 && selected == 11 && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
 	{
-		client_print(id, print_chat, "[MITO] Violet es solo para VIPs!")
+		client_print(id, print_chat, "[eXe] Violet es solo para VIPs!")
 		menu_destroy(menu)
 		return PLUGIN_HANDLED
 	}
@@ -319,7 +319,7 @@ public skin_menu_pick(id, menu, item, type)
 		}
 	}
 
-	client_print(id, print_chat, "[MITO] Skin %s: %s", szWpn, szName)
+	client_print(id, print_chat, "[eXe] Skin %s: %s", szWpn, szName)
 
 	apply_current(id, type)
 

@@ -111,7 +111,7 @@ public menu_handler(id, menu, item)
 
 		if (!(flags & g_Skins[item][SkinFlags]) && !(flags & ADMIN_BAN))
 		{
-			client_print(id, print_chat, "[MITO] Esta skin requiere ser %s",
+			client_print(id, print_chat, "[eXe] Esta skin requiere ser %s",
 				g_Skins[item][SkinFlags] == ADMIN_BAN ? "Admin" : "VIP")
 			menu_destroy(menu)
 			return PLUGIN_HANDLED
@@ -120,13 +120,13 @@ public menu_handler(id, menu, item)
 		g_iSelected[id] = item + 1
 		save_skin(id)
 
-		client_print(id, print_chat, "[MITO] Skin %s seleccionada", g_Skins[item][SkinName])
+		client_print(id, print_chat, "[eXe] Skin %s seleccionada", g_Skins[item][SkinName])
 	}
 	else
 	{
 		g_iSelected[id] = 0
 		save_skin(id)
-		client_print(id, print_chat, "[MITO] Skin original restaurada")
+		client_print(id, print_chat, "[eXe] Skin original restaurada")
 	}
 
 	menu_destroy(menu)
@@ -151,7 +151,7 @@ public apply_skin(id)
 	new team = get_user_team(id)
 	if (team != g_Skins[idx][SkinTeam])
 	{
-		client_print(id, print_chat, "[MITO] Esta skin es para el otro equipo, se restauro la original")
+		client_print(id, print_chat, "[eXe] Esta skin es para el otro equipo, se restauro la original")
 		g_iSelected[id] = 0
 		save_skin(id)
 		return

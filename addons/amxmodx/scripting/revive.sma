@@ -165,7 +165,7 @@ public do_revive(id, target)
 	if (is_user_alive(target))
 		engfunc(EngFunc_SetOrigin, target, g_fDeathOrigin[target])
 
-	client_print(0, print_chat, "[MITO] %s revivio a %s!", name, tname)
+	client_print(0, print_chat, "[eXe] %s revivio a %s!", name, tname)
 
 	clear_corpse(target)
 }
@@ -200,8 +200,8 @@ public plant_trap(id, target)
 		g_iTrapEnt[target] = ent
 	}
 
-	client_print(id, print_chat, "[MITO] Le plantaste una bomba al cadaver de %s!", tname)
-	client_print(0, print_chat, "[MITO] %s planto una bomba en el cadaver de %s!", name, tname)
+	client_print(id, print_chat, "[eXe] Le plantaste una bomba al cadaver de %s!", tname)
+	client_print(0, print_chat, "[eXe] %s planto una bomba en el cadaver de %s!", name, tname)
 }
 
 public trap_explode(target, holder)
@@ -232,7 +232,7 @@ public trap_explode(target, holder)
 
 	new tname[32]
 	get_user_name(target, tname, charsmax(tname))
-	client_print(0, print_chat, "[MITO] La bomba en el cadaver de %s exploto!", tname)
+	client_print(0, print_chat, "[eXe] La bomba en el cadaver de %s exploto!", tname)
 
 	g_iTarget[holder] = 0
 	g_fHold[holder] = 0.0
