@@ -3,6 +3,7 @@
 #include <fakemeta>
 #include <nvault>
 #include <cstrike>
+#include <engine>
 
 #define MAX_SKINS 8
 
@@ -164,8 +165,10 @@ public apply_skin(id)
 		return
 	}
 
+	new szModel[128]
+	formatex(szModel, charsmax(szModel), "models/player/%s/%s.mdl", g_Skins[idx][SkinModel], g_Skins[idx][SkinModel])
+	entity_set_string(id, EV_SZ_model, szModel)
 	cs_reset_user_model(id)
-	cs_set_user_model(id, g_Skins[idx][SkinModel])
 }
 
 save_skin(id)
