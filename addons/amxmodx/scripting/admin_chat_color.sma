@@ -2,7 +2,7 @@
 #include <amxmisc>
 
 #define PLUGIN "Admin Chat Color"
-#define VERSION "1.2"
+#define VERSION "1.3"
 #define AUTHOR "eXe Server"
 
 public plugin_init()
@@ -27,19 +27,24 @@ public hook_say(id)
 	if (!(flags & ADMIN_RESERVATION))
 		return PLUGIN_CONTINUE
 
-	new szFormatted[256]
-
 	if (flags & ADMIN_RCON)
-		formatex(szFormatted, charsmax(szFormatted), "^x04[OWNER] ^x03%s^x01:  %s", szName, szMessage)
+	{
+		client_print_color(0, print_team_red, "^x04[OWNER] %s^x01:  %s", szName, szMessage)
+	}
 	else if (flags & ADMIN_KICK)
-		formatex(szFormatted, charsmax(szFormatted), "^x04[ADMIN] ^x03%s^x01:  %s", szName, szMessage)
+	{
+		new iPlayers[32], iNum
+		get_players(iPlayers, iNum, "ch")
+		for (new i = 0; i < iNum; i++)
+			client_print_color(iPlayers[i], iPlayers[i], "^x04[ADMIN] %s^x01:  %s", szName, szMessage)
+	}
 	else
-		formatex(szFormatted, charsmax(szFormatted), "^x04[VIP] ^x03%s^x01:  %s", szName, szMessage)
-
-	new iPlayers[32], iNum
-	get_players(iPlayers, iNum, "ch")
-	for (new i = 0; i < iNum; i++)
-		send_message(iPlayers[i], szFormatted, id)
+	{
+		new iPlayers[32], iNum
+		get_players(iPlayers, iNum, "ch")
+		for (new i = 0; i < iNum; i++)
+			client_print_color(iPlayers[i], print_team_blue, "^x04[VIP] %s^x01:  %s", szName, szMessage)
+	}
 
 	return PLUGIN_HANDLED
 }
@@ -59,33 +64,32 @@ public hook_sayteam(id)
 	if (!(flags & ADMIN_RESERVATION))
 		return PLUGIN_CONTINUE
 
-	new szFormatted[256]
-
 	if (flags & ADMIN_RCON)
-		formatex(szFormatted, charsmax(szFormatted), "^x04[OWNER] ^x03%s^x01 (@Team):  %s", szName, szMessage)
-	else if (flags & ADMIN_KICK)
-		formatex(szFormatted, charsmax(szFormatted), "^x04[ADMIN] ^x03%s^x01 (@Team):  %s", szName, szMessage)
-	else
-		formatex(szFormatted, charsmax(szFormatted), "^x04[VIP] ^x03%s^x01 (@Team):  %s", szName, szMessage)
-
-	new iPlayers[32], iNum
-	get_players(iPlayers, iNum, "ch")
-
-	for (new i = 0; i < iNum; i++)
 	{
-		if (get_user_team(id) == get_user_team(iPlayers[i]))
-			send_message(iPlayers[i], szFormatted, id)
+		client_print_color(0, print_team_red, "^x04[OWNER] %s^x01 (@Team):  %s", szName, szMessage)
+	}
+	else if (flags & ADMIN_KICK)
+	{
+		new iPlayers[32], iNum
+		get_players(iPlayers, iNum, "ch")
+		for (new i = 0; i < iNum; i++)
+		{
+			if (get_user_team(id) == get_user_team(iPlayers[i]))
+				client_print_color(iPlayers[i], iPlayers[i], "^x04[ADMIN] %s^x01 (@Team):  %s", szName, szMessage)
+		}
+	}
+	else
+	{
+		new iPlayers[32], iNum
+		get_players(iPlayers, iNum, "ch")
+		for (new i = 0; i < iNum; i++)
+		{
+			if (get_user_team(id) == get_user_team(iPlayers[i]))
+				client_print_color(iPlayers[i], print_team_blue, "^x04[VIP] %s^x01 (@Team):  %s", szName, szMessage)
+		}
 	}
 
 	return PLUGIN_HANDLED
-}
-
-send_message(target, const msg[], sender = 0)
-{
-	message_begin(MSG_ONE_UNRELIABLE, get_user_msgid("SayText"), _, target)
-	write_byte(sender)
-	write_string(msg)
-	message_end()
 }
 
 bool:is_valid_message(const szMessage[])
