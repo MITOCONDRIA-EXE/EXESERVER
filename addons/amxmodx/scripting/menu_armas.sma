@@ -78,14 +78,11 @@ public show_menu_armas(id)
 	}
 
 	new menu = menu_create("\yCombos de Armas\w:", "menu_armas_handler")
-	new i
-
-	for (i = 0; i < sizeof(gCombos); i++)
+	for (new i = 0; i < sizeof(gCombos); i++)
 		menu_additem(menu, gCombos[i][WC_Name])
 
 	menu_setprop(menu, MPROP_EXITNAME, "Salir")
 	menu_display(id, menu)
-
 	return PLUGIN_HANDLED
 }
 
@@ -99,6 +96,7 @@ public menu_armas_handler(id, menu, item)
 
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
+		engclient_cmd(id, "weapon_knife")
 		strip_user_weapons(id)
 		give_item(id, "weapon_knife")
 		give_item(id, gCombos[item][WC_W1])
@@ -111,6 +109,5 @@ public menu_armas_handler(id, menu, item)
 	}
 
 	menu_destroy(menu)
-
 	return PLUGIN_HANDLED
 }
