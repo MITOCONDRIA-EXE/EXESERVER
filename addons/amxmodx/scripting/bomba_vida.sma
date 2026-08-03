@@ -42,8 +42,6 @@ public plugin_init()
 	register_logevent("round_start", 2, "1=World triggered", "2=Round_Start")
 	register_event("ResetHUD", "reset_hud", "b")
 	RegisterHam(Ham_AddPlayerItem, "player", "ham_AddPlayerItem_post", 1)
-	register_forward(FM_EmitSound, "fw_EmitSound")
-	register_clcmd("hegrenade", "cmd_hegrenade")
 }
 
 public fw_UpdateClientData(id, sendweapons, cd_handle)
@@ -76,7 +74,7 @@ public reset_hud(id)
 
 		if (get_gametime() > g_fLecheroCooldown)
 		{
-			client_cmd(0, "spk sound/misc/llego_el_lechero")
+			client_cmd(0, "spk misc/llego_el_lechero")
 			g_fLecheroCooldown = get_gametime() + 4.5
 		}
 	}
@@ -117,26 +115,12 @@ public round_start()
 		give_bomb(i)
 		g_bHasBomb[i] = true
 	}
-
-	set_task(2.0, "convert_map_nades", 54321)
-}
-
-public convert_map_nades()
-{
-	return
-}
-
-public fw_EmitSound(ent, channel, const sample[])
-{
-	return FMRES_IGNORED
 }
 
 public plugin_precache()
 {
 	precache_model(VIEW_BOMB)
 	precache_model(WORLD_BOMB)
-	precache_model("models/v_smokegrenade.mdl")
-	precache_model("models/w_smokegrenade.mdl")
 	precache_sound("sound/misc/llego_el_lechero.wav")
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
