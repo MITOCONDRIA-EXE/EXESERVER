@@ -5,8 +5,8 @@
 #define VERSION "1.0"
 #define AUTHOR "eXe Server"
 
-#define HUD_X 0.70
-#define HUD_Y 0.02
+#define HUD_X 0.02
+#define HUD_Y 0.17
 #define HUD_HOLD_TIME 2.1
 
 new g_iSyncHud
@@ -59,7 +59,7 @@ public ShowRankHUD()
 		ShowSyncHudMsg(
 			iPlayer,
 			g_iSyncHud,
-			"[RANKING]^n^nNickname: %s^nAsesinatos: %d^nMuertes: %d^nRanking actual: #%d",
+			"[eXe RANKING]^nNickname: %s^nAsesinatos: %d^nMuertes: %d^nRanking: #%d",
 			szName,
 			iStats[0],
 			iStats[1],
