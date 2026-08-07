@@ -5,8 +5,8 @@
 #define VERSION "1.0"
 #define AUTHOR "eXe Server"
 
-#define HUD_X 0.02
-#define HUD_Y 0.17
+#define HUD_X 0.01
+#define HUD_Y 0.20
 #define HUD_HOLD_TIME 2.1
 
 new g_iSyncHud
@@ -27,7 +27,7 @@ public ShowRankHUD()
 	static iPlayer
 	static iStats[8]
 	static iHits[8]
-	static szName[32]
+
 
 	get_players(iPlayers, iNum, "ch")
 
@@ -37,8 +37,6 @@ public ShowRankHUD()
 
 		if (is_user_bot(iPlayer))
 			continue
-
-		get_user_name(iPlayer, szName, charsmax(szName))
 
 		new iRankPos = get_user_stats(iPlayer, iStats, iHits)
 
@@ -59,8 +57,7 @@ public ShowRankHUD()
 		ShowSyncHudMsg(
 			iPlayer,
 			g_iSyncHud,
-			"[eXe RANKING]^nNickname: %s^nAsesinatos: %d^nMuertes: %d^nRanking: #%d",
-			szName,
+			"[eXe SERVER ARG]^nAsesinatos: %d^nMuertes: %d^nRanking: #%d",
 			iStats[0],
 			iStats[1],
 			iRankPos
