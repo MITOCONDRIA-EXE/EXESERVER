@@ -3,12 +3,11 @@
 #define INTERVALO 20.0
 
 new const g_Mensajes[][] = {
-    "^4[eXe]^1 Escribi ^3/armas^1 para abrir el menu de armas.",
-    "^4[eXe]^1 Escribi ^3/rank^1 y ^3/top15^1 para ver tus estadisticas.",
-    "^4[eXe]^1 Seguinos en ^3Instagram^1: ^4@exeserver",
-    "^4[eXe]^1 Consegui tu ^3VIP^1 por ^4$2000^1.",
-    "^4[eXe]^1 WhatsApp:^3 3547 51-5201",
-    "^4[eXe]^1 Unite a nuestro ^3Discord^1: ^4discord.gg/BHHX6jAfpc"
+    "^4[eXe]^1 Escribi ^3/armas^1 para abrir el ^3menu de armas.^1",
+    "^4[eXe]^1 Escribi ^3/rank^1 y ^3/top15^1 para ver ^3tus estadisticas.^1",
+    "^4[eXe]^1 Consegui tu ^4VIP^1 por ^3$2000^1.",
+    "^4[eXe] WhatsApp:^1 ^3https://chat.whatsapp.com/IwmVjqkYABX9G1epKXZhHI",
+    "^4[eXe] Unite a nuestro Discord:^1 ^3discord.gg/BHHX6jAfpc"
 };
 
 new g_iMensaje;
