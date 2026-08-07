@@ -49,7 +49,7 @@ public fw_UpdateClientData(id, sendweapons, cd_handle)
 	if (!is_user_alive(id))
 		return FMRES_IGNORED
 
-	if (get_user_weapon(id) == CSW_HEGRENADE && g_bHasBomb[id])
+	if (get_user_weapon(id) == CSW_SMOKEGRENADE && g_bHasBomb[id])
 	{
 		set_cd(cd_handle, CD_ViewModel, VIEW_BOMB)
 		return FMRES_HANDLED
@@ -87,7 +87,7 @@ public ham_AddPlayerItem_post(id, item)
 
 	static classname[32]
 	pev(item, pev_classname, classname, charsmax(classname))
-	if (equal(classname, "weapon_hegrenade"))
+	if (equal(classname, "weapon_smokegrenade"))
 	{
 		if (g_bPlGive[id])
 			return
@@ -190,7 +190,7 @@ public fw_PlayerPreThink(id)
 		g_iLastWeapon[id] = iCurWpn
 
 		message_begin(MSG_ONE_UNRELIABLE, get_user_msgid("ScreenFade"), _, id)
-		if (iCurWpn == CSW_HEGRENADE)
+		if (iCurWpn == CSW_SMOKEGRENADE)
 		{
 			write_short(512)
 			write_short(999999)
@@ -226,9 +226,9 @@ public fw_PlayerPreThink(id)
 	new buttons = pev(id, pev_button)
 	new oldbuttons = pev(id, pev_oldbuttons)
 
-	if (get_user_weapon(id) == CSW_HEGRENADE)
+	if (get_user_weapon(id) == CSW_SMOKEGRENADE)
 	{
-		new iWeapon = fm_find_ent_by_owner(-1, "weapon_hegrenade", id)
+		new iWeapon = fm_find_ent_by_owner(-1, "weapon_smokegrenade", id)
 		if (iWeapon)
 		{
 			if (g_bHasBomb[id])
@@ -387,10 +387,10 @@ public give_bomb(id)
 
 	g_bPlGive[id] = true
 
-	if (fm_give_item(id, "weapon_hegrenade") > 0)
+	if (fm_give_item(id, "weapon_smokegrenade") > 0)
 	{
 		g_bPlGive[id] = false
-		cs_set_user_bpammo(id, CSW_HEGRENADE, 1)
+		cs_set_user_bpammo(id, CSW_SMOKEGRENADE, 1)
 		return 1
 	}
 
