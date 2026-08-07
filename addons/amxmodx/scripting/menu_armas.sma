@@ -1,10 +1,10 @@
 #include <amxmodx>
 #include <cstrike>
 #include <fun>
-#include <fakemeta_util>
 #include <hamsandwich>
 
 new bool:g_bAutoMenu[33]
+new bool:g_bUsado[33]
 
 enum _:WeaponCombo
 {
@@ -18,8 +18,8 @@ enum _:WeaponCombo
 }
 
 new const gCombos[][WeaponCombo] = {
-	{ "M4A1 + Deagle", "weapon_m4a1", "weapon_deagle", CSW_M4A1, CSW_DEAGLE, 90, 35 },
 	{ "AK-47 + Deagle", "weapon_ak47", "weapon_deagle", CSW_AK47, CSW_DEAGLE, 90, 35 },
+	{ "M4A1 + Deagle", "weapon_m4a1", "weapon_deagle", CSW_M4A1, CSW_DEAGLE, 90, 35 },
 	{ "AWP + USP", "weapon_awp", "weapon_usp", CSW_AWP, CSW_USP, 30, 48 },
 	{ "FAMAS + Glock", "weapon_famas", "weapon_glock18", CSW_FAMAS, CSW_GLOCK18, 75, 120 },
 	{ "Galil + Deagle", "weapon_galil", "weapon_deagle", CSW_GALIL, CSW_DEAGLE, 90, 35 },
@@ -45,6 +45,7 @@ public client_putinserver(id)
 
 public fw_PlayerSpawn(id)
 {
+	g_bUsado[id] = false
 	if (is_user_alive(id) && g_bAutoMenu[id])
 		set_task(0.3, "task_show_menu", id)
 }
@@ -95,37 +96,28 @@ public menu_armas_handler(id, menu, item)
 		return PLUGIN_HANDLED
 	}
 
+	if (g_bUsado[id])
+	{
+		client_print(id, print_chat, "[eXe] Solo podes elegir armas una vez por ronda.")
+		menu_destroy(menu)
+		return PLUGIN_HANDLED
+	}
+
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
-		strip_firearms(id)
+		strip_user_weapons(id)
+		give_item(id, "weapon_knife")
+
 		give_item(id, gCombos[item][WC_W1])
 		give_item(id, gCombos[item][WC_W2])
 
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW2], gCombos[item][WC_Ammo2])
 
+		g_bUsado[id] = true
 		client_print(id, print_chat, "[eXe] Armas: %s", gCombos[item][WC_Name])
 	}
 
 	menu_destroy(menu)
 	return PLUGIN_HANDLED
-}
-
-strip_firearms(id)
-{
-	new weapons[32], num
-	get_user_weapons(id, weapons, num)
-
-	new szWpn[24], ent
-	for (new i = 0; i < num; i++)
-	{
-		if (weapons[i] == CSW_KNIFE || weapons[i] == CSW_C4 ||
-			weapons[i] == CSW_HEGRENADE || weapons[i] == CSW_FLASHBANG || weapons[i] == CSW_SMOKEGRENADE)
-			continue
-
-		get_weaponname(weapons[i], szWpn, charsmax(szWpn))
-		ent = -1
-		while ((ent = fm_find_ent_by_owner(ent, szWpn, id)) > 0)
-			ExecuteHamB(Ham_RemovePlayerItem, id, ent)
-	}
 }

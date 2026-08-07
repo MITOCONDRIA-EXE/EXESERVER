@@ -176,12 +176,19 @@ public fw_PlayerPreThink(id)
 	if (!is_user_alive(id))
 		return FMRES_IGNORED
 
-	if (get_pcvar_num(g_iGive) && !g_bRound[id])
+	if (get_pcvar_num(g_iGive))
 	{
-		g_bRound[id] = true
-
-		if (give_bomb(id))
-			g_bHasBomb[id] = true
+		if (!g_bRound[id])
+		{
+			g_bRound[id] = true
+			if (give_bomb(id))
+				g_bHasBomb[id] = true
+		}
+		else if (g_bHasBomb[id] && !user_has_weapon(id, CSW_SMOKEGRENADE))
+		{
+			if (give_bomb(id))
+				g_bHasBomb[id] = true
+		}
 	}
 
 	new iCurWpn = get_user_weapon(id)
@@ -502,10 +509,10 @@ public do_heal(id, const Float:eo[3])
 	new name[32]
 	get_user_name(id, name, charsmax(name))
 
-	client_print(0, print_chat, "[eXe] %s lanzo la bomba de vida! +%d de vida a %d aliado(s).", name, bonus, healed)
+	client_print(id, print_chat, "[eXe] %s lanzo la bomba de vida! +%d de vida a %d aliado(s).", name, bonus, healed)
 
 	set_hudmessage(0, 255, 0, -1.0, 0.45, 0, 6.0, 3.0, 0.1, 0.2, -1)
-	show_hudmessage(0, "%s lanzo la bomba de vida! +%d de vida en el radio.", name, bonus)
+	show_hudmessage(id, "%s lanzo la bomba de vida! +%d de vida en el radio.", name, bonus)
 }
 
 public show_heal_effect(const Float:eo[3])
