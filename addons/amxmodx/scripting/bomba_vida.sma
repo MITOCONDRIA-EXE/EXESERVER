@@ -509,10 +509,19 @@ public do_heal(id, const Float:eo[3])
 	new name[32]
 	get_user_name(id, name, charsmax(name))
 
-	client_print(id, print_chat, "[eXe] %s lanzo la bomba de vida! +%d de vida a %d aliado(s).", name, bonus, healed)
+	new iTeam = get_user_team(id)
+	for (new i = 1; i <= 32; i++)
+	{
+		if (is_user_connected(i) && get_user_team(i) == iTeam)
+			client_print(i, print_chat, "[eXe] %s lanzo la bomba de vida! +%d de vida a %d aliado(s).", name, bonus, healed)
+	}
 
 	set_hudmessage(0, 255, 0, -1.0, 0.45, 0, 6.0, 3.0, 0.1, 0.2, -1)
-	show_hudmessage(id, "%s lanzo la bomba de vida! +%d de vida en el radio.", name, bonus)
+	for (new i = 1; i <= 32; i++)
+	{
+		if (is_user_connected(i) && get_user_team(i) == iTeam)
+			show_hudmessage(i, "%s lanzo la bomba de vida! +%d de vida en el radio.", name, bonus)
+	}
 }
 
 public show_heal_effect(const Float:eo[3])
