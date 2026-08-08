@@ -90,7 +90,7 @@ public ham_AddPlayerItem_post(id, item)
 	}
 	else if (equal(classname, "weapon_hegrenade"))
 	{
-		client_cmd(id, "spk misc/llego_el_lechero")
+		client_cmd(id, "spk misc/peluca")
 	}
 }
 
