@@ -5,6 +5,11 @@
 #define VERSION "1.0"
 #define AUTHOR "eXe Server"
 
+public plugin_precache()
+{
+	precache_sound("AQS/godlike.wav")
+}
+
 public plugin_init()
 {
 	register_plugin(PLUGIN, VERSION, AUTHOR)
@@ -33,5 +38,5 @@ public check_top10(id)
 	get_user_name(id, szName, charsmax(szName))
 
 	client_print_color(0, print_team_default, "^4[eXe]^1 Entro ^3%s^1 (TOP #%d) al servidor!", szName, iRank)
-	client_cmd(0, "spk AQS/godlike")
+	client_cmd(0, "spk AQS/godlike.wav")
 }
