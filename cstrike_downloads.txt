@@ -35,3 +35,15 @@ models/player/urban_alfa/urban_alfaTt.mdl
 models/player/gign_splin/gign_splin.mdl
 models/player/gign_splin/gign_splinT.mdl
 sprites/blood.spr
+models/skins/knife/v_abstr_karambit.mdl
+models/skins/knife/v_autotronic_bayonet.mdl
+models/skins/knife/v_autotronic_karambit.mdl
+models/skins/knife/v_autotronic_m9.mdl
+models/skins/knife/v_chang_m9.mdl
+models/skins/knife/v_fade_butterfly.mdl
+models/skins/knife/v_gamma_doppler_m9.mdl
+models/skins/knife/v_hyper_beast_karambit.mdl
+models/skins/knife/v_lore_bayonet.mdl
+models/skins/knife/v_lore_karambit.mdl
+models/skins/knife/v_lore_m9.mdl
+models/skins/knife/v_ultraviolet_m9.mdl

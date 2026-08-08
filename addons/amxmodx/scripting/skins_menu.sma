@@ -9,7 +9,7 @@
 #define M4_MAX 5
 #define AWP_MAX 5
 #define DG_MAX 5
-#define KN_MAX 11
+#define KN_MAX 23
 
 new const gszAkNames[AK_MAX][] = {
 	"Bloody", "Violeta", "Blanca", "Golden", "Celeste"
@@ -61,7 +61,11 @@ new const gszDgModels[DG_MAX][] = {
 
 new const gszKnNames[KN_MAX][] = {
 	"Combat", "Hacha", "Huntsman", "Dragon", "Daga Verde",
-	"Bayonet", "Kukri", "Bowie", "Stiletto", "Karambit", "Violet (VIP)"
+	"Bayonet", "Kukri", "Bowie", "Stiletto", "Karambit",
+	"Abstr Karambit (VIP)", "Autotronic Bayonet (VIP)", "Autotronic Karambit (VIP)",
+	"Autotronic M9 (VIP)", "Chang M9 (VIP)", "Fade Butterfly (VIP)",
+	"Gamma Doppler M9 (VIP)", "Hyper Beast Karambit (VIP)", "Lore Bayonet (VIP)",
+	"Lore Karambit (VIP)", "Lore M9 (VIP)", "Ultraviolet M9 (VIP)", "Violet (VIP)"
 }
 
 new const gszKnModels[KN_MAX][] = {
@@ -75,6 +79,18 @@ new const gszKnModels[KN_MAX][] = {
 	"models/skins/knife/v_bowie.mdl",
 	"models/skins/knife/v_k_stiletto.mdl",
 	"models/skins/knife/v_karambit.mdl",
+	"models/skins/knife/v_abstr_karambit.mdl",
+	"models/skins/knife/v_autotronic_bayonet.mdl",
+	"models/skins/knife/v_autotronic_karambit.mdl",
+	"models/skins/knife/v_autotronic_m9.mdl",
+	"models/skins/knife/v_chang_m9.mdl",
+	"models/skins/knife/v_fade_butterfly.mdl",
+	"models/skins/knife/v_gamma_doppler_m9.mdl",
+	"models/skins/knife/v_hyper_beast_karambit.mdl",
+	"models/skins/knife/v_lore_bayonet.mdl",
+	"models/skins/knife/v_lore_karambit.mdl",
+	"models/skins/knife/v_lore_m9.mdl",
+	"models/skins/knife/v_ultraviolet_m9.mdl",
 	"models/skins/knife/v_violet.mdl"
 }
 
@@ -157,7 +173,7 @@ public client_putinserver(id)
 		g_m4[id] = random_num(1, M4_MAX)
 		g_awp[id] = random_num(1, AWP_MAX)
 		g_dg[id] = random_num(1, DG_MAX)
-		g_kn[id] = random_num(1, KN_MAX - 1)
+		g_kn[id] = random_num(1, 10)
 		save_skins(id)
 	}
 }
@@ -269,9 +285,9 @@ public skin_menu_pick(id, menu, item, type)
 		return PLUGIN_HANDLED
 	}
 
-	if (type == 4 && selected == KN_MAX && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
+	if (type == 4 && selected > 10 && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
 	{
-		client_print(id, print_chat, "[eXe] Violet es solo para VIPs!")
+		client_print(id, print_chat, "[eXe] Este cuchillo es solo para VIPs!")
 		menu_destroy(menu)
 		return PLUGIN_HANDLED
 	}
