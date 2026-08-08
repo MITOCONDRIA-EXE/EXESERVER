@@ -90,7 +90,7 @@ public ham_AddPlayerItem_post(id, item)
 	}
 	else if (equal(classname, "weapon_hegrenade"))
 	{
-		emit_sound(id, CHAN_VOICE, "misc/cow.wav", 1.0, ATTN_NORM, 0, PITCH_NORM)
+		emit_sound(id, CHAN_VOICE, "misc/peluca.WAV", 1.0, ATTN_NORM, 0, PITCH_NORM)
 	}
 }
 
@@ -121,7 +121,7 @@ public plugin_precache()
 	precache_model(WORLD_BOMB)
 	precache_sound("misc/llego_el_lechero.wav")
 	precache_sound("misc/peluca.wav")
-	precache_sound("misc/cow.wav")
+	precache_sound("misc/peluca.WAV")
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
 	g_iHealExplodeSpr = precache_model("sprites/reapi_healthnade/heal_explode.spr")
