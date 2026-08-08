@@ -90,7 +90,8 @@ public ham_AddPlayerItem_post(id, item)
 	}
 	else if (equal(classname, "weapon_hegrenade"))
 	{
-		emit_sound(id, CHAN_VOICE, "misc/peluca.wav", 1.0, ATTN_NORM, 0, PITCH_NORM)
+		client_print(id, print_chat, "[DEBUG] Agarraste HE")
+		client_cmd(id, "spk misc/peluca")
 	}
 }
 
