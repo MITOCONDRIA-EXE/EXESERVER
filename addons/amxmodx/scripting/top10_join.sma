@@ -15,6 +15,14 @@ public client_putinserver(id)
 	if (is_user_bot(id))
 		return
 
+	set_task(10.0, "check_top10", id)
+}
+
+public check_top10(id)
+{
+	if (!is_user_connected(id))
+		return
+
 	new iStats[8], iHits[8]
 	new iRank = get_user_stats(id, iStats, iHits)
 
