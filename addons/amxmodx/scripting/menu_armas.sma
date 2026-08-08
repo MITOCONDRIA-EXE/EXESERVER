@@ -108,28 +108,10 @@ public menu_armas_handler(id, menu, item)
 
 	g_iComboSelected[id] = item
 	
-	// Verificar si tiene C4 antes de eliminar armas
-	new weapons[32], num_weapons, i, has_c4 = 0
-	get_user_weapons(id, weapons, num_weapons)
+	// Limpiar armas secundarias ANTES de dar las nuevas
+	strip_secondary_weapons(id)
 	
-	for (i = 0; i < num_weapons; i++)
-	{
-		if (weapons[i] == CSW_C4)
-		{
-			has_c4 = 1
-			break
-		}
-	}
-	
-	// Eliminar todas las armas
-	strip_user_weapons(id)
-	
-	// Restaurar C4 y cuchillo
-	if (has_c4)
-		give_item(id, "weapon_c4")
-	
-	give_item(id, "weapon_knife")
-	
+	// Dar las nuevas armas con delays pequeños para garantizar orden
 	set_task(0.05, "task_give_w1", id)
 	set_task(0.1, "task_give_w2", id)
 	set_task(0.15, "task_set_ammo", id)
@@ -139,6 +121,37 @@ public menu_armas_handler(id, menu, item)
 
 	menu_destroy(menu)
 	return PLUGIN_HANDLED
+}
+
+// Función para limpiar armas secundarias (excepto knife y C4)
+stock strip_secondary_weapons(id)
+{
+	if (!is_user_alive(id))
+		return
+
+	// Array de clases de armas a remover
+	new const weapons_to_remove[][] = {
+		"weapon_ak47", "weapon_m4a1", "weapon_awp", "weapon_famas",
+		"weapon_galil", "weapon_m249", "weapon_sg550", "weapon_sg552",
+		"weapon_aug", "weapon_deagle", "weapon_usp", "weapon_glock18",
+		"weapon_p228", "weapon_p90", "weapon_mac10", "weapon_ump45",
+		"weapon_mp5", "weapon_tmp", "weapon_scout", "weapon_xm1014",
+		"weapon_m3", "weapon_fiveseven", "weapon_elite"
+	}
+
+	// Remover cada arma secundaria del inventario del jugador
+	for (new i = 0; i < sizeof(weapons_to_remove); i++)
+	{
+		new entity = -1
+		while ((entity = engfunc(EngFunc_FindEntityByString, entity, "classname", weapons_to_remove[i])) != 0)
+		{
+			// Verificar que el arma pertenece al jugador
+			if (pev(entity, pev_owner) == id)
+			{
+				engfunc(EngFunc_RemoveEntity, entity)
+			}
+		}
+	}
 }
 
 public task_give_w1(id)
