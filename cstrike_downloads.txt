@@ -1,5 +1,6 @@
 sound/misc/llego_el_lechero.wav
 sound/misc/peluca.wav
+sound/misc/cow.wav
 models/v_smokegrenade.mdl
 models/w_smokegrenade.mdl
 models/p_smokegrenade.mdl
