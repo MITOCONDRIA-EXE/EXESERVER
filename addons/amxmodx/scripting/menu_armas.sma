@@ -7,6 +7,7 @@
 
 new bool:g_bAutoMenu[33]
 new bool:g_bUsado[33]
+new g_iComboSelected[33]
 
 enum _:WeaponCombo
 {
@@ -49,12 +50,7 @@ public fw_PlayerSpawn(id)
 {
 	g_bUsado[id] = false
 	if (is_user_alive(id) && g_bAutoMenu[id])
-		set_task(0.3, "task_show_menu", id)
-}
-
-public task_show_menu(id)
-{
-	show_menu_armas(id)
+		set_task(0.5, "show_menu_armas", id)
 }
 
 public cmd_armas(id)
@@ -75,9 +71,15 @@ public cmd_armas(id)
 
 public show_menu_armas(id)
 {
-	if (!is_user_alive(id))
+	if (!is_user_connected(id) || !is_user_alive(id))
 	{
 		client_print(id, print_chat, "[eXe] Tenes que estar vivo para elegir armas.")
+		return PLUGIN_HANDLED
+	}
+
+	if (g_bUsado[id])
+	{
+		client_print(id, print_chat, "[eXe] Ya has elegido armas esta ronda.")
 		return PLUGIN_HANDLED
 	}
 
@@ -98,43 +100,71 @@ public menu_armas_handler(id, menu, item)
 		return PLUGIN_HANDLED
 	}
 
-	if (g_bUsado[id])
+	if (!is_user_alive(id) || g_bUsado[id] || item < 0 || item >= sizeof(gCombos))
 	{
-		client_print(id, print_chat, "[eXe] Solo podes elegir armas una vez por ronda.")
 		menu_destroy(menu)
 		return PLUGIN_HANDLED
 	}
 
-	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
+	g_iComboSelected[id] = item
+	
+	// Verificar si tiene C4 antes de eliminar armas
+	new weapons[32], num_weapons, i, has_c4 = 0
+	get_user_weapons(id, weapons, num_weapons)
+	
+	for (i = 0; i < num_weapons; i++)
 	{
-		new bHasC4 = user_has_weapon(id, CSW_C4)
-		new c4ent = -1
-
-		if (bHasC4)
+		if (weapons[i] == CSW_C4)
 		{
-			c4ent = fm_find_ent_by_owner(-1, "weapon_c4", id)
-			if (c4ent > 0 && pev_valid(c4ent))
-				set_pev(c4ent, pev_owner, 0)
+			has_c4 = 1
+			break
 		}
-
-		strip_user_weapons(id)
-		give_item(id, "weapon_knife")
-
-		give_item(id, gCombos[item][WC_W1])
-		give_item(id, gCombos[item][WC_W2])
-
-		if (c4ent > 0 && pev_valid(c4ent))
-		{
-			set_pev(c4ent, pev_owner, id)
-		}
-
-		cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
-		cs_set_user_bpammo(id, gCombos[item][WC_CSW2], gCombos[item][WC_Ammo2])
-
-		g_bUsado[id] = true
-		client_print(id, print_chat, "[eXe] Armas: %s", gCombos[item][WC_Name])
 	}
+	
+	// Eliminar todas las armas
+	strip_user_weapons(id)
+	
+	// Restaurar C4 y cuchillo
+	if (has_c4)
+		give_item(id, "weapon_c4")
+	
+	give_item(id, "weapon_knife")
+	
+	set_task(0.05, "task_give_w1", id)
+	set_task(0.1, "task_give_w2", id)
+	set_task(0.15, "task_set_ammo", id)
+
+	g_bUsado[id] = true
+	client_print(id, print_chat, "[eXe] Armas: %s", gCombos[item][WC_Name])
 
 	menu_destroy(menu)
 	return PLUGIN_HANDLED
+}
+
+public task_give_w1(id)
+{
+	if (!is_user_alive(id))
+		return
+
+	new item = g_iComboSelected[id]
+	give_item(id, gCombos[item][WC_W1])
+}
+
+public task_give_w2(id)
+{
+	if (!is_user_alive(id))
+		return
+
+	new item = g_iComboSelected[id]
+	give_item(id, gCombos[item][WC_W2])
+}
+
+public task_set_ammo(id)
+{
+	if (!is_user_alive(id))
+		return
+
+	new item = g_iComboSelected[id]
+	cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
+	cs_set_user_bpammo(id, gCombos[item][WC_CSW2], gCombos[item][WC_Ammo2])
 }
