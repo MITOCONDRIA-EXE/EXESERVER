@@ -1,7 +1,6 @@
 #include <amxmodx>
 #include <cstrike>
 #include <fakemeta>
-#include <fakemeta_util>
 #include <hamsandwich>
 #include <nvault>
 
@@ -269,7 +268,7 @@ public skin_menu_pick(id, menu, item, type)
 		return PLUGIN_HANDLED
 	}
 
-	if (type == 4 && selected == 11 && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
+	if (type == 4 && selected == KN_MAX && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
 	{
 		client_print(id, print_chat, "[eXe] Violet es solo para VIPs!")
 		menu_destroy(menu)
@@ -330,7 +329,7 @@ public skin_menu_pick(id, menu, item, type)
 
 public fw_Deploy_Ak(ent)
 {
-	new id = weapon_owner(ent, "weapon_ak47")
+	new id = weapon_owner(ent)
 	if (id && g_ak[id] > 0)
 		set_pev(id, pev_viewmodel2, gszAkModels[g_ak[id] - 1])
 	return HAM_IGNORED
@@ -338,7 +337,7 @@ public fw_Deploy_Ak(ent)
 
 public fw_Deploy_M4(ent)
 {
-	new id = weapon_owner(ent, "weapon_m4a1")
+	new id = weapon_owner(ent)
 	if (id && g_m4[id] > 0)
 		set_pev(id, pev_viewmodel2, gszM4Models[g_m4[id] - 1])
 	return HAM_IGNORED
@@ -346,7 +345,7 @@ public fw_Deploy_M4(ent)
 
 public fw_Deploy_Awp(ent)
 {
-	new id = weapon_owner(ent, "weapon_awp")
+	new id = weapon_owner(ent)
 	if (id && g_awp[id] > 0)
 		set_pev(id, pev_viewmodel2, gszAwpModels[g_awp[id] - 1])
 	return HAM_IGNORED
@@ -354,7 +353,7 @@ public fw_Deploy_Awp(ent)
 
 public fw_Deploy_Dg(ent)
 {
-	new id = weapon_owner(ent, "weapon_deagle")
+	new id = weapon_owner(ent)
 	if (id && g_dg[id] > 0)
 		set_pev(id, pev_viewmodel2, gszDgModels[g_dg[id] - 1])
 	return HAM_IGNORED
@@ -362,22 +361,17 @@ public fw_Deploy_Dg(ent)
 
 public fw_Deploy_Kn(ent)
 {
-	new id = weapon_owner(ent, "weapon_knife")
+	new id = weapon_owner(ent)
 	if (id && g_kn[id] > 0)
 		set_pev(id, pev_viewmodel2, gszKnModels[g_kn[id] - 1])
 	return HAM_IGNORED
 }
 
-stock weapon_owner(const ent, const classname[])
+stock weapon_owner(const ent)
 {
-	new id
-
-	for (id = 1; id <= MaxClients; id++)
-	{
-		if (is_user_alive(id) && fm_find_ent_by_owner(-1, classname, id) == ent)
-			return id
-	}
-
+	new owner = pev(ent, pev_owner)
+	if (owner > 0 && owner <= 32 && is_user_connected(owner))
+		return owner
 	return 0
 }
 
@@ -394,26 +388,31 @@ stock apply_current(id, type)
 		{
 			if (wpn == CSW_AK47)
 				set_pev(id, pev_viewmodel2, g_ak[id] > 0 ? gszAkModels[g_ak[id] - 1] : "models/v_ak47.mdl")
+			return
 		}
 		case 1:
 		{
 			if (wpn == CSW_M4A1)
 				set_pev(id, pev_viewmodel2, g_m4[id] > 0 ? gszM4Models[g_m4[id] - 1] : "models/v_m4a1.mdl")
+			return
 		}
 		case 2:
 		{
 			if (wpn == CSW_AWP)
 				set_pev(id, pev_viewmodel2, g_awp[id] > 0 ? gszAwpModels[g_awp[id] - 1] : "models/v_awp.mdl")
+			return
 		}
 		case 3:
 		{
 			if (wpn == CSW_DEAGLE)
 				set_pev(id, pev_viewmodel2, g_dg[id] > 0 ? gszDgModels[g_dg[id] - 1] : "models/v_deagle.mdl")
+			return
 		}
 		case 4:
 		{
 			if (wpn == CSW_KNIFE)
 				set_pev(id, pev_viewmodel2, g_kn[id] > 0 ? gszKnModels[g_kn[id] - 1] : "models/v_knife.mdl")
+			return
 		}
 	}
 }
