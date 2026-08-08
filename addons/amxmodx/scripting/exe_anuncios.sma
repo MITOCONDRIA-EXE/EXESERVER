@@ -5,7 +5,7 @@
 new const g_Mensajes[][] = {
     "^4[eXe]^1 Escribi ^3/armas^1 para abrir el ^3menu de armas.^1",
     "^4[eXe]^1 Escribi ^3/rank^1 y ^3/top15^1 para ver ^3tus estadisticas.^1",
-    "^4[eXe]^1 Consegui tu ^4VIP^1 por ^3$2000ARS^1.",
+    "^4[eXe]^1 Consegui tu ^4VIP^1 por ^32000$ ARS^1.",
     "^4[eXe] WhatsApp:^1 ^3https://chat.whatsapp.com/IwmVjqkYABX9G1epKXZhHI",
     "^4[eXe] Unite a nuestro Discord:^1 ^3discord.gg/BHHX6jAfpc"
 };

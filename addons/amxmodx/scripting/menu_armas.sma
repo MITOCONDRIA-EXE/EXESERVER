@@ -108,6 +108,14 @@ public menu_armas_handler(id, menu, item)
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
 		new bHasC4 = user_has_weapon(id, CSW_C4)
+		new c4ent = -1
+
+		if (bHasC4)
+		{
+			c4ent = fm_find_ent_by_owner(-1, "weapon_c4", id)
+			if (c4ent > 0 && pev_valid(c4ent))
+				set_pev(c4ent, pev_owner, 0)
+		}
 
 		strip_user_weapons(id)
 		give_item(id, "weapon_knife")
@@ -115,14 +123,9 @@ public menu_armas_handler(id, menu, item)
 		give_item(id, gCombos[item][WC_W1])
 		give_item(id, gCombos[item][WC_W2])
 
-		if (bHasC4)
+		if (c4ent > 0 && pev_valid(c4ent))
 		{
-			give_item(id, "weapon_c4")
-			new c4ent = fm_find_ent_by_owner(-1, "weapon_c4", id)
-			if (c4ent > 0 && pev_valid(c4ent))
-			{
-				ExecuteHamB(Ham_Item_Deploy, c4ent)
-			}
+			set_pev(c4ent, pev_owner, id)
 		}
 
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
