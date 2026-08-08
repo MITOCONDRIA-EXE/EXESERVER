@@ -33,5 +33,5 @@ public check_top10(id)
 	get_user_name(id, szName, charsmax(szName))
 
 	client_print_color(0, print_team_default, "^4[eXe]^1 Entro ^3%s^1 (TOP #%d) al servidor!", szName, iRank)
-	client_cmd(0, "spk vox/hello")
+	client_cmd(0, "spk AQS/godlike")
 }
