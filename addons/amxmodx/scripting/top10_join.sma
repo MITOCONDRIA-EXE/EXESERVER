@@ -20,7 +20,7 @@ public client_putinserver(id)
 	if (is_user_bot(id))
 		return
 
-	set_task(10.0, "check_top10", id)
+	set_task(4.0, "check_top10", id)
 }
 
 public check_top10(id)
