@@ -18,19 +18,19 @@ new const g_szRanks[][] = {
 	"Plata III",
 	"Plata IV",
 	"Plata Elite",
-	"Gran Maestro Plata",
 	"Oro Nova I",
 	"Oro Nova II",
 	"Oro Nova III",
-	"Gran Maestro Oro Nova",
-	"Guardian Maestro I",
-	"Guardian Maestro II",
-	"Guardian Maestro Elite",
-	"Guardian Maestro Distinguido",
+	"Maestro Guardian I",
+	"Maestro Guardian II",
+	"Maestro Guardian X",
+	"Sheriff",
+	"Aguila",
 	"Aguila Legendaria",
-	"Gran Maestro Aguila Legendaria",
-	"Supremo Maestro de Primera Clase",
-	"Elite Global"
+	"Supreme",
+	"Global Elite ",
+	"Legendary",
+	".eXe"
 }
 
 new const g_iThresholds[] = {
@@ -49,9 +49,9 @@ new const g_iThresholds[] = {
 	1600,
 	1900,
 	2200,
-	2600,
 	3000,
-	3500
+	3500,
+	6000
 }
 
 get_rank_name(kills, szRank[], len)
