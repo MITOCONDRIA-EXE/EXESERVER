@@ -165,8 +165,7 @@ public apply_skin(id)
 		return
 	}
 
-	set_user_info(id, "model", g_Skins[idx][SkinModel])
-	cs_reset_user_model(id)
+	cs_set_user_model(id, g_Skins[idx][SkinModel])
 }
 
 save_skin(id)
