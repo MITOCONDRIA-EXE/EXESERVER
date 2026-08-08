@@ -105,11 +105,15 @@ public menu_armas_handler(id, menu, item)
 
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
+		new bHasC4 = user_has_weapon(id, CSW_C4)
+
 		strip_user_weapons(id)
 		give_item(id, "weapon_knife")
 
 		give_item(id, gCombos[item][WC_W1])
 		give_item(id, gCombos[item][WC_W2])
+
+		if (bHasC4) give_item(id, "weapon_c4")
 
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW2], gCombos[item][WC_Ammo2])
