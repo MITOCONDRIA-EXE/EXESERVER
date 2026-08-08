@@ -2,6 +2,7 @@
 #include <cstrike>
 #include <fun>
 #include <fakemeta>
+#include <fakemeta_util>
 #include <hamsandwich>
 
 new bool:g_bAutoMenu[33]
@@ -106,9 +107,23 @@ public menu_armas_handler(id, menu, item)
 
 	if (is_user_alive(id) && item >= 0 && item < sizeof(gCombos))
 	{
-		strip_firearms(id)
+		new bHasC4 = user_has_weapon(id, CSW_C4)
+
+		strip_user_weapons(id)
+		give_item(id, "weapon_knife")
+
 		give_item(id, gCombos[item][WC_W1])
 		give_item(id, gCombos[item][WC_W2])
+
+		if (bHasC4)
+		{
+			give_item(id, "weapon_c4")
+			new c4ent = fm_find_ent_by_owner(-1, "weapon_c4", id)
+			if (c4ent > 0 && pev_valid(c4ent))
+			{
+				ExecuteHamB(Ham_Item_Deploy, c4ent)
+			}
+		}
 
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW1], gCombos[item][WC_Ammo1])
 		cs_set_user_bpammo(id, gCombos[item][WC_CSW2], gCombos[item][WC_Ammo2])
@@ -119,30 +134,4 @@ public menu_armas_handler(id, menu, item)
 
 	menu_destroy(menu)
 	return PLUGIN_HANDLED
-}
-
-strip_firearms(id)
-{
-	new weapons[32], num, szWpn[24]
-	get_user_weapons(id, weapons, num)
-
-	for (new i = 0; i < num; i++)
-	{
-		if (weapons[i] == CSW_KNIFE || weapons[i] == CSW_C4 ||
-			weapons[i] == CSW_HEGRENADE || weapons[i] == CSW_FLASHBANG || weapons[i] == CSW_SMOKEGRENADE)
-			continue
-
-		get_weaponname(weapons[i], szWpn, charsmax(szWpn))
-
-		new ent = FM_NULLENT
-		while ((ent = engfunc(EngFunc_FindEntityByString, ent, "classname", szWpn)))
-		{
-			if (pev(ent, pev_owner) == id)
-			{
-				ExecuteHamB(Ham_RemovePlayerItem, id, ent)
-				set_pev(ent, pev_flags, pev(ent, pev_flags) | FL_KILLME)
-				dllfunc(DLLFunc_Think, ent)
-			}
-		}
-	}
 }

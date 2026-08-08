@@ -1,6 +1,7 @@
 #include <amxmodx>
 #include <cstrike>
 #include <fakemeta>
+#include <fakemeta_util>
 #include <hamsandwich>
 #include <nvault>
 
@@ -329,7 +330,7 @@ public skin_menu_pick(id, menu, item, type)
 
 public fw_Deploy_Ak(ent)
 {
-	new id = weapon_owner(ent)
+	new id = weapon_owner(ent, "weapon_ak47")
 	if (id && g_ak[id] > 0)
 		set_pev(id, pev_viewmodel2, gszAkModels[g_ak[id] - 1])
 	return HAM_IGNORED
@@ -337,7 +338,7 @@ public fw_Deploy_Ak(ent)
 
 public fw_Deploy_M4(ent)
 {
-	new id = weapon_owner(ent)
+	new id = weapon_owner(ent, "weapon_m4a1")
 	if (id && g_m4[id] > 0)
 		set_pev(id, pev_viewmodel2, gszM4Models[g_m4[id] - 1])
 	return HAM_IGNORED
@@ -345,7 +346,7 @@ public fw_Deploy_M4(ent)
 
 public fw_Deploy_Awp(ent)
 {
-	new id = weapon_owner(ent)
+	new id = weapon_owner(ent, "weapon_awp")
 	if (id && g_awp[id] > 0)
 		set_pev(id, pev_viewmodel2, gszAwpModels[g_awp[id] - 1])
 	return HAM_IGNORED
@@ -353,7 +354,7 @@ public fw_Deploy_Awp(ent)
 
 public fw_Deploy_Dg(ent)
 {
-	new id = weapon_owner(ent)
+	new id = weapon_owner(ent, "weapon_deagle")
 	if (id && g_dg[id] > 0)
 		set_pev(id, pev_viewmodel2, gszDgModels[g_dg[id] - 1])
 	return HAM_IGNORED
@@ -361,17 +362,22 @@ public fw_Deploy_Dg(ent)
 
 public fw_Deploy_Kn(ent)
 {
-	new id = weapon_owner(ent)
+	new id = weapon_owner(ent, "weapon_knife")
 	if (id && g_kn[id] > 0)
 		set_pev(id, pev_viewmodel2, gszKnModels[g_kn[id] - 1])
 	return HAM_IGNORED
 }
 
-stock weapon_owner(const ent)
+stock weapon_owner(const ent, const classname[])
 {
-	new owner = pev(ent, pev_owner)
-	if (owner > 0 && owner <= 32 && is_user_connected(owner))
-		return owner
+	new id
+
+	for (id = 1; id <= MaxClients; id++)
+	{
+		if (is_user_alive(id) && fm_find_ent_by_owner(-1, classname, id) == ent)
+			return id
+	}
+
 	return 0
 }
 
