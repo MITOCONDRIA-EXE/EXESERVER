@@ -37,6 +37,6 @@ public check_top10(id)
 	new szName[32]
 	get_user_name(id, szName, charsmax(szName))
 
-	client_print_color(0, print_team_default, "^4[eXe]^1 Entro ^3%s^1 (TOP #%d) al servidor!", szName, iRank)
+	client_print_color(0, print_team_default, "^4[eXe]^1 Entro ^3%s^1 ^4(TOP #%d)^1 al servidor!", szName, iRank)
 	client_cmd(0, "spk AQS/godlike.wav")
 }
