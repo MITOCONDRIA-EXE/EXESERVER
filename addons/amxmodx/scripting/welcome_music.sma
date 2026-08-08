@@ -66,7 +66,7 @@ public fw_PlayerPreThink(id)
 	if (!g_bPlayed[id])
 		return FMRES_IGNORED
 
-	if (cs_get_user_team(id) != CS_TEAM_UNASSIGNED && get_gametime() - g_fJoined[id] > get_pcvar_float(g_pMinTime))
+	if (cs_get_user_team(id) != CS_TEAM_UNASSIGNED)
 		cut_welcome(id)
 
 	return FMRES_IGNORED

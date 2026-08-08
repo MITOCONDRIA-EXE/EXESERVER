@@ -74,8 +74,8 @@ public reset_hud(id)
 
 		if (get_gametime() > g_fLecheroCooldown)
 		{
-			client_cmd(0, "spk misc/llego_el_lechero")
-			g_fLecheroCooldown = get_gametime() + 4.5
+			client_cmd(id, "spk misc/llego_el_lechero")
+			g_fLecheroCooldown = get_gametime() + 30.0
 		}
 	}
 }
@@ -93,6 +93,10 @@ public ham_AddPlayerItem_post(id, item)
 			return
 
 		g_bHasBomb[id] = false
+	}
+	else if (equal(classname, "weapon_hegrenade"))
+	{
+		client_cmd(id, "spk misc/llego_el_lechero")
 	}
 }
 
