@@ -22,7 +22,6 @@ new bool:g_bPlGive[33]
 new g_iLastWeapon[33]
 new Float:g_fThrowTime[33]
 new Float:g_fExplodeOrigin[33][3]
-new Float:g_fLecheroCooldown
 
 new g_iHealShapeSpr
 new g_iHealExplodeSpr
@@ -40,6 +39,7 @@ public plugin_init()
 	register_forward(FM_UpdateClientData, "fw_UpdateClientData")
 	register_touch("grenade", "*", "fw_GrenadeTouch")
 	register_logevent("round_start", 2, "1=World triggered", "2=Round_Start")
+	register_logevent("bomb_plant", 3, "2=Planted_The_Bomb")
 	register_event("ResetHUD", "reset_hud", "b")
 	RegisterHam(Ham_AddPlayerItem, "player", "ham_AddPlayerItem_post", 1)
 }
@@ -68,16 +68,10 @@ public reset_hud(id)
 	g_bRound[id] = true
 
 			if (get_pcvar_num(g_iGive))
-			{
-		give_bomb(id)
-		g_bHasBomb[id] = true
-
-		if (get_gametime() > g_fLecheroCooldown)
 		{
-			client_cmd(id, "spk misc/llego_el_lechero")
-			g_fLecheroCooldown = get_gametime() + 30.0
+			give_bomb(id)
+			g_bHasBomb[id] = true
 		}
-	}
 }
 
 public ham_AddPlayerItem_post(id, item)
@@ -96,7 +90,7 @@ public ham_AddPlayerItem_post(id, item)
 	}
 	else if (equal(classname, "weapon_hegrenade"))
 	{
-		client_cmd(id, "spk misc/llego_el_lechero")
+		client_cmd(id, "spk misc/peluca")
 	}
 }
 
@@ -126,10 +120,16 @@ public plugin_precache()
 	precache_model(VIEW_BOMB)
 	precache_model(WORLD_BOMB)
 	precache_sound("misc/llego_el_lechero.wav")
+	precache_sound("misc/peluca.wav")
 	precache_sound(HEAL_SOUND)
 	g_iHealShapeSpr = precache_model("sprites/reapi_healthnade/heal_shape.spr")
 	g_iHealExplodeSpr = precache_model("sprites/reapi_healthnade/heal_explode.spr")
 	g_iGlowSpr = precache_model("sprites/glow01.spr")
+}
+
+public bomb_plant()
+{
+	client_cmd(0, "spk misc/llego_el_lechero")
 }
 
 public client_disconnected(id)
