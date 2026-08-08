@@ -5,7 +5,7 @@
 #include <cstrike>
 #include <engine>
 
-#define MAX_SKINS 8
+#define MAX_SKINS 5
 
 enum _:SkinData {
 	SkinName[32],
@@ -16,14 +16,11 @@ enum _:SkinData {
 }
 
 new const g_Skins[MAX_SKINS][SkinData] = {
-	{ "Osama Bin Laden", "leet_osama",     1, ADMIN_RESERVATION,  "(VIP TT)"     },
-	{ "COD4 Guerilla",   "guerilla_cod4",  1, ADMIN_RESERVATION,  "(VIP TT)"     },
-	{ "Alfa Antiterror", "urban_alfa",     2, ADMIN_RESERVATION,  "(VIP CT)"     },
 	{ "Splinter Cell",   "gign_splin",     2, ADMIN_RESERVATION,  "(VIP CT)"     },
-	{ "V de Vendetta",   "venom",          1, ADMIN_BAN,          "(Admin TT)"   },
-	{ "Agent Smith",     "urban_smith",    1, ADMIN_BAN,          "(Admin TT)"   },
-	{ "Morfeo",          "gign_morfeo",    2, ADMIN_BAN,          "(Admin CT)"   },
-	{ "Neo Matrix",      "urban_neo",      2, ADMIN_BAN,          "(Admin CT)"   }
+	{ "V de Vendetta",   "venom",          1, ADMIN_RESERVATION,  "(VIP TT)"     },
+	{ "Agent Smith",     "urban_smith",    1, ADMIN_RCON,         "(Owner TT)"   },
+	{ "Morfeo",          "gign_morfeo",    2, ADMIN_RESERVATION,  "(VIP CT)"     },
+	{ "Neo Matrix",      "urban_neo",      2, ADMIN_RCON,         "(Owner CT)"   }
 }
 
 new g_iSelected[33]
@@ -111,8 +108,15 @@ public menu_handler(id, menu, item)
 
 		if (!(flags & g_Skins[item][SkinFlags]) && !(flags & ADMIN_BAN))
 		{
-			client_print(id, print_chat, "[eXe] Esta skin requiere ser %s",
-				g_Skins[item][SkinFlags] == ADMIN_BAN ? "Admin" : "VIP")
+			new szRank[16]
+			if (g_Skins[item][SkinFlags] == ADMIN_RCON)
+				copy(szRank, charsmax(szRank), "Owner+")
+			else if (g_Skins[item][SkinFlags] == ADMIN_BAN)
+				copy(szRank, charsmax(szRank), "Admin")
+			else
+				copy(szRank, charsmax(szRank), "VIP")
+
+			client_print(id, print_chat, "[eXe] Esta skin requiere ser %s", szRank)
 			menu_destroy(menu)
 			return PLUGIN_HANDLED
 		}

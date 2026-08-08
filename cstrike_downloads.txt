@@ -1,10 +1,9 @@
 sound/misc/llego_el_lechero.wav
 sound/misc/aa.wav
-sound/misc/aa.wav
+sound/misc/sape.wav
 models/v_smokegrenade.mdl
 models/w_smokegrenade.mdl
 models/p_smokegrenade.mdl
-sound/misc/sape.wav
 models/reapi_healthnade/v_botiquin.mdl
 models/reapi_healthnade/v_healthnade.mdl
 models/reapi_healthnade/w_healthnade.mdl
@@ -23,15 +22,6 @@ models/player/gign_morfeo/gign_morfeo.mdl
 models/player/gign_morfeo/gign_morfeoT.mdl
 models/player/urban_neo/urban_neo.mdl
 models/player/urban_neo/urban_neoT.mdl
-models/player/leet_osama/leet_osama.mdl
-models/player/leet_osama/leet_osamaT.mdl
-models/player/leet_osama/leet_osamaTt.mdl
-models/player/guerilla_cod4/guerilla_cod4.mdl
-models/player/guerilla_cod4/guerilla_cod4T.mdl
-models/player/guerilla_cod4/guerilla_cod4Tt.mdl
-models/player/urban_alfa/urban_alfa.mdl
-models/player/urban_alfa/urban_alfaT.mdl
-models/player/urban_alfa/urban_alfaTt.mdl
 models/player/gign_splin/gign_splin.mdl
 models/player/gign_splin/gign_splinT.mdl
 sprites/blood.spr
