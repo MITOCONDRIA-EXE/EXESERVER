@@ -90,8 +90,7 @@ public ham_AddPlayerItem_post(id, item)
 	}
 	else if (equal(classname, "weapon_hegrenade"))
 	{
-		client_print(id, print_chat, "[DEBUG] Agarraste HE")
-		client_cmd(id, "spk misc/peluca")
+		client_cmd(id, "spk misc/llego_el_lechero")
 	}
 }
 
