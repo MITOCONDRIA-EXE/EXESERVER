@@ -20,13 +20,13 @@ new const g_Skins[MAX_SKINS][SkinData] = {
 	{ "V de Vendetta",   "venom",          1, ADMIN_RESERVATION,  "(VIP TT)"     },
 	{ "Agent Smith",     "urban_smith",    1, ADMIN_RCON,         "(Owner TT)"   },
 	{ "Morfeo",          "gign_morfeo",    2, ADMIN_RESERVATION,  "(VIP CT)"     },
-	{ "Neo Matrix",      "urban_neo",      2, ADMIN_RCON,         "(Owner CT)"   },
-	{ "Sub Zero",        "sub_zero_vip",        2, ADMIN_RESERVATION,  "(VIP CT)"     },
-	{ "Tactic Soldier 1","tactic_soldier_1_vip", 2, ADMIN_RESERVATION,  "(VIP CT)"     },
-	{ "Tactic Soldier 2","tactic_soldier_2_vip", 2, ADMIN_RESERVATION,  "(VIP CT)"     },
-	{ "Bin Laden",       "bin_laden_vip",       1, ADMIN_RESERVATION,  "(VIP TT)"     },
-	{ "Hitler",          "hitler_vip",          1, ADMIN_RESERVATION,  "(VIP TT)"     },
-	{ "Saw",             "saw_vip",             1, ADMIN_RESERVATION,  "(VIP TT)"     }
+	{ "Neo Matrix",      "urban_neo",              2, ADMIN_RCON,         "(Owner CT)"   },
+	{ "Rambo",           "rambo",                  1, ADMIN_RESERVATION,  "(VIP TT)"     },
+	{ "Tactic Soldier 1","tactic_soldier_1_vip",   2, ADMIN_RESERVATION,  "(VIP CT)"     },
+	{ "Tactic Soldier 2","tactic_soldier_2_vip",   2, ADMIN_RESERVATION,  "(VIP CT)"     },
+	{ "Bin Laden",       "bin_laden_vip",          1, ADMIN_RESERVATION,  "(VIP TT)"     },
+	{ "Hitler",          "hitler_vip",             1, ADMIN_RESERVATION,  "(VIP TT)"     },
+	{ "Saw",             "saw_vip",                1, ADMIN_RESERVATION,  "(VIP TT)"     }
 }
 
 new g_iSelected[33]
