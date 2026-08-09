@@ -11,8 +11,8 @@ new g_pRadius
 new g_iGive
 
 new const CLASS_BOMB[] = "bomba_vida"
-new const VIEW_BOMB[] = "models/bomba_vida/v_bomba.mdl"
-new const WORLD_BOMB[] = "models/bomba_vida/w_bomba.mdl"
+new const VIEW_BOMB[] = "models/bomba_vida1/v_bomba1.mdl"
+new const WORLD_BOMB[] = "models/bomba_vida1/w_bomba1.mdl"
 new const HEAL_SOUND[] = "weapons/reapi_healthnade/heal.wav"
 
 new bool:g_bHasBomb[33]
