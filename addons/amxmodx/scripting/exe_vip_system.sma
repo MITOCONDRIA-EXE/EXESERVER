@@ -973,6 +973,8 @@ writeVipToUsersIni(id)
         new line[256];
         while (fgets(file, line, charsmax(line)))
         {
+            stripReturn(line);
+
             if (containi(line, authid) != -1)
             {
                 fclose(file);
@@ -982,9 +984,15 @@ writeVipToUsersIni(id)
         fclose(file);
     }
 
-    new entry[256];
-    formatex(entry, charsmax(entry), "^"%s^" ^"^" ^"b^" ^"ce^"", authid);
-    write_file(userfile, entry, -1);
+    file = fopen(userfile, "at");
+    if (file)
+    {
+        new entry[256];
+        formatex(entry, charsmax(entry), "^"%s^" ^"^" ^"b^" ^"ce^"", authid);
+        fputs(file, entry);
+        fputs(file, "^n");
+        fclose(file);
+    }
 
     server_cmd("amx_reloadadmins");
 }
@@ -1023,6 +1031,8 @@ removeVipFromUsersIni(id)
     new line[256];
     while (fgets(file, line, charsmax(line)))
     {
+        stripReturn(line);
+
         if (containi(line, authid) == -1)
         {
             fputs(temp, line);
@@ -1037,4 +1047,11 @@ removeVipFromUsersIni(id)
     rename_file(tempfile, userfile, 1);
 
     server_cmd("amx_reloadadmins");
+}
+
+stripReturn(line[])
+{
+    new len = strlen(line);
+    if (len > 0 && line[len - 1] == '^r')
+        line[len - 1] = EOS;
 }
