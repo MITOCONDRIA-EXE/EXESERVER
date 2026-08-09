@@ -46,19 +46,6 @@ public plugin_init()
 
 public fw_UpdateClientData(id, sendweapons, cd_handle)
 {
-	if (!is_user_alive(id))
-		return FMRES_IGNORED
-
-	if (get_user_weapon(id) == CSW_SMOKEGRENADE && g_bHasBomb[id])
-	{
-	static iModelIndex
-	if (!iModelIndex)
-		iModelIndex = engfunc(EngFunc_ModelIndex, VIEW_BOMB)
-
-		set_cd(cd_handle, CD_ViewModel, iModelIndex)
-		return FMRES_HANDLED
-	}
-
 	return FMRES_IGNORED
 }
 
@@ -249,8 +236,8 @@ public fw_PlayerPreThink(id)
 		{
 			if (g_bHasBomb[id])
 			{
-				set_pev(iWeapon, pev_viewmodel2, VIEW_BOMB)
-				set_pev(iWeapon, pev_weaponmodel2, WORLD_BOMB)
+				set_pev(id, pev_viewmodel2, VIEW_BOMB)
+				set_pev(id, pev_weaponmodel2, WORLD_BOMB)
 
 				new Float:fGreen[3] = {0.0, 255.0, 0.0}
 				set_pev(iWeapon, pev_renderfx, kRenderFxNone)
