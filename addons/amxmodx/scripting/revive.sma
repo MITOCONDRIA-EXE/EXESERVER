@@ -2,8 +2,8 @@
 #include <fakemeta>
 #include <cstrike>
 #include <hamsandwich>
-#include <hlsdk_const>
-#include <message_const>
+#include <reapi>
+#include <xs>
 
 #define REVIVE_TIME 4.0
 #define PLANT_TIME 1.0
@@ -22,7 +22,8 @@ new Float:g_fDeathOrigin[33][3]
 
 new g_iTarget[33]
 new Float:g_fHold[33]
-new Float:g_fLastThink[33]
+
+new g_iHudSync
 
 new g_iExplosionSpr
 
@@ -34,8 +35,21 @@ public plugin_precache()
 
 public plugin_init()
 {
-	register_plugin("Revive Con E", "1.0", "MITO")
+	register_plugin("Revive Con E", "2.0", "MITO")
+
+	g_iHudSync = CreateHudSyncObj()
+
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink")
+	register_event("HLTV", "event_round_start", "a", "1=0", "2=0")
+}
+
+public event_round_start()
+{
+	for (new id = 1; id <= get_maxplayers(); id++)
+	{
+		g_iTarget[id] = 0
+		g_fHold[id] = 0.0
+	}
 }
 
 public client_disconnected(id)
@@ -55,11 +69,11 @@ public client_death(killer, victim, wpnindex, hitplace, TK)
 	g_bTrapped[victim] = false
 	g_iTrapOwner[victim] = 0
 
-	g_iTarget[killer] = 0
-	g_fHold[killer] = 0.0
+	g_iTarget[victim] = 0
+	g_fHold[victim] = 0.0
 }
 
-public clear_corpse(id)
+stock clear_corpse(id)
 {
 	g_bCorpse[id] = false
 	g_bTrapped[id] = false
@@ -76,46 +90,19 @@ public fw_PlayerPreThink(id)
 	if (!is_user_alive(id))
 		return FMRES_IGNORED
 
-	new Float:fNow = get_gametime()
-	new Float:fDt = fNow - g_fLastThink[id]
-	g_fLastThink[id] = fNow
-
-	if (fDt <= 0.0 || fDt > 0.5)
-		fDt = 0.1
-
-	for (new i = 1; i <= 32; i++)
+	new buttons = pev(id, pev_button)
+	if (!(buttons & IN_USE))
 	{
-		if (g_bCorpse[i] && is_user_alive(i))
-			clear_corpse(i)
+		g_iTarget[id] = 0
+		g_fHold[id] = 0.0
+		return FMRES_IGNORED
 	}
 
-	new Float:po[3]
-	pev(id, pev_origin, po)
-
-	new target = 0
-	new Float:best = REVIVE_RANGE
-
-	for (new i = 1; i <= 32; i++)
+	new target = GetAimCorpse(id)
+	if (!target)
 	{
-		if (!g_bCorpse[i] || i == id)
-			continue
-
-		new Float:d = get_distance_f(po, g_fDeathOrigin[i])
-		if (d < best)
-		{
-			best = d
-			target = i
-		}
-	}
-
-	if (!target || !(pev(id, pev_button) & IN_USE))
-	{
-		if (g_iTarget[id] == target)
-		{
-			g_iTarget[id] = 0
-			g_fHold[id] = 0.0
-		}
-
+		g_iTarget[id] = 0
+		g_fHold[id] = 0.0
 		return FMRES_IGNORED
 	}
 
@@ -124,6 +111,14 @@ public fw_PlayerPreThink(id)
 		g_iTarget[id] = target
 		g_fHold[id] = 0.0
 	}
+
+	static Float:fLastPT[33]
+	new Float:fNow = get_gametime()
+	new Float:fDt = fNow - fLastPT[id]
+	fLastPT[id] = fNow
+
+	if (fDt <= 0.0 || fDt > 0.5)
+		fDt = 0.1
 
 	g_fHold[id] += fDt
 
@@ -150,6 +145,44 @@ public fw_PlayerPreThink(id)
 	return FMRES_IGNORED
 }
 
+stock GetAimCorpse(id)
+{
+	new Float:origin[3], Float:aimDir[3], Float:viewOfs[3]
+	pev(id, pev_origin, origin)
+	pev(id, pev_view_ofs, viewOfs)
+	xs_vec_add(origin, viewOfs, origin)
+	velocity_by_aim(id, 9999, aimDir)
+	xs_vec_normalize(aimDir, aimDir)
+
+	new closestTarget
+	new Float:closestDist = REVIVE_RANGE
+
+	for (new i = 1; i <= get_maxplayers(); i++)
+	{
+		if (!g_bCorpse[i] || i == id)
+			continue
+
+		new Float:tOrigin[3]
+		pev(i, pev_origin, tOrigin)
+
+		new Float:dist = get_distance_f(origin, tOrigin)
+		if (dist > REVIVE_RANGE)
+			continue
+
+		new Float:vecToTarget[3]
+		xs_vec_sub(tOrigin, origin, vecToTarget)
+		xs_vec_normalize(vecToTarget, vecToTarget)
+
+		if (xs_vec_dot(vecToTarget, aimDir) > 0.7 && dist < closestDist)
+		{
+			closestDist = dist
+			closestTarget = i
+		}
+	}
+
+	return closestTarget
+}
+
 public do_revive(id, target)
 {
 	new name[32], tname[32]
@@ -159,11 +192,17 @@ public do_revive(id, target)
 	g_iTarget[id] = 0
 	g_fHold[id] = 0.0
 
-	set_pev(target, pev_deadflag, DEAD_RESPAWNABLE)
-	dllfunc(DLLFunc_Spawn, target)
+	new Float:origin[3]
+	pev(id, pev_origin, origin)
+	origin[2] += 30.0
+
+	rg_round_respawn(target)
 
 	if (is_user_alive(target))
-		engfunc(EngFunc_SetOrigin, target, g_fDeathOrigin[target])
+	{
+		engfunc(EngFunc_SetOrigin, target, origin)
+		set_pev(target, pev_origin, origin)
+	}
 
 	client_print(0, print_chat, "[eXe] %s revivio a %s!", name, tname)
 
@@ -185,7 +224,7 @@ public plant_trap(id, target)
 	new ent = engfunc(EngFunc_CreateNamedEntity, engfunc(EngFunc_AllocString, "info_target"))
 	if (pev_valid(ent))
 	{
-		new Float:fColor[3] = {255.0, 0.0, 0.0}
+		new Float:color[3] = {255.0, 0.0, 0.0}
 
 		set_pev(ent, pev_classname, "bomba_trampa")
 		set_pev(ent, pev_model, TRAP_MODEL)
@@ -195,7 +234,7 @@ public plant_trap(id, target)
 		set_pev(ent, pev_renderfx, kRenderFxGlowShell)
 		set_pev(ent, pev_rendermode, kRenderNormal)
 		set_pev(ent, pev_renderamt, 255.0)
-		set_pev(ent, pev_rendercolor, fColor)
+		set_pev(ent, pev_rendercolor, color)
 
 		g_iTrapEnt[target] = ent
 	}
@@ -217,12 +256,10 @@ public trap_explode(target, holder)
 	write_coord(floatround(o[0]))
 	write_coord(floatround(o[1]))
 	write_coord(floatround(o[2]))
-	write_byte(30)
-	write_byte(10)
 	write_short(g_iExplosionSpr)
+	write_byte(30)
 	write_byte(15)
-	write_byte(0)
-	write_byte(0)
+	write_byte(TE_EXPLFLAG_NONE)
 	message_end()
 
 	new owner = g_iTrapOwner[target]
@@ -241,19 +278,17 @@ public trap_explode(target, holder)
 
 public show_revive_hud(id, target)
 {
-	new tname[32]
+	new tname[32], name[32]
 	get_user_name(target, tname, charsmax(tname))
-
-	new name[32]
 	get_user_name(id, name, charsmax(name))
 
 	new pct = floatround(g_fHold[id] / REVIVE_TIME * 100.0)
 
-	set_hudmessage(0, 255, 0, -1.0, 0.35, 0, 6.0, 0.1, 0.1, 0.1, -1)
-	show_hudmessage(id, "Reviviendo a %s... %d%%", tname, pct)
+	set_hudmessage(0, 255, 0, -1.0, 0.35, 0, 0.0, 0.1, 0.0, 0.0, -1)
+	ShowSyncHudMsg(id, g_iHudSync, "Reviviendo a %s... %d%%", tname, pct)
 
-	set_hudmessage(0, 255, 0, -1.0, 0.55, 0, 6.0, 0.1, 0.1, 0.1, -1)
-	show_hudmessage(target, "%s te esta reviviendo!", name)
+	set_hudmessage(0, 255, 0, -1.0, 0.55, 0, 0.0, 0.1, 0.0, 0.0, -1)
+	ShowSyncHudMsg(target, g_iHudSync, "%s te esta reviviendo!", name)
 }
 
 public show_plant_hud(id, target)
@@ -263,6 +298,6 @@ public show_plant_hud(id, target)
 
 	new pct = floatround(g_fHold[id] / PLANT_TIME * 100.0)
 
-	set_hudmessage(255, 80, 0, -1.0, 0.35, 0, 6.0, 0.1, 0.1, 0.1, -1)
-	show_hudmessage(id, "Plantando bomba en el cadaver de %s... %d%%", tname, pct)
+	set_hudmessage(255, 80, 0, -1.0, 0.35, 0, 0.0, 0.1, 0.0, 0.0, -1)
+	ShowSyncHudMsg(id, g_iHudSync, "Plantando bomba en el cadaver de %s... %d%%", tname, pct)
 }

@@ -190,13 +190,11 @@ stock PlantBomb(target, planter)
 	new Float:origin[3]
 	pev(target, pev_origin, origin)
 
-	engfunc(EngFunc_RemoveEntity, target)
-
 	message_begin(MSG_BROADCAST, SVC_TEMPENTITY)
 	write_byte(TE_EXPLOSION)
-	write_coord_f(origin[0])
-	write_coord_f(origin[1])
-	write_coord_f(origin[2])
+	write_coord(floatround(origin[0]))
+	write_coord(floatround(origin[1]))
+	write_coord(floatround(origin[2]))
 	write_short(engfunc(EngFunc_ModelIndex, "sprites/eexplo.spr"))
 	write_byte(30)
 	write_byte(15)
