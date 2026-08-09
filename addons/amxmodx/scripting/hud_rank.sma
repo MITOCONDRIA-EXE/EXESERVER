@@ -1,5 +1,6 @@
 #include <amxmodx>
 #include <csstats>
+#include <fakemeta>
 
 #define PLUGIN "HUD Rank Info"
 #define VERSION "1.0"
@@ -78,7 +79,7 @@ public plugin_init()
 	set_task(2.0, "ShowRankHUD", _, _, _, "b")
 }
 
-public ShowRankHUD()
+	public ShowRankHUD()
 {
 	static iPlayers[32]
 	static iNum
@@ -95,10 +96,22 @@ public ShowRankHUD()
 		if (is_user_bot(iPlayer))
 			continue
 
-		new iRankPos = get_user_stats(iPlayer, iStats, iHits)
+		new iTarget = iPlayer
+
+		if (!is_user_alive(iPlayer))
+		{
+			new iSpec = pev(iPlayer, pev_iuser2)
+			if (iSpec >= 1 && iSpec <= 32 && is_user_connected(iSpec))
+				iTarget = iSpec
+		}
+
+		new iRankPos = get_user_stats(iTarget, iStats, iHits)
 
 		new szRank[48]
 		get_rank_name(iStats[0], szRank, charsmax(szRank))
+
+		new szTargetName[32]
+		get_user_name(iTarget, szTargetName, charsmax(szTargetName))
 
 		set_hudmessage(
 			0,
@@ -137,7 +150,8 @@ public ShowRankHUD()
 		ShowSyncHudMsg(
 			iPlayer,
 			g_iSyncStats,
-			"Ranking: #%d / %d^nAsesinatos: %d^nMuertes: %d^nRango: %s",
+			"%s^nRanking: #%d / %d^nAsesinatos: %d^nMuertes: %d^nRango: %s",
+			szTargetName,
 			iRankPos,
 			get_statsnum(),
 			iStats[0],
