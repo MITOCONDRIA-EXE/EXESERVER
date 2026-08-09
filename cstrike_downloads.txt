@@ -37,3 +37,12 @@ models/skins/knife/v_lore_bayonet.mdl
 models/skins/knife/v_lore_karambit.mdl
 models/skins/knife/v_lore_m9.mdl
 models/skins/knife/v_ultraviolet_m9.mdl
+models/default/v_aug.mdl
+models/default/v_famas.mdl
+models/default/v_glock18.mdl
+models/default/v_m249.mdl
+models/default/v_mp5.mdl
+models/default/v_p90.mdl
+models/default/v_scout.mdl
+models/default/v_ump45.mdl
+models/default/v_usp.mdl
