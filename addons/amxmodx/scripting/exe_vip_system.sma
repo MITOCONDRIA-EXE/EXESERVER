@@ -22,10 +22,9 @@ new g_VipExpire[33];
 
 new const g_VipBenefits[][] =
 {
-    "Tag VIP",
-    "Modelos VIP",
-    "Skins de armas",
-    "Posibilidad de postularte a admin"
+    "Tag [VIP] en tu nombre",
+    "Skins de jugador  /skin",
+    "Skins de armas VIP  /ak /m4 /awp /dk /knife"
 };
 
 public plugin_init()
@@ -313,30 +312,25 @@ showVipMenu(id)
         formatex(
             item,
             charsmax(item),
-            "\wBeneficios VIP"
+            "\wTus beneficios VIP:"
         );
+
+        for (new i = 0; i < sizeof(g_VipBenefits); i++)
+        {
+            format(
+                item,
+                charsmax(item),
+                "%s^n\w- %s",
+                item,
+                g_VipBenefits[i]
+            );
+        }
 
         menu_additem(
             menu,
             item,
             "2"
         );
-
-        for (new i = 0; i < sizeof(g_VipBenefits); i++)
-        {
-            formatex(
-                item,
-                charsmax(item),
-                "\w- %s",
-                g_VipBenefits[i]
-            );
-
-            menu_additem(
-                menu,
-                item,
-                "3"
-            );
-        }
 
         menu_setprop(
             menu,
