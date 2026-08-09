@@ -361,10 +361,35 @@ showVipMenu(id)
 
     menu_addblank(menu);
 
+    formatex(
+        item,
+        charsmax(item),
+        "\wQue obtienes con VIP:"
+    );
+
+    for (new i = 0; i < sizeof(g_VipBenefits); i++)
+    {
+        format(
+            item,
+            charsmax(item),
+            "%s^n\w- %s",
+            item,
+            g_VipBenefits[i]
+        );
+    }
+
+    menu_additem(
+        menu,
+        item,
+        "2"
+    );
+
+    menu_addblank(menu);
+
     menu_additem(
         menu,
         "\wContacta con un admin para adquirirlo.",
-        "2"
+        "3"
     );
 
     menu_setprop(
