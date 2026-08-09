@@ -94,6 +94,20 @@ new const gszKnModels[KN_MAX][] = {
 	"models/skins/knife/v_violet.mdl"
 }
 
+#define DEF_MAX 9
+
+new const g_DefaultModels[DEF_MAX][] = {
+	"models/v_aug.mdl",
+	"models/v_famas.mdl",
+	"models/v_glock18.mdl",
+	"models/v_m249.mdl",
+	"models/v_mp5.mdl",
+	"models/v_p90.mdl",
+	"models/v_scout.mdl",
+	"models/v_ump45.mdl",
+	"models/v_usp.mdl"
+}
+
 new g_ak[33]
 new g_m4[33]
 new g_awp[33]
@@ -119,6 +133,9 @@ public plugin_precache()
 
 	for (i = 0; i < KN_MAX; i++)
 		precache_model(gszKnModels[i])
+
+	for (i = 0; i < DEF_MAX; i++)
+		precache_model(g_DefaultModels[i])
 }
 
 public plugin_init()
@@ -138,6 +155,16 @@ public plugin_init()
 	RegisterHam(Ham_Item_Deploy, "weapon_awp", "fw_Deploy_Awp", 1)
 	RegisterHam(Ham_Item_Deploy, "weapon_deagle", "fw_Deploy_Dg", 1)
 	RegisterHam(Ham_Item_Deploy, "weapon_knife", "fw_Deploy_Kn", 1)
+
+	RegisterHam(Ham_Item_Deploy, "weapon_aug", "fw_Deploy_Aug", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_famas", "fw_Deploy_Famas", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_glock18", "fw_Deploy_Glock", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_m249", "fw_Deploy_M249", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_mp5navy", "fw_Deploy_Mp5", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_p90", "fw_Deploy_P90", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_scout", "fw_Deploy_Scout", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_ump45", "fw_Deploy_Ump", 1)
+	RegisterHam(Ham_Item_Deploy, "weapon_usp", "fw_Deploy_Usp", 1)
 
 	g_vault = nvault_open("skins_vault")
 }
@@ -381,6 +408,78 @@ public fw_Deploy_Kn(ent)
 	new id = weapon_owner(ent, "weapon_knife")
 	if (id && g_kn[id] > 0)
 		set_pev(id, pev_viewmodel2, gszKnModels[g_kn[id] - 1])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_Aug(ent)
+{
+	new id = weapon_owner(ent, "weapon_aug")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[0])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_Famas(ent)
+{
+	new id = weapon_owner(ent, "weapon_famas")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[1])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_Glock(ent)
+{
+	new id = weapon_owner(ent, "weapon_glock18")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[2])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_M249(ent)
+{
+	new id = weapon_owner(ent, "weapon_m249")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[3])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_Mp5(ent)
+{
+	new id = weapon_owner(ent, "weapon_mp5navy")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[4])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_P90(ent)
+{
+	new id = weapon_owner(ent, "weapon_p90")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[5])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_Scout(ent)
+{
+	new id = weapon_owner(ent, "weapon_scout")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[6])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_Ump(ent)
+{
+	new id = weapon_owner(ent, "weapon_ump45")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[7])
+	return HAM_IGNORED
+}
+
+public fw_Deploy_Usp(ent)
+{
+	new id = weapon_owner(ent, "weapon_usp")
+	if (id)
+		set_pev(id, pev_viewmodel2, g_DefaultModels[8])
 	return HAM_IGNORED
 }
 
