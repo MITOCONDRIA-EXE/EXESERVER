@@ -387,7 +387,7 @@ public skin_menu_pick(id, menu, item, type)
 
 	if (skin_is_vip(type, selected) && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_KICK)))
 	{
-		client_print(id, print_chat, "[eXe] Esta skin es solo para VIPs!")
+		client_print(id, print_chat, "[eXe] Solicita VIP para usar esta skin!")
 		menu_destroy(menu)
 		return PLUGIN_HANDLED
 	}

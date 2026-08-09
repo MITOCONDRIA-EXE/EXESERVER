@@ -79,13 +79,9 @@ public event_spawn(id)
 public cmd_skin(id)
 {
 	new menu = menu_create("\yPlayer Skins\w:", "menu_handler")
-	new flags = get_user_flags(id)
 
 	for (new i = 0; i < MAX_SKINS; i++)
 	{
-		if (!(flags & g_Skins[i][SkinFlags]) && !(flags & ADMIN_KICK))
-			continue
-
 		new szItem[96]
 		new teamName[4]
 		copy(teamName, charsmax(teamName), g_Skins[i][SkinTeam] == 1 ? "TT" : "CT")
@@ -115,17 +111,9 @@ public menu_handler(id, menu, item)
 	{
 		new flags = get_user_flags(id)
 
-		if (!(flags & g_Skins[item][SkinFlags]) && !(flags & ADMIN_BAN))
+		if (!(flags & g_Skins[item][SkinFlags]) && !(flags & ADMIN_KICK))
 		{
-			new szRank[16]
-			if (g_Skins[item][SkinFlags] == ADMIN_RCON)
-				copy(szRank, charsmax(szRank), "Owner+")
-			else if (g_Skins[item][SkinFlags] == ADMIN_BAN)
-				copy(szRank, charsmax(szRank), "Admin")
-			else
-				copy(szRank, charsmax(szRank), "VIP")
-
-			client_print(id, print_chat, "[eXe] Esta skin requiere ser %s", szRank)
+			client_print(id, print_chat, "[eXe] Solicita VIP para usar esta skin!")
 			menu_destroy(menu)
 			return PLUGIN_HANDLED
 		}
@@ -171,7 +159,7 @@ public apply_skin(id)
 	}
 
 	new flags = get_user_flags(id)
-	if (!(flags & g_Skins[idx][SkinFlags]) && !(flags & ADMIN_BAN))
+	if (!(flags & g_Skins[idx][SkinFlags]) && !(flags & ADMIN_KICK))
 	{
 		g_iSelected[id] = 0
 		save_skin(id)
