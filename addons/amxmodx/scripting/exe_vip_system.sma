@@ -19,6 +19,7 @@ new Handle:g_SqlTuple;
 
 new bool:g_IsVip[33];
 new g_VipExpire[33];
+new g_VipKey[33][32];
 
 new const g_VipBenefits[][] =
 {
@@ -58,6 +59,7 @@ public client_putinserver(id)
 {
     g_IsVip[id] = false;
     g_VipExpire[id] = 0;
+    g_VipKey[id][0] = EOS;
 
     if (is_user_bot(id) || is_user_hltv(id))
     {
@@ -73,6 +75,7 @@ public client_disconnected(id)
 
     g_IsVip[id] = false;
     g_VipExpire[id] = 0;
+    g_VipKey[id][0] = EOS;
 }
 public taskLoadVip(id)
 {
@@ -114,7 +117,7 @@ initializeDatabase()
     formatex(
         query,
         charsmax(query),
-        "CREATE TABLE IF NOT EXISTS %s (authid TEXT PRIMARY KEY, expire INTEGER NOT NULL DEFAULT 0)",
+        "CREATE TABLE IF NOT EXISTS %s (authid TEXT PRIMARY KEY, expire INTEGER NOT NULL DEFAULT 0, vip_key TEXT DEFAULT '')",
         VIP_TABLE
     );
 
@@ -134,6 +137,13 @@ initializeDatabase()
     }
 
     SQL_FreeHandle(result);
+
+    formatex(query, charsmax(query),
+        "ALTER TABLE %s ADD COLUMN vip_key TEXT DEFAULT ''", VIP_TABLE);
+    result = SQL_PrepareQuery(connection, query);
+    SQL_Execute(result);
+    SQL_FreeHandle(result);
+
     SQL_FreeHandle(connection);
 
     log_amx("[VIP] Base de datos inicializada correctamente.");
@@ -156,7 +166,7 @@ loadVip(id)
     formatex(
         query,
         charsmax(query),
-        "SELECT expire FROM %s WHERE authid='%s'",
+        "SELECT expire, vip_key FROM %s WHERE authid='%s'",
         VIP_TABLE,
         authid
     );
@@ -203,6 +213,7 @@ public queryLoadVip(
 
     g_IsVip[id] = false;
     g_VipExpire[id] = 0;
+    g_VipKey[id][0] = EOS;
 
     if (SQL_NumResults(query) > 0)
     {
@@ -210,13 +221,14 @@ public queryLoadVip(
 
         g_VipExpire[id] = expire;
 
+        SQL_ReadResult(query, 1, g_VipKey[id], charsmax(g_VipKey[]));
+
         if (expire > get_systime())
         {
             g_IsVip[id] = true;
 
             set_user_flags(id, get_user_flags(id) | ADMIN_RESERVATION);
-
-            setVipTag(id);
+            writeVipToUsersIni(id);
 
             set_task(
                 3.0,
@@ -245,8 +257,9 @@ public taskShowVipWelcome(id)
     client_print_color(
         id,
         print_team_default,
-        "^4[eXe]^1 Tu ^3VIP^1 esta activo. Tiempo restante: ^3%s^1.",
-        remaining
+        "^4[eXe]^1 Tu ^3VIP^1 esta activo. Tiempo restante: ^3%s^1. ID: ^3%s",
+        remaining,
+        g_VipKey[id]
     );
 
     client_print_color(
@@ -271,7 +284,7 @@ public cmdVip(id)
 showVipMenu(id)
 {
     new menu = menu_create(
-        "VIP eXe",
+        "[eXe VIP]",
         "handleVipMenu"
     );
 
@@ -298,9 +311,10 @@ showVipMenu(id)
         formatex(
             item,
             charsmax(item),
-            "Estado: \yACTIVO^n\wVence: \y%s^n\wRestante: \y%s",
+            "Estado: \yACTIVO^n\wVence: \y%s^n\wRestante: \y%s^n\wID: \y%s",
             expireDate,
-            remaining
+            remaining,
+            g_VipKey[id]
         );
 
         menu_additem(
@@ -618,15 +632,22 @@ addVip(id, days)
 
     new newExpire = currentExpire + (days * 86400);
 
+    if (g_VipKey[id][0] == EOS)
+    {
+        new seed = newExpire + random_num(10000, 99999);
+        formatex(g_VipKey[id], charsmax(g_VipKey[]), "vip_%d", seed % 100000);
+    }
+
     new query[512];
 
     formatex(
         query,
         charsmax(query),
-        "INSERT OR REPLACE INTO %s (authid, expire) VALUES ('%s', %d)",
+        "INSERT OR REPLACE INTO %s (authid, expire, vip_key) VALUES ('%s', %d, '%s')",
         VIP_TABLE,
         authid,
-        newExpire
+        newExpire,
+        g_VipKey[id]
     );
 
     SQL_ThreadQuery(
@@ -639,8 +660,7 @@ addVip(id, days)
     g_IsVip[id] = true;
 
     set_user_flags(id, get_user_flags(id) | ADMIN_RESERVATION);
-
-    setVipTag(id);
+    writeVipToUsersIni(id);
 
     new remaining[128];
 
@@ -660,8 +680,9 @@ addVip(id, days)
     client_print_color(
         id,
         print_team_default,
-        "^4[eXe]^1 Tiempo restante: ^3%s^1.",
-        remaining
+        "^4[eXe]^1 Tiempo restante: ^3%s^1. ID: ^3%s",
+        remaining,
+        g_VipKey[id]
     );
 }
 
@@ -698,13 +719,14 @@ removeVip(id)
 
     g_IsVip[id] = false;
     g_VipExpire[id] = 0;
+    g_VipKey[id][0] = EOS;
 
     if (!(get_user_flags(id) & ADMIN_KICK))
     {
         set_user_flags(id, get_user_flags(id) & ~ADMIN_RESERVATION);
     }
 
-    removeVipTag(id);
+    removeVipFromUsersIni(id);
 
     client_print_color(
         id,
@@ -784,13 +806,14 @@ expireVip(id)
 
     g_IsVip[id] = false;
     g_VipExpire[id] = 0;
+    g_VipKey[id][0] = EOS;
 
     if (!(get_user_flags(id) & ADMIN_KICK))
     {
         set_user_flags(id, get_user_flags(id) & ~ADMIN_RESERVATION);
     }
 
-    removeVipTag(id);
+    removeVipFromUsersIni(id);
 
     client_print_color(
         id,
@@ -802,105 +825,6 @@ expireVip(id)
         id,
         print_team_default,
         "^4[eXe]^1 Contacta con un admin si queres renovarlo."
-    );
-}
-
-setVipTag(id)
-{
-    if (!is_user_connected(id))
-    {
-        return;
-    }
-
-    new name[32];
-
-    get_user_name(
-        id,
-        name,
-        charsmax(name)
-    );
-
-    if (containi(name, VIP_TAG) != -1)
-    {
-        return;
-    }
-
-    new newName[64];
-
-    formatex(
-        newName,
-        charsmax(newName),
-        "%s %s",
-        VIP_TAG,
-        name
-    );
-
-    set_user_info(
-        id,
-        "name",
-        newName
-    );
-}
-
-removeVipTag(id)
-{
-    if (!is_user_connected(id))
-    {
-        return;
-    }
-
-    new name[64];
-
-    get_user_name(
-        id,
-        name,
-        charsmax(name)
-    );
-
-    new cleanName[64];
-
-    removeVipPrefix(
-        name,
-        cleanName,
-        charsmax(cleanName)
-    );
-
-    if (!equal(name, cleanName))
-    {
-        set_user_info(
-            id,
-            "name",
-            cleanName
-        );
-    }
-}
-
-removeVipPrefix(
-    const name[],
-    output[],
-    outputLen
-)
-{
-    new prefixLen = strlen(VIP_TAG);
-
-    if (strlen(name) > prefixLen + 1)
-    {
-        if (equal(name, VIP_TAG, prefixLen))
-        {
-            copy(
-                output,
-                outputLen,
-                name[prefixLen + 1]
-            );
-
-            return;
-        }
-    }
-
-    copy(
-        output,
-        outputLen,
-        name
     );
 }
 
@@ -1027,4 +951,90 @@ findPlayerByName(const search[])
     }
 
     return 0;
+}
+
+writeVipToUsersIni(id)
+{
+    new authid[35];
+    get_user_authid(id, authid, charsmax(authid));
+
+    if (equal(authid, "STEAM_ID_PENDING") || equal(authid, "VALVE_ID_LAN"))
+        return;
+
+    new configsdir[128];
+    get_configsdir(configsdir, charsmax(configsdir));
+
+    new userfile[256];
+    formatex(userfile, charsmax(userfile), "%s/users.ini", configsdir);
+
+    new file = fopen(userfile, "rt");
+    if (file)
+    {
+        new line[256];
+        while (fgets(file, line, charsmax(line)))
+        {
+            if (containi(line, authid) != -1)
+            {
+                fclose(file);
+                return;
+            }
+        }
+        fclose(file);
+    }
+
+    new entry[256];
+    formatex(entry, charsmax(entry), "^"%s^" ^"^" ^"b^" ^"ce^"", authid);
+    write_file(userfile, entry, -1);
+
+    server_cmd("amx_reloadadmins");
+}
+
+removeVipFromUsersIni(id)
+{
+    if (get_user_flags(id) & ADMIN_KICK)
+        return;
+
+    new authid[35];
+    get_user_authid(id, authid, charsmax(authid));
+
+    if (equal(authid, "STEAM_ID_PENDING") || equal(authid, "VALVE_ID_LAN"))
+        return;
+
+    new configsdir[128];
+    get_configsdir(configsdir, charsmax(configsdir));
+
+    new userfile[256];
+    formatex(userfile, charsmax(userfile), "%s/users.ini", configsdir);
+
+    new tempfile[256];
+    formatex(tempfile, charsmax(tempfile), "%s/users_temp.ini", configsdir);
+
+    new file = fopen(userfile, "rt");
+    if (!file)
+        return;
+
+    new temp = fopen(tempfile, "wt");
+    if (!temp)
+    {
+        fclose(file);
+        return;
+    }
+
+    new line[256];
+    while (fgets(file, line, charsmax(line)))
+    {
+        if (containi(line, authid) == -1)
+        {
+            fputs(temp, line);
+            fputs(temp, "^n");
+        }
+    }
+
+    fclose(file);
+    fclose(temp);
+
+    delete_file(userfile);
+    rename_file(tempfile, userfile, 1);
+
+    server_cmd("amx_reloadadmins");
 }
