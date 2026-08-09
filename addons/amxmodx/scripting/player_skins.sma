@@ -22,10 +22,10 @@ new const g_Skins[MAX_SKINS][SkinData] = {
 	{ "Morfeo",          "gign_morfeo",    2, ADMIN_RESERVATION,  "(VIP CT)"     },
 	{ "Neo Matrix",      "urban_neo",              2, ADMIN_RCON,         "(Owner CT)"   },
 	{ "Rambo",                "rambo",                  1, ADMIN_RESERVATION,  "(VIP TT)"     },
-	{ "Tactical Black GIGN",  "tactical_black_gign",    2, ADMIN_BAN,          "(Admin CT)"   },
+	{ "Tactical Black GIGN",  "tactical_black_gign",    1, ADMIN_BAN,          "(Admin TT)"   },
 	{ "Tactical Black GSG9",  "tactical_black_gsg9",    2, ADMIN_BAN,          "(Admin CT)"   },
 	{ "Tactical Black SAS",   "tactical_black_sas",     2, ADMIN_BAN,          "(Admin CT)"   },
-	{ "Tactical Black Urban", "tactical_black_urban",   2, ADMIN_BAN,          "(Admin CT)"   }
+	{ "Tactical Black Urban", "tactical_black_urban",   1, ADMIN_BAN,          "(Admin TT)"   }
 }
 
 new g_iSelected[33]
