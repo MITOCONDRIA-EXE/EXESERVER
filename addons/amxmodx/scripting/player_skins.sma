@@ -83,7 +83,7 @@ public cmd_skin(id)
 
 	for (new i = 0; i < MAX_SKINS; i++)
 	{
-		if (!(flags & g_Skins[i][SkinFlags]) && !(flags & ADMIN_RCON))
+		if (!(flags & g_Skins[i][SkinFlags]) && !(flags & ADMIN_KICK))
 			continue
 
 		new szItem[96]
