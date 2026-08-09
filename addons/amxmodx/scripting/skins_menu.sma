@@ -5,14 +5,17 @@
 #include <hamsandwich>
 #include <nvault>
 
-#define AK_MAX 5
-#define M4_MAX 5
-#define AWP_MAX 5
-#define DG_MAX 5
-#define KN_MAX 23
+#define AK_MAX 16
+#define M4_MAX 23
+#define AWP_MAX 14
+#define DG_MAX 11
+#define KN_MAX 36
 
 new const gszAkNames[AK_MAX][] = {
-	"Bloody", "Violeta", "Blanca", "Golden", "Celeste"
+	"Bloody", "Violeta", "Blanca", "Golden", "Celeste",
+	"Astronaut (VIP)", "Bloodsport (VIP)", "Carbon Lines (VIP)", "Frontside Misty (VIP)",
+	"Furious Peacock (VIP)", "Graphics Light (VIP)", "Howl (VIP)", "Neon Revolution (VIP)",
+	"Polar Bear (VIP)", "Sticker (VIP)", "Tigerstrike (VIP)"
 }
 
 new const gszAkModels[AK_MAX][] = {
@@ -20,11 +23,27 @@ new const gszAkModels[AK_MAX][] = {
 	"models/skins/ak47/violeta.mdl",
 	"models/skins/ak47/blanca.mdl",
 	"models/skins/ak47/v_golden_ak47.mdl",
-	"models/skins/ak47/celeste.mdl"
+	"models/skins/ak47/celeste.mdl",
+	"models/skins/ak47/v_ak47_astronaut.mdl",
+	"models/skins/ak47/v_ak47_bloodsport.mdl",
+	"models/skins/ak47/v_ak47_carbon_lines.mdl",
+	"models/skins/ak47/v_ak47_frontside_misty.mdl",
+	"models/skins/ak47/v_ak47_furious_peacock.mdl",
+	"models/skins/ak47/v_ak47_graphics_light.mdl",
+	"models/skins/ak47/v_ak47_howl.mdl",
+	"models/skins/ak47/v_ak47_neon_revolution.mdl",
+	"models/skins/ak47/v_ak47_polar_bear.mdl",
+	"models/skins/ak47/v_ak47_sticker.mdl",
+	"models/skins/ak47/v_ak47_tigerstrike.mdl"
 }
 
 new const gszM4Names[M4_MAX][] = {
-	"Eagle", "Emperor", "Rainbow", "Sangrienta", "Lava"
+	"Eagle", "Emperor", "Rainbow", "Sangrienta", "Lava",
+	"Elite Build", "Green Neon", "Icarus Fell", "Water Elemental", "Wild Style",
+	"Asiimov (VIP)", "Blue Purple (VIP)", "Bush Master (VIP)", "Desolate Space (VIP)",
+	"Dragon King (VIP)", "Fade (VIP)", "Hot Lava (VIP)", "Howl V2 (VIP)",
+	"Hyper Beast (VIP)", "M4A4 Zul (VIP)", "Master Piece (VIP)", "Purple Blue (VIP)",
+	"VHS Error (VIP)"
 }
 
 new const gszM4Models[M4_MAX][] = {
@@ -32,11 +51,32 @@ new const gszM4Models[M4_MAX][] = {
 	"models/skins/m4a1/v_m4a1_emperor.mdl",
 	"models/skins/m4a1/v_m4a1_rainbow.mdl",
 	"models/skins/m4a1/sangrienta.mdl",
-	"models/skins/m4a1/v_m4a1_lava.mdl"
+	"models/skins/m4a1/v_m4a1_lava.mdl",
+	"models/skins/m4a1/v_m4a1_elite_build.mdl",
+	"models/skins/m4a1/v_m4a1_green_neon.mdl",
+	"models/skins/m4a1/v_m4a1_icarus_fell.mdl",
+	"models/skins/m4a1/v_m4a1_water_elemental.mdl",
+	"models/skins/m4a1/v_m4a1_wild_style.mdl",
+	"models/skins/m4a1/v_m4a1_asiimov.mdl",
+	"models/skins/m4a1/v_m4a1_blue_purple.mdl",
+	"models/skins/m4a1/v_m4a1_bush_master.mdl",
+	"models/skins/m4a1/v_m4a1_desolate_space.mdl",
+	"models/skins/m4a1/v_m4a1_dragon_king.mdl",
+	"models/skins/m4a1/v_m4a1_fade.mdl",
+	"models/skins/m4a1/v_m4a1_hot_lava.mdl",
+	"models/skins/m4a1/v_m4a1_howl_v2.mdl",
+	"models/skins/m4a1/v_m4a1_hyper_beast.mdl",
+	"models/skins/m4a1/v_m4a1_m4a4_zul.mdl",
+	"models/skins/m4a1/v_m4a1_master_piece.mdl",
+	"models/skins/m4a1/v_m4a1_purple_blue.mdl",
+	"models/skins/m4a1/v_m4a1_vhs_error.mdl"
 }
 
 new const gszAwpNames[AWP_MAX][] = {
-	"Hyper Blue", "Golden", "Ice", "Impulse", "Red Mechanic"
+	"Hyper Blue", "Golden", "Ice", "Impulse", "Red Mechanic",
+	"Artistic (VIP)", "Asiimov Fnatic (VIP)", "Cloud9 (VIP)", "Dragon Lore (VIP)",
+	"Fever Dream (VIP)", "Hyper Beast (VIP)", "Rave (VIP)", "Red Puzzle (VIP)",
+	"Sticker Sticker (VIP)"
 }
 
 new const gszAwpModels[AWP_MAX][] = {
@@ -44,11 +84,22 @@ new const gszAwpModels[AWP_MAX][] = {
 	"models/skins/awp/v_GoldenAWP.mdl",
 	"models/skins/awp/v_awp_iceice.mdl",
 	"models/skins/awp/v_awp_impulse.mdl",
-	"models/skins/awp/v_awp_red_mechanic.mdl"
+	"models/skins/awp/v_awp_red_mechanic.mdl",
+	"models/skins/awp/v_awp_artistic.mdl",
+	"models/skins/awp/v_awp_asiimov_fnatic.mdl",
+	"models/skins/awp/v_awp_cloud9.mdl",
+	"models/skins/awp/v_awp_dragon_lore.mdl",
+	"models/skins/awp/v_awp_fever_dream.mdl",
+	"models/skins/awp/v_awp_hyper_beast.mdl",
+	"models/skins/awp/v_awp_rave.mdl",
+	"models/skins/awp/v_awp_red_puzzle.mdl",
+	"models/skins/awp/v_awp_sticker_sticker.mdl"
 }
 
 new const gszDgNames[DG_MAX][] = {
-	"Golden", "Galaxy", "Gangsta", "Lightning", "Deagle 1"
+	"Golden", "Galaxy", "Gangsta", "Lightning", "Deagle 1",
+	"Code Red", "Dragon Lore DK", "Oxide Blaze",
+	"Blaze V2 (VIP)", "Hyper Beast DK (VIP)", "Kumicho Dragon (VIP)"
 }
 
 new const gszDgModels[DG_MAX][] = {
@@ -56,16 +107,25 @@ new const gszDgModels[DG_MAX][] = {
 	"models/skins/deagle/v_deagle_galaxy.mdl",
 	"models/skins/deagle/v_deagle_gangsta.mdl",
 	"models/skins/deagle/v_deagle_lightning.mdl",
-	"models/skins/deagle/v_deagle_1.mdl"
+	"models/skins/deagle/v_deagle_1.mdl",
+	"models/skins/deagle/v_deagle_code_red.mdl",
+	"models/skins/deagle/v_deagle_dragon_lore_dk.mdl",
+	"models/skins/deagle/v_deagle_oxide_blaze.mdl",
+	"models/skins/deagle/v_deagle_blaze_v2.mdl",
+	"models/skins/deagle/v_deagle_hyper_beast_dk.mdl",
+	"models/skins/deagle/v_deagle_kumicho_dragon.mdl"
 }
 
 new const gszKnNames[KN_MAX][] = {
 	"Combat", "Hacha", "Huntsman", "Dragon", "Daga Verde",
 	"Bayonet", "Kukri", "Bowie", "Stiletto", "Karambit",
+	"Frozen", "Grizzly", "Kz Tron Blue", "Kz Tron Green", "Kz Tron Orange",
 	"Abstr Karambit (VIP)", "Autotronic Bayonet (VIP)", "Autotronic Karambit (VIP)",
 	"Autotronic M9 (VIP)", "Chang M9 (VIP)", "Fade Butterfly (VIP)",
 	"Gamma Doppler M9 (VIP)", "Hyper Beast Karambit (VIP)", "Lore Bayonet (VIP)",
-	"Lore Karambit (VIP)", "Lore M9 (VIP)", "Ultraviolet M9 (VIP)", "Violet (VIP)"
+	"Lore Karambit (VIP)", "Lore M9 (VIP)", "Ultraviolet M9 (VIP)", "Violet (VIP)",
+	"Bayonet Copy (VIP)", "Butterfly (VIP)", "Falchion (VIP)", "Flip (VIP)",
+	"Huntsman Copy (VIP)", "M9 Bayonet (VIP)", "Navaja (VIP)", "Stiletto Copy (VIP)"
 }
 
 new const gszKnModels[KN_MAX][] = {
@@ -79,6 +139,11 @@ new const gszKnModels[KN_MAX][] = {
 	"models/skins/knife/v_bowie.mdl",
 	"models/skins/knife/v_k_stiletto.mdl",
 	"models/skins/knife/v_karambit.mdl",
+	"models/skins/knife/v_frozen.mdl",
+	"models/skins/knife/v_grizzly.mdl",
+	"models/skins/knife/v_kz_tron_blue.mdl",
+	"models/skins/knife/v_kz_tron_green.mdl",
+	"models/skins/knife/v_kz_tron_orange.mdl",
 	"models/skins/knife/v_abstr_karambit.mdl",
 	"models/skins/knife/v_autotronic_bayonet.mdl",
 	"models/skins/knife/v_autotronic_karambit.mdl",
@@ -91,7 +156,15 @@ new const gszKnModels[KN_MAX][] = {
 	"models/skins/knife/v_lore_karambit.mdl",
 	"models/skins/knife/v_lore_m9.mdl",
 	"models/skins/knife/v_ultraviolet_m9.mdl",
-	"models/skins/knife/v_violet.mdl"
+	"models/skins/knife/v_violet.mdl",
+	"models/skins/knife/v_bayonet_vip.mdl",
+	"models/skins/knife/v_butterfly_vip.mdl",
+	"models/skins/knife/v_falchion_vip.mdl",
+	"models/skins/knife/v_flip_vip.mdl",
+	"models/skins/knife/v_huntsman_vip.mdl",
+	"models/skins/knife/v_m9_bayonet_vip.mdl",
+	"models/skins/knife/v_navaja_vip.mdl",
+	"models/skins/knife/v_stiletto_vip.mdl"
 }
 
 #define DEF_MAX 9
@@ -199,8 +272,8 @@ public client_putinserver(id)
 		g_ak[id] = random_num(1, AK_MAX)
 		g_m4[id] = random_num(1, M4_MAX)
 		g_awp[id] = random_num(1, AWP_MAX)
-		g_dg[id] = random_num(1, DG_MAX)
-		g_kn[id] = random_num(1, 10)
+		g_dg[id] = random_num(1, 8)
+		g_kn[id] = random_num(1, 15)
 		save_skins(id)
 	}
 }
@@ -312,9 +385,9 @@ public skin_menu_pick(id, menu, item, type)
 		return PLUGIN_HANDLED
 	}
 
-	if (type == 4 && selected > 10 && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
+	if (skin_is_vip(type, selected) && !(get_user_flags(id) & (ADMIN_RESERVATION | ADMIN_BAN)))
 	{
-		client_print(id, print_chat, "[eXe] Este cuchillo es solo para VIPs!")
+		client_print(id, print_chat, "[eXe] Esta skin es solo para VIPs!")
 		menu_destroy(menu)
 		return PLUGIN_HANDLED
 	}
@@ -493,6 +566,19 @@ stock weapon_owner(const ent, const classname[])
 			return id
 	}
 
+	return 0
+}
+
+stock skin_is_vip(type, selected)
+{
+	switch (type)
+	{
+		case 0: return selected > 5
+		case 1: return selected > 10
+		case 2: return selected > 5
+		case 3: return selected > 8
+		case 4: return selected > 15
+	}
 	return 0
 }
 
