@@ -214,6 +214,8 @@ public queryLoadVip(
         {
             g_IsVip[id] = true;
 
+            set_user_flags(id, get_user_flags(id) | ADMIN_RESERVATION);
+
             setVipTag(id);
 
             set_task(
@@ -611,6 +613,8 @@ addVip(id, days)
     g_VipExpire[id] = newExpire;
     g_IsVip[id] = true;
 
+    set_user_flags(id, get_user_flags(id) | ADMIN_RESERVATION);
+
     setVipTag(id);
 
     new remaining[128];
@@ -669,6 +673,11 @@ removeVip(id)
 
     g_IsVip[id] = false;
     g_VipExpire[id] = 0;
+
+    if (!(get_user_flags(id) & ADMIN_KICK))
+    {
+        set_user_flags(id, get_user_flags(id) & ~ADMIN_RESERVATION);
+    }
 
     removeVipTag(id);
 
@@ -750,6 +759,11 @@ expireVip(id)
 
     g_IsVip[id] = false;
     g_VipExpire[id] = 0;
+
+    if (!(get_user_flags(id) & ADMIN_KICK))
+    {
+        set_user_flags(id, get_user_flags(id) & ~ADMIN_RESERVATION);
+    }
 
     removeVipTag(id);
 
