@@ -5,7 +5,7 @@
 #include <cstrike>
 #include <engine>
 
-#define MAX_SKINS 6
+#define MAX_SKINS 10
 
 enum _:SkinData {
 	SkinName[32],
@@ -21,7 +21,11 @@ new const g_Skins[MAX_SKINS][SkinData] = {
 	{ "Agent Smith",     "urban_smith",    1, ADMIN_RCON,         "(Owner TT)"   },
 	{ "Morfeo",          "gign_morfeo",    2, ADMIN_RESERVATION,  "(VIP CT)"     },
 	{ "Neo Matrix",      "urban_neo",              2, ADMIN_RCON,         "(Owner CT)"   },
-	{ "Rambo",           "rambo",                  1, ADMIN_RESERVATION,  "(VIP TT)"     }
+	{ "Rambo",                "rambo",                  1, ADMIN_RESERVATION,  "(VIP TT)"     },
+	{ "Tactical Black GIGN",  "tactical_black_gign",    2, ADMIN_BAN,          "(Admin CT)"   },
+	{ "Tactical Black GSG9",  "tactical_black_gsg9",    2, ADMIN_BAN,          "(Admin CT)"   },
+	{ "Tactical Black SAS",   "tactical_black_sas",     2, ADMIN_BAN,          "(Admin CT)"   },
+	{ "Tactical Black Urban", "tactical_black_urban",   2, ADMIN_BAN,          "(Admin CT)"   }
 }
 
 new g_iSelected[33]
