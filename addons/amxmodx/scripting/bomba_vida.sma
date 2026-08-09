@@ -51,7 +51,11 @@ public fw_UpdateClientData(id, sendweapons, cd_handle)
 
 	if (get_user_weapon(id) == CSW_SMOKEGRENADE && g_bHasBomb[id])
 	{
-		set_cd(cd_handle, CD_ViewModel, VIEW_BOMB)
+	static iModelIndex
+	if (!iModelIndex)
+		iModelIndex = engfunc(EngFunc_ModelIndex, VIEW_BOMB)
+
+		set_cd(cd_handle, CD_ViewModel, iModelIndex)
 		return FMRES_HANDLED
 	}
 
