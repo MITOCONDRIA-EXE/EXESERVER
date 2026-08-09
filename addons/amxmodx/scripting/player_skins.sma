@@ -18,16 +18,16 @@ enum _:SkinData {
 new const g_Skins[MAX_SKINS][SkinData] = {
 	{ "Splinter Cell",        "gign_splin",             2, ADMIN_RESERVATION,  "(VIP CT)"     },
 	{ "Morfeo",               "gign_morfeo",            2, ADMIN_RESERVATION,  "(VIP CT)"     },
-	{ "V de Vendetta",        "venom",                  1, ADMIN_RESERVATION,  "(VIP TT)"     },
-	{ "Rambo",                "rambo",                  1, ADMIN_RESERVATION,  "(VIP TT)"     },
 	{ "Sub-Zero",             "sub_zero_vip_ct",        2, ADMIN_RESERVATION,  "(VIP CT)"     },
 	{ "Miku",                 "miku_vip",               2, ADMIN_RESERVATION,  "(VIP CT)"     },
+	{ "V de Vendetta",        "venom",                  1, ADMIN_RESERVATION,  "(VIP TT)"     },
+	{ "Rambo",                "rambo",                  1, ADMIN_RESERVATION,  "(VIP TT)"     },
 	{ "Hitler",               "hitler_vip",             1, ADMIN_RESERVATION,  "(VIP TT)"     },
 	{ "Saw",                  "saw_vip",                1, ADMIN_RESERVATION,  "(VIP TT)"     },
 	{ "Tactical Black GSG9",  "tactical_black_gsg9",    2, ADMIN_BAN,          "(Admin CT)"   },
 	{ "Tactical Black SAS",   "tactical_black_sas",     2, ADMIN_BAN,          "(Admin CT)"   },
 	{ "Tactical Black GIGN",  "tactical_black_gign",    1, ADMIN_BAN,          "(Admin TT)"   },
-	{ "Miku",                 "tactical_black_urban",   1, ADMIN_BAN,          "(Admin TT)"   },
+	{ "Tactical Black Urban", "tactical_black_urban",   1, ADMIN_BAN,          "(Admin TT)"   },
 	{ "Neo Matrix",           "urban_neo",              2, ADMIN_RCON,         "(Owner CT)"   },
 	{ "Agent Smith",          "urban_smith",            1, ADMIN_RCON,         "(Owner TT)"   }
 }
