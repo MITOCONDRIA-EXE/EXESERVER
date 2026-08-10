@@ -3,9 +3,9 @@
 #include <cstrike>
 #include <sqlx>
 
-#define PLUGIN_NAME        "eXe VIP System"
-#define PLUGIN_VERSION     "1.0.0"
-#define PLUGIN_AUTHOR      "eXe"
+#define PLUGIN_NAME        "Sistema VIP - eXe Server"
+#define PLUGIN_VERSION     "1.0.3"
+#define PLUGIN_AUTHOR      "eXe.R4z"
 
 #define VIP_DATABASE       "vip_system"
 #define VIP_TABLE          "vip_players"
@@ -24,8 +24,8 @@ new g_VipKey[33][32];
 new const g_VipBenefits[][] =
 {
     "Tag [VIP] en tu nombre",
-    "Skins de jugador  /skin",
-    "Skins de armas VIP  /ak /m4 /awp /dk /knife"
+    "Skins de armas y modelos exclusivos VIP",
+    "ROL VIP en el servidor de discord y Chances para postulacion de administrador",
 };
 
 public plugin_init()
@@ -271,161 +271,110 @@ public taskShowVipWelcome(id)
 
 public cmdVip(id)
 {
-    if (!is_user_connected(id))
-    {
-        return PLUGIN_HANDLED;
-    }
+	if (!is_user_connected(id))
+	{
+		return PLUGIN_HANDLED;
+	}
 
-    showVipMenu(id);
+	showVipMotd(id);
 
-    return PLUGIN_HANDLED;
+	return PLUGIN_HANDLED;
 }
 
-showVipMenu(id)
+showVipMotd(id)
 {
-    new menu = menu_create(
-        "[eXe VIP]",
-        "handleVipMenu"
-    );
+	static szMotd[1536]
+	new iLen = 0
 
-    if (g_IsVip[id] && g_VipExpire[id] > get_systime())
-    {
-        new remaining[128];
-        new expireDate[64];
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "<html><head><style>")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "body{background:#1a1a2e;color:#e0e0e0;font-family:Arial;margin:0;padding:8px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "h1{text-align:center;color:#00e5ff;font-size:18px;margin:0 0 6px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "h2{color:#ffd700;font-size:13px;margin:8px 0 3px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".intro{text-align:center;color:#a0a0a0;font-size:12px;margin-bottom:8px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".active{text-align:center;font-size:15px;padding:6px;background:#0a3d0a;color:#4caf50;font-weight:bold;margin:6px 0}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".info{background:#16213e;padding:8px;margin:6px 0;font-size:12px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".info b{color:#00e5ff}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "ul{padding-left:18px;margin:0;font-size:12px}li{padding:2px 0}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "table{width:100%%;border-collapse:collapse}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "th{background:#16213e;color:#00e5ff;padding:4px;font-size:11px;border:1px solid #0f3460}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "td{padding:3px;font-size:11px;text-align:center;border:1px solid #0f3460}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".cmds td{text-align:left}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".discount{color:#ffd700;font-weight:bold}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".tag{background:#ffd700;color:#1a1a2e;font-size:9px;padding:1px 4px;font-weight:bold}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</style></head><body>")
 
-        getRemainingTime(
-            g_VipExpire[id],
-            remaining,
-            charsmax(remaining)
-        );
+	if (g_IsVip[id] && g_VipExpire[id] > get_systime())
+	{
+		new remaining[64]
+		new expireDate[32]
+		new name[32]
 
-        format_time(
-            expireDate,
-            charsmax(expireDate),
-            "%d/%m/%Y %H:%M",
-            g_VipExpire[id]
-        );
+		get_user_name(id, name, charsmax(name))
+		getRemainingTime(g_VipExpire[id], remaining, charsmax(remaining))
+		format_time(expireDate, charsmax(expireDate), "%d/%m/%Y", g_VipExpire[id])
 
-        new item[256];
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<h1>Bienvenido nuevamente, <b>%s</b>!</h1>", name)
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<div class=^"active^">VIP ACTIVO</div>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<div class=^"info^"><b>Vencimiento:</b> %s<br><b>Tiempo restante:</b> %s</div>",
+			expireDate, remaining)
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<table class=^"cmds^">")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><th>Comandos</th><th>Descripcion</th></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td><b>/skin</b></td><td>Skin de jugador</td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td><b>/ak</b></td><td>Skin de AK-47</td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td><b>/m4</b></td><td>Skin de M4A1</td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td><b>/awp</b></td><td>Skin de AWP</td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td><b>/dk</b></td><td>Skin de Deagle</td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td><b>/knife</b></td><td>Skin de cuchillo</td></tr>")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td><b>/vip</b></td><td>Ver vencimiento de tu VIP</td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</table>")
+	}
+	else
+	{
+		new name[32]
+		get_user_name(id, name, charsmax(name))
 
-        formatex(
-            item,
-            charsmax(item),
-            "Estado: \yACTIVO^n\wVence: \y%s^n\wRestante: \y%s^n\wID: \y%s",
-            expireDate,
-            remaining,
-            g_VipKey[id]
-        );
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<h1>Hola <b>%s</b>!, bienvenido al sistema VIP!</h1>", name)
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<h2>Beneficios</h2><ul>")
 
-        menu_additem(
-            menu,
-            item,
-            "1"
-        );
+		for (new i = 0; i < sizeof(g_VipBenefits); i++)
+		{
+			iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+				"<li>%s</li>", g_VipBenefits[i])
+		}
 
-        menu_addblank(menu);
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</ul>")
 
-        formatex(
-            item,
-            charsmax(item),
-            "\wTus beneficios VIP:"
-        );
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<h2>Planes y Precios</h2><table>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><th>Plan</th><th>Precio</th><th>Descuento</th></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td>1 Mes</td><td>$2000</td><td>-</td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td>2 Meses</td><td class=^"discount^">$3600</td><td><span class=^"tag^">10%% OFF</span></td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"<tr><td>3 Meses</td><td class=^"discount^">$5400</td><td><span class=^"tag^">10%% OFF</span></td></tr>")
+		iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
+			"</table>")
+	}
 
-        for (new i = 0; i < sizeof(g_VipBenefits); i++)
-        {
-            format(
-                item,
-                charsmax(item),
-                "%s^n\w- %s",
-                item,
-                g_VipBenefits[i]
-            );
-        }
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</body></html>")
 
-        menu_additem(
-            menu,
-            item,
-            "2"
-        );
-
-        menu_setprop(
-            menu,
-            MPROP_EXITNAME,
-            "Cerrar"
-        );
-
-        menu_display(id, menu);
-
-        return;
-    }
-
-    new item[256];
-
-    formatex(
-        item,
-        charsmax(item),
-        "Estado: \rNO TIENES VIP^n\wPrecio: \y$2000 ARS"
-    );
-
-    menu_additem(
-        menu,
-        item,
-        "1"
-    );
-
-    menu_addblank(menu);
-
-    formatex(
-        item,
-        charsmax(item),
-        "\wQue obtienes con VIP:"
-    );
-
-    for (new i = 0; i < sizeof(g_VipBenefits); i++)
-    {
-        format(
-            item,
-            charsmax(item),
-            "%s^n\w- %s",
-            item,
-            g_VipBenefits[i]
-        );
-    }
-
-    menu_additem(
-        menu,
-        item,
-        "2"
-    );
-
-    menu_addblank(menu);
-
-    menu_additem(
-        menu,
-        "\wContacta con un admin para adquirirlo.",
-        "3"
-    );
-
-    menu_setprop(
-        menu,
-        MPROP_EXITNAME,
-        "Cerrar"
-    );
-
-    menu_display(id, menu);
-}
-
-public handleVipMenu(id, menu, item)
-{
-    if (item == MENU_EXIT)
-    {
-        menu_destroy(menu);
-        return PLUGIN_HANDLED;
-    }
-
-    menu_destroy(menu);
-
-    return PLUGIN_HANDLED;
+	show_motd(id, szMotd, "Sistema VIP - eXe Server")
 }
 
 public cmdVipAdd(id, level, cid)
