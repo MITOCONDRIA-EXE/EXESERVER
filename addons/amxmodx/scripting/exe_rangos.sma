@@ -1,6 +1,6 @@
 #include <amxmodx>
 
-#define PLUGIN "eXe Rangos"
+#define PLUGIN "Sistema de rangos - eXe Server"
 #define VERSION "1.0"
 #define AUTHOR "eXe Server"
 
@@ -61,17 +61,14 @@ public cmd_rangos(id)
 	new iLen = 0
 
 	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "<html><head><style>")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "body{background:#1a1a2e;color:#e0e0e0;font-family:Consolas,monospace;margin:0;padding:20px}")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "h1{text-align:center;color:#00e5ff;font-size:22px;margin-bottom:5px}")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "table{width:100%%;border-collapse:collapse;margin-top:10px}")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "th{background:#16213e;color:#00e5ff;padding:8px;font-size:14px;border-bottom:2px solid #0f3460}")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "td{padding:6px 8px;font-size:13px;text-align:center;border-bottom:1px solid #0f3460}")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "tr.highlight{color:#ffd700}")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".footer{text-align:center;color:#555;font-size:11px;margin-top:12px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "body{background:#1a1a2e;color:#e0e0e0;font-family:Consolas;margin:0;padding:8px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "table{width:100%%;border-collapse:collapse;margin-top:6px}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "th{background:#16213e;color:#00e5ff;padding:5px;font-size:12px;border:1px solid #0f3460}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "td{padding:4px 6px;font-size:12px;text-align:center;border:1px solid #0f3460}")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, ".r{color:#e74c3c;font-weight:bold}")
 	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</style></head><body>")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "<h1>Rangos eXe Server</h1>")
 	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "<table>")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "<tr><th>#</th><th>Rango</th><th>Bajas Necesarias</th></tr>")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "<tr><th>#</th><th>Rangos</th><th>Bajas Necesarias</th></tr>")
 
 	new iTotalRanks = sizeof(g_szRanks)
 
@@ -80,13 +77,7 @@ public cmd_rangos(id)
 		if (i == iTotalRanks - 1)
 		{
 			iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
-				"<tr class=^"highlight^"><td>%d</td><td>%s</td><td>%d+</td></tr>",
-				i + 1, g_szRanks[i], g_iThresholds[i])
-		}
-		else if (i >= iTotalRanks - 2)
-		{
-			iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen,
-				"<tr class=^"highlight^"><td>%d</td><td>%s</td><td>%d</td></tr>",
+				"<tr class=^"r^"><td>%d</td><td>%s</td><td>%d+</td></tr>",
 				i + 1, g_szRanks[i], g_iThresholds[i])
 		}
 		else
@@ -97,10 +88,7 @@ public cmd_rangos(id)
 		}
 	}
 
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</table>")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "<div class=^"footer^">Usa /rank para ver tu posicion actual</div>")
-	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</body></html>")
-
-	show_motd(id, szMotd, "Rangos eXe Server")
+	iLen += formatex(szMotd[iLen], charsmax(szMotd) - iLen, "</table></body></html>")
+	show_motd(id, szMotd, "Sistema de rangos - eXe Server")
 	return PLUGIN_HANDLED
 }
