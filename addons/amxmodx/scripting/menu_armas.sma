@@ -76,24 +76,14 @@ public cmd_armas(id)
     if (!is_user_connected(id))
         return PLUGIN_HANDLED
 
-    new szArg[6]
-    read_argv(1, szArg, charsmax(szArg))
+    g_bAutoMenu[id] = !g_bAutoMenu[id]
 
-    if (equali(szArg, "auto"))
-    {
-        g_bAutoMenu[id] = !g_bAutoMenu[id]
-
-        client_print(
-            id,
-            print_chat,
-            "[eXe] Menu automatico al spawnear: %s",
-            g_bAutoMenu[id] ? "ON" : "OFF"
-        )
-
-        return PLUGIN_HANDLED
-    }
-
-    show_menu_armas(id)
+    client_print_color(
+        id,
+        print_team_default,
+        "^4[eXe]^1 Menu de armas al spawnear: %s",
+        g_bAutoMenu[id] ? "^4ACTIVADO" : "^1DESACTIVADO"
+    )
 
     return PLUGIN_HANDLED
 }
