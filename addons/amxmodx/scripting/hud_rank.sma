@@ -13,6 +13,8 @@
 new g_iSyncTitle
 new g_iSyncStats
 
+new g_iRankIndex[33]
+
 new const g_szRanks[][] = {
 	"Plata I",
 	"Plata II",
@@ -55,7 +57,7 @@ new const g_iThresholds[] = {
 	6000
 }
 
-get_rank_name(kills, szRank[], len)
+get_rank_index(kills)
 {
 	new iRank = 0
 	for (new i = sizeof(g_iThresholds) - 1; i >= 0; i--)
@@ -66,7 +68,12 @@ get_rank_name(kills, szRank[], len)
 			break
 		}
 	}
-	copy(szRank, len, g_szRanks[iRank])
+	return iRank
+}
+
+get_rank_name(kills, szRank[], len)
+{
+	copy(szRank, len, g_szRanks[get_rank_index(kills)])
 }
 
 public plugin_init()
@@ -77,6 +84,52 @@ public plugin_init()
 	g_iSyncStats = CreateHudSyncObj()
 
 	set_task(2.0, "ShowRankHUD", _, _, _, "b")
+	set_task(2.0, "checkRankUp", _, _, _, "b")
+}
+
+public client_putinserver(id)
+{
+	new iStats[8], iHits[8]
+	get_user_stats(id, iStats, iHits)
+	g_iRankIndex[id] = get_rank_index(iStats[0])
+}
+
+public checkRankUp()
+{
+	static iPlayers[32]
+	static iNum
+	static iPlayer
+
+	get_players(iPlayers, iNum, "ch")
+
+	for (new i = 0; i < iNum; i++)
+	{
+		iPlayer = iPlayers[i]
+
+		if (is_user_bot(iPlayer))
+			continue
+
+		new iStats[8], iHits[8]
+		get_user_stats(iPlayer, iStats, iHits)
+
+		new iRank = get_rank_index(iStats[0])
+
+		if (iRank > g_iRankIndex[iPlayer])
+			announceRankUp(iPlayer, iRank)
+
+		g_iRankIndex[iPlayer] = iRank
+	}
+}
+
+announceRankUp(id, iRank)
+{
+	new szName[32]
+	get_user_name(id, szName, charsmax(szName))
+
+	client_print_color(0, id, "^4[eXe]^1 ^3%s^1 subio de rango a ^4%s^1!", szName, g_szRanks[iRank])
+
+	set_hudmessage(0, 255, 0, -1.0, 0.30, 0, 1.0, 4.0, 0.1, 0.2, -1)
+	ShowSyncHudMsg(id, g_iSyncStats, "SUBISTE DE RANGO^n%s", g_szRanks[iRank])
 }
 
 	public ShowRankHUD()
