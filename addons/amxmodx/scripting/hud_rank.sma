@@ -130,7 +130,7 @@ public plugin_init()
 		ShowSyncHudMsg(
 			iPlayer,
 			g_iSyncTitle,
-			"[eXe SERVER ARG]"
+			"[eXe]"
 		)
 
 		set_hudmessage(
@@ -150,7 +150,7 @@ public plugin_init()
 		ShowSyncHudMsg(
 			iPlayer,
 			g_iSyncStats,
-			"%s^nRanking: #%d / %d^nAsesinatos: %d^nMuertes: %d^nRango: %s",
+			"%s^nRanking: #%d / %d^nKills: %d^nMuertes: %d^nRango: %s",
 			szTargetName,
 			iRankPos,
 			get_statsnum(),
