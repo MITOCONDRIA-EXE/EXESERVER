@@ -82,7 +82,7 @@ public cmd_armas(id)
         id,
         print_team_default,
         "^4[eXe]^1 Menu de armas al spawnear: %s",
-        g_bAutoMenu[id] ? "^4ACTIVADO" : "^1DESACTIVADO"
+        g_bAutoMenu[id] ? "^4ACTIVADO" : "^4DESACTIVADO"
     )
 
     return PLUGIN_HANDLED
@@ -98,7 +98,7 @@ public show_menu_armas(id)
         client_print_color(
             id,
             print_team_default,
-            "^4[eXe]^1 Tenes que estar vivo para elegir armas."
+            "^4[eXe]^1 Tenes que estar vivo para ^3elegir armas."
         )
 
         return PLUGIN_HANDLED
@@ -109,7 +109,7 @@ public show_menu_armas(id)
         client_print_color(
             id,
             print_team_default,
-            "^4[eXe]^1 Ya has elegido armas esta ronda."
+            "^4[eXe]^1 Ya has elegido ^3armas esta ronda."
         )
 
         return PLUGIN_HANDLED
@@ -165,7 +165,7 @@ public menu_armas_handler(id, menu, item)
     client_print_color(
         id,
         print_team_default,
-        "^4[eXe]^1 Armas: %s",
+        "^4[eXe]^1 Armas: ^3%s",
         gCombos[item][WC_Name]
     )
 
