@@ -67,6 +67,13 @@ public plugin_init()
     register_concmd("1v1stop", "cmdStop", ADMIN_KICK, "Detiene el duelo actual")
     register_concmd("1v1status", "cmdStatus", ADMIN_KICK, "Muestra el estado del duelo")
 
+    register_clcmd("say /1v1", "say1v1")
+    register_clcmd("say_team /1v1", "say1v1")
+    register_clcmd("say /1v1stop", "say1v1stop")
+    register_clcmd("say_team /1v1stop", "say1v1stop")
+    register_clcmd("say /1v1status", "say1v1status")
+    register_clcmd("say_team /1v1status", "say1v1status")
+
     register_event("DeathMsg", "eventDeath", "a")
     register_logevent("eventRoundStart", 2, "1=Round_Start")
     register_logevent("eventRoundEnd", 2, "1=Round_End")
@@ -98,29 +105,77 @@ public cmdStart(id, level, cid)
     read_argv(1, arg1, charsmax(arg1))
     read_argv(2, arg2, charsmax(arg2))
 
-    new p1 = str_to_num(arg1)
-    new p2 = str_to_num(arg2)
+    startDuelArgs(id, str_to_num(arg1), str_to_num(arg2))
+    return PLUGIN_HANDLED
+}
 
+public say1v1(id)
+{
+    if (!(get_user_flags(id) & ADMIN_KICK))
+    {
+        client_print_color(id, print_team_default, "^4[eXe]^1 No tenes acceso para usar este comando.")
+        return PLUGIN_HANDLED
+    }
+
+    new arg1[8], arg2[8]
+    read_argv(1, arg1, charsmax(arg1))
+    read_argv(2, arg2, charsmax(arg2))
+
+    startDuelArgs(id, str_to_num(arg1), str_to_num(arg2))
+    return PLUGIN_HANDLED
+}
+
+public say1v1stop(id)
+{
+    if (!(get_user_flags(id) & ADMIN_KICK))
+        return PLUGIN_HANDLED
+
+    stopDuel()
+    return PLUGIN_HANDLED
+}
+
+public say1v1status(id)
+{
+    if (!(get_user_flags(id) & ADMIN_KICK))
+        return PLUGIN_HANDLED
+
+    if (g_playerA > 0 && g_playerB > 0)
+    {
+        new nameA[MAX_NAME_LEN], nameB[MAX_NAME_LEN]
+        get_user_name(g_playerA, nameA, charsmax(nameA))
+        get_user_name(g_playerB, nameB, charsmax(nameB))
+
+        client_print_color(id, print_team_default, "^4[eXe]^1 Duelo: ^3%s^1 %d - %d ^3%s^1 | Ronda %d", nameA, g_killsA, g_killsB, nameB, g_roundNumber)
+    }
+    else
+    {
+        client_print_color(id, print_team_default, "^4[eXe]^1 No hay duelo en curso.")
+    }
+
+    return PLUGIN_HANDLED
+}
+
+startDuelArgs(id, p1, p2)
+{
     if (p1 == p2)
     {
-        console_print(id, "[eXe] Los dos jugadores deben ser distintos.")
-        return PLUGIN_HANDLED
+        client_print_color(id, print_team_default, "^4[eXe]^1 Los dos jugadores deben ser distintos.")
+        return
     }
 
     if (!is_user_connected(p1) || !is_user_connected(p2))
     {
-        console_print(id, "[eXe] Uno de los jugadores no esta conectado.")
-        return PLUGIN_HANDLED
+        client_print_color(id, print_team_default, "^4[eXe]^1 Uno de los jugadores no esta conectado.")
+        return
     }
 
     if (g_state == DUEL_RUNNING)
     {
-        console_print(id, "[eXe] Ya hay un duelo en curso.")
-        return PLUGIN_HANDLED
+        client_print_color(id, print_team_default, "^4[eXe]^1 Ya hay un duelo en curso.")
+        return
     }
 
     startDuel(p1, p2)
-    return PLUGIN_HANDLED
 }
 
 public cmdStop(id, level, cid)
