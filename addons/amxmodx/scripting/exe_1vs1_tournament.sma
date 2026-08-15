@@ -189,7 +189,7 @@ stopDuel()
 
     restoreSpectators()
 
-    client_print_color(0, print_team_default, "^4[eXe]^1 Duelo detenido.")
+    client_print_color(0, print_team_default, "^4[eXe]^1 ^3Duelo detenido.")
 
     resetDuel()
 }
@@ -379,7 +379,7 @@ handleForfeit(leaver)
 
     if (winner > 0 && is_user_connected(winner))
     {
-        client_print_color(0, print_team_default, "^4[eXe]^1 Un jugador abandono. El rival gana por abandono.")
+        client_print_color(0, print_team_default, "^4[eXe]^1 Un Jugador abandono. el ^3rival gana por abandono.^1")
         finishDuel(winner)
     }
     else
@@ -400,7 +400,7 @@ finishDuel(winner)
         new name[MAX_NAME_LEN]
         get_user_name(winner, name, charsmax(name))
 
-        client_print_color(0, print_team_default, "^4[eXe]^1 DUELO FINALIZADO. Ganador: %s", name)
+        client_print_color(0, print_team_default, "^4[eXe]^1 DUELO FINALIZADO. ^3Ganador:%s", name)
 
         set_hudmessage(0, 255, 0, -1.0, 0.28, 0, 6.0, 8.0, 0.1, 0.2, -1)
         ShowSyncHudMsg(0, g_hudSync, "[eXe]^nGANADOR: %s", name)
@@ -433,8 +433,8 @@ announceStart()
     get_user_name(g_playerA, nameA, charsmax(nameA))
     get_user_name(g_playerB, nameB, charsmax(nameB))
 
-    client_print_color(0, print_team_default, "^4[eXe]^1 DUELO: %s VS %s", nameA, nameB)
-    client_print_color(0, print_team_default, "^4[eXe]^1 Primero a %d kills gana. Cambio de lado cada %d rondas.", KILLS_TO_WIN, SIDE_SWITCH_EVERY)
+    client_print_color(0, print_team_default, "^4[eXe]^1 DUELO: ^3%s^1 vs ^3%s", nameA, nameB)
+    client_print_color(0, print_team_default, "^4[eXe]^1 Primero a ^4%d kills gana^1. Cambio de lado cada ^3%d rondas", KILLS_TO_WIN, SIDE_SWITCH_EVERY)
 }
 
 announceKill(killer, victim)
@@ -446,7 +446,7 @@ announceKill(killer, victim)
     get_user_name(killer, killerName, charsmax(killerName))
     get_user_name(victim, victimName, charsmax(victimName))
 
-    client_print_color(0, print_team_default, "^4[eXe]^1 %s elimino a %s. Marcador %d - %d.", killerName, victimName, g_killsA, g_killsB)
+    client_print_color(0, print_team_default, "^4[eXe]^1 ^3%s^1 elimino a ^3%s^1. ^4marcador^1 ^3%d^1 - ^3%d", killerName, victimName, g_killsA, g_killsB)
 }
 
 public taskHUD()
@@ -464,7 +464,7 @@ public taskHUD()
     get_user_name(g_playerA, nameA, charsmax(nameA))
     get_user_name(g_playerB, nameB, charsmax(nameB))
 
-    set_hudmessage(255, 255, 255, -1.0, 0.04, 0, 0.0, 1.1, 0.0, 0.0, -1)
+    set_hudmessage(0, 255, 0, -1.0, 0.04, 0, 0.0, 1.1, 0.0, 0.0, -1)
     ShowSyncHudMsg(0, g_hudSync, "[eXe]^n%s  %d - %d  %s^nRonda %d | Primero a %d kills",
         nameA, g_killsA, g_killsB, nameB, g_roundNumber, KILLS_TO_WIN)
 }

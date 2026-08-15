@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eXe 1vs1 - Vista previa de mensajes</title>
+<style>
+  body {
+    background: #141414;
+    color: #ddd;
+    font-family: Consolas, "Courier New", monospace;
+    padding: 24px;
+  }
+  h1 { font-size: 20px; color: #fff; }
+  h2 { font-size: 14px; color: #999; margin-top: 24px; text-transform: uppercase; letter-spacing: 1px; }
+  .chat {
+    background: #0b0b0b;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 12px 16px;
+    line-height: 1.7;
+    font-size: 14px;
+  }
+  .chat div { margin: 2px 0; }
+  .green  { color: #00E676; }
+  .team   { color: #40C4FF; }
+  .teamr  { color: #FF5252; }
+  .yellow { color: #FFD54F; }
+  .legend span { margin-right: 16px; font-size: 13px; }
+  .hud {
+    background: #000;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: inline-block;
+    margin: 6px 0;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 15px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>eXe 1vs1 — Mensajes (vista previa)</h1>
+
+<div class="legend">
+  <span class="green">■ Verde (^4)</span>
+  <span class="team">■ Equipo CT (^3)</span>
+  <span class="teamr">■ Equipo T (^3)</span>
+  <span class="yellow">■ Default (^1)</span>
+</div>
+
+<p style="color:#888; font-size:12px;">Nota: el ^3 (color de equipo) depende del sender; con <code>print_team_default</code> sale gris en el juego. Acá se muestra azul/rojo para ilustrar los dos equipos.</p>
+
+<h2>Chat (a todos)</h2>
+<div class="chat">
+  <div><span class="green">[eXe]</span> <span class="team">Duelo detenido.</span></div>
+
+  <div><span class="green">[eXe]</span> <span class="yellow">Un Jugador abandono. el</span> <span class="team">rival gana por abandono.</span></div>
+
+  <div><span class="green">[eXe]</span> <span class="yellow">DUELO FINALIZADO.</span> <span class="team">Ganador: eXe.R4z</span></div>
+
+  <div><span class="green">[eXe]</span> <span class="yellow">DUELO:</span> <span class="team">eXe.R4z</span> <span class="yellow">vs</span> <span class="teamr">eXe.MITOCONDRIA</span></div>
+
+  <div><span class="green">[eXe]</span> <span class="yellow">Primero a</span> <span class="green">12 kills gana</span><span class="yellow">. Cambio de lado cada</span> <span class="team">6 rondas</span></div>
+
+  <div><span class="green">[eXe]</span> <span class="team">eXe.R4z</span> <span class="yellow">elimino a</span> <span class="teamr">eXe.MITOCONDRIA</span><span class="yellow">.</span> <span class="green">marcador</span> <span class="team">5</span> <span class="yellow">-</span> <span class="teamr">3</span></div>
+</div>
+
+<h2>HUD</h2>
+<div class="hud">
+  <div><span class="green">[eXe]</span></div>
+  <div>eXe.R4z &nbsp; 5 - 3 &nbsp; eXe.MITOCONDRIA</div>
+  <div><span class="yellow">Ronda 8 | Primero a 12 kills</span></div>
+</div>
+
+<div class="hud" style="margin-left: 12px;">
+  <div><span class="green">[eXe]</span></div>
+  <div><span class="green">GANADOR: eXe.R4z</span></div>
+</div>
+
+</body>
+</html>
