@@ -465,7 +465,7 @@ public taskHUD()
     get_user_name(g_playerB, nameB, charsmax(nameB))
 
     set_hudmessage(0, 255, 0, -1.0, 0.04, 0, 0.0, 1.1, 0.0, 0.0, -1)
-    ShowSyncHudMsg(0, g_hudSync, "[eXe]^n%s  %d - %d  %s^nRonda %d | Primero a %d kills",
+    ShowSyncHudMsg(0, g_hudSync, "%s  %d - %d  %s^nRonda %d | Primero a %d kills",
         nameA, g_killsA, g_killsB, nameB, g_roundNumber, KILLS_TO_WIN)
 }
 

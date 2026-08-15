@@ -95,10 +95,10 @@ public show_menu_armas(id)
 
     if (!is_user_alive(id))
     {
-        client_print(
+        client_print_color(
             id,
-            print_chat,
-            "[eXe] Tenes que estar vivo para elegir armas."
+            print_team_default,
+            "^4[eXe]^1 Tenes que estar vivo para elegir armas."
         )
 
         return PLUGIN_HANDLED
@@ -106,10 +106,10 @@ public show_menu_armas(id)
 
     if (g_bUsado[id])
     {
-        client_print(
+        client_print_color(
             id,
-            print_chat,
-            "[eXe] Ya has elegido armas esta ronda."
+            print_team_default,
+            "^4[eXe]^1 Ya has elegido armas esta ronda."
         )
 
         return PLUGIN_HANDLED
@@ -162,10 +162,10 @@ public menu_armas_handler(id, menu, item)
 
     set_task(0.10, "task_give_combo", id)
 
-    client_print(
+    client_print_color(
         id,
-        print_chat,
-        "[eXe] Armas: %s",
+        print_team_default,
+        "^4[eXe]^1 Armas: %s",
         gCombos[item][WC_Name]
     )
 
