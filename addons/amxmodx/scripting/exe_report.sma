@@ -22,6 +22,8 @@ public plugin_init()
 {
     register_plugin(PLUGIN, VERSION, AUTHOR)
 
+    server_print("[eXe Report] Plugin cargado.")
+
     register_clcmd("say /report", "cmdReport")
     register_clcmd("say_team /report", "cmdReport")
 
@@ -70,9 +72,12 @@ public cmdReport(id)
     get_mapname(mapname, charsmax(mapname))
     get_cvar_string("hostname", hostname, charsmax(hostname))
 
-    send_report(url, name, authid, ip, mapname, hostname, msg)
+    server_print("[eXe Report] %s reporto: %s", name, msg)
 
-    client_print_color(id, print_team_default, "^4[eXe]^1 Reporte enviado.")
+    if (send_report(url, name, authid, ip, mapname, hostname, msg))
+        client_print_color(id, print_team_default, "^4[eXe]^1 Reporte enviado.")
+    else
+        client_print_color(id, print_team_default, "^4[eXe]^1 Error al enviar el reporte (mira la consola del server).")
 
     return PLUGIN_HANDLED
 }
@@ -83,7 +88,10 @@ send_report(const url[], const name[], const authid[], const ip[], const mapname
     new port = 80
 
     if (!parse_url(url, host, charsmax(host), port, path, charsmax(path)))
-        return
+    {
+        server_print("[eXe Report] URL invalida: %s", url)
+        return 0
+    }
 
     new body[2048]
     build_json(body, charsmax(body), name, authid, ip, mapname, hostname, msg)
@@ -103,10 +111,22 @@ send_report(const url[], const name[], const authid[], const ip[], const mapname
     new socket = socket_open(host, port, SOCKET_TCP, error)
 
     if (socket < 0)
-        return
+    {
+        server_print("[eXe Report] No se pudo conectar al relay %s:%d (error %d). Esta corriendo el relay?", host, port, error)
+        return 0
+    }
 
-    socket_send(socket, request, reqlen)
+    new sent = socket_send(socket, request, reqlen)
     socket_close(socket)
+
+    if (sent < 0)
+    {
+        server_print("[eXe Report] Error al enviar datos al relay.")
+        return 0
+    }
+
+    server_print("[eXe Report] Reporte enviado al relay (%s).", url)
+    return 1
 }
 
 parse_url(const url[], host[], hostlen, &port, path[], pathlen)
