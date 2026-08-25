@@ -188,8 +188,8 @@ public task_give_combo(id)
     rg_remove_items_by_slot(id, PRIMARY_WEAPON_SLOT)
     rg_remove_items_by_slot(id, PISTOL_SLOT)
 
-    give_item(id, gCombos[combo][WC_W1])
-    give_item(id, gCombos[combo][WC_W2])
+    new iPrimaryEnt = rg_give_item(id, gCombos[combo][WC_W1], GT_REPLACE)
+    rg_give_item(id, gCombos[combo][WC_W2], GT_REPLACE)
 
     cs_set_user_bpammo(id, gCombos[combo][WC_CSW1], gCombos[combo][WC_Ammo1])
     cs_set_user_bpammo(id, gCombos[combo][WC_CSW2], gCombos[combo][WC_Ammo2])
@@ -204,4 +204,7 @@ public task_give_combo(id)
     cs_set_user_bpammo(id, CSW_HEGRENADE, 1)
     cs_set_user_bpammo(id, CSW_FLASHBANG, 2)
     cs_set_user_bpammo(id, CSW_SMOKEGRENADE, 1)
+
+    if (iPrimaryEnt > 0)
+        rg_switch_weapon(id, iPrimaryEnt)
 }

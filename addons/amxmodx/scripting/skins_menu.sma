@@ -446,15 +446,16 @@ public skin_menu_pick(id, menu, item, type)
 
 public fw_Deploy_Ak(ent)
 {
-	new id = weapon_owner(ent, "weapon_ak47")
+	new id = weapon_owner(ent)
 	if (id && g_ak[id] > 0)
 		set_pev(id, pev_viewmodel2, gszAkModels[g_ak[id] - 1])
 	return HAM_IGNORED
 }
 
+
 public fw_Deploy_M4(ent)
 {
-	new id = weapon_owner(ent, "weapon_m4a1")
+	new id = weapon_owner(ent)
 	if (id && g_m4[id] > 0)
 		set_pev(id, pev_viewmodel2, gszM4Models[g_m4[id] - 1])
 	return HAM_IGNORED
@@ -462,7 +463,7 @@ public fw_Deploy_M4(ent)
 
 public fw_Deploy_Awp(ent)
 {
-	new id = weapon_owner(ent, "weapon_awp")
+	new id = weapon_owner(ent)
 	if (id && g_awp[id] > 0)
 		set_pev(id, pev_viewmodel2, gszAwpModels[g_awp[id] - 1])
 	return HAM_IGNORED
@@ -470,7 +471,7 @@ public fw_Deploy_Awp(ent)
 
 public fw_Deploy_Dg(ent)
 {
-	new id = weapon_owner(ent, "weapon_deagle")
+	new id = weapon_owner(ent)
 	if (id && g_dg[id] > 0)
 		set_pev(id, pev_viewmodel2, gszDgModels[g_dg[id] - 1])
 	return HAM_IGNORED
@@ -478,7 +479,7 @@ public fw_Deploy_Dg(ent)
 
 public fw_Deploy_Kn(ent)
 {
-	new id = weapon_owner(ent, "weapon_knife")
+	new id = weapon_owner(ent)
 	if (id && g_kn[id] > 0)
 		set_pev(id, pev_viewmodel2, gszKnModels[g_kn[id] - 1])
 	return HAM_IGNORED
@@ -486,7 +487,7 @@ public fw_Deploy_Kn(ent)
 
 public fw_Deploy_Aug(ent)
 {
-	new id = weapon_owner(ent, "weapon_aug")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[0])
 	return HAM_IGNORED
@@ -494,7 +495,7 @@ public fw_Deploy_Aug(ent)
 
 public fw_Deploy_Famas(ent)
 {
-	new id = weapon_owner(ent, "weapon_famas")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[1])
 	return HAM_IGNORED
@@ -502,7 +503,7 @@ public fw_Deploy_Famas(ent)
 
 public fw_Deploy_Glock(ent)
 {
-	new id = weapon_owner(ent, "weapon_glock18")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[2])
 	return HAM_IGNORED
@@ -510,7 +511,7 @@ public fw_Deploy_Glock(ent)
 
 public fw_Deploy_M249(ent)
 {
-	new id = weapon_owner(ent, "weapon_m249")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[3])
 	return HAM_IGNORED
@@ -518,7 +519,7 @@ public fw_Deploy_M249(ent)
 
 public fw_Deploy_Mp5(ent)
 {
-	new id = weapon_owner(ent, "weapon_mp5navy")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[4])
 	return HAM_IGNORED
@@ -526,7 +527,7 @@ public fw_Deploy_Mp5(ent)
 
 public fw_Deploy_P90(ent)
 {
-	new id = weapon_owner(ent, "weapon_p90")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[5])
 	return HAM_IGNORED
@@ -534,7 +535,7 @@ public fw_Deploy_P90(ent)
 
 public fw_Deploy_Scout(ent)
 {
-	new id = weapon_owner(ent, "weapon_scout")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[6])
 	return HAM_IGNORED
@@ -542,7 +543,7 @@ public fw_Deploy_Scout(ent)
 
 public fw_Deploy_Ump(ent)
 {
-	new id = weapon_owner(ent, "weapon_ump45")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[7])
 	return HAM_IGNORED
@@ -550,23 +551,15 @@ public fw_Deploy_Ump(ent)
 
 public fw_Deploy_Usp(ent)
 {
-	new id = weapon_owner(ent, "weapon_usp")
+	new id = weapon_owner(ent)
 	if (id)
 		set_pev(id, pev_viewmodel2, g_DefaultModels[8])
 	return HAM_IGNORED
 }
 
-stock weapon_owner(const ent, const classname[])
+stock weapon_owner(const ent)
 {
-	new id
-
-	for (id = 1; id <= MaxClients; id++)
-	{
-		if (is_user_alive(id) && fm_find_ent_by_owner(-1, classname, id) == ent)
-			return id
-	}
-
-	return 0
+	return pev(ent, pev_owner)
 }
 
 stock skin_is_vip(type, selected)
