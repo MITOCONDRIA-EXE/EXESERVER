@@ -12,6 +12,8 @@
 
 new g_iSyncTitle
 new g_iSyncStats
+new g_iSyncRango
+new g_iSyncIP
 
 new g_iRankIndex[33]
 
@@ -82,6 +84,8 @@ public plugin_init()
 
 	g_iSyncTitle = CreateHudSyncObj()
 	g_iSyncStats = CreateHudSyncObj()
+	g_iSyncRango = CreateHudSyncObj()
+	g_iSyncIP = CreateHudSyncObj()
 
 	set_task(2.0, "ShowRankHUD", _, _, _, "b")
 	set_task(2.0, "checkRankUp", _, _, _, "b")
@@ -166,6 +170,9 @@ announceRankUp(id, iRank)
 		new szTargetName[32]
 		get_user_name(iTarget, szTargetName, charsmax(szTargetName))
 
+		new szServerIP[32]
+		get_user_ip(0, szServerIP, charsmax(szServerIP), 1)
+
 		set_hudmessage(
 			0,
 			255,
@@ -183,15 +190,15 @@ announceRankUp(id, iRank)
 		ShowSyncHudMsg(
 			iPlayer,
 			g_iSyncTitle,
-			"[eXe]"
+			"[eXe.ARG] "
 		)
 
 		set_hudmessage(
-			0,
+			255,
 			255,
 			255,
 			HUD_X,
-			HUD_Y + 0.03,
+			HUD_Y + 0.05,
 			0,
 			0.0,
 			HUD_HOLD_TIME,
@@ -203,13 +210,54 @@ announceRankUp(id, iRank)
 		ShowSyncHudMsg(
 			iPlayer,
 			g_iSyncStats,
-			"%s^nRanking: #%d / %d^nKills: %d^nMuertes: %d^nRango: %s",
+			"%s^nKills: %d^nMuertes: %d^n^nRanking: %d/%d",
 			szTargetName,
-			iRankPos,
-			get_statsnum(),
 			iStats[0],
 			iStats[1],
+			iRankPos,
+			get_statsnum()
+		)
+
+		set_hudmessage(
+			255,
+			0,
+			255,
+			HUD_X,
+			HUD_Y + 0.14,
+			0,
+			0.0,
+			HUD_HOLD_TIME,
+			0.0,
+			0.0,
+			3
+		)
+
+		ShowSyncHudMsg(
+			iPlayer,
+			g_iSyncRango,
+			"Rango: %s",
 			szRank
+		)
+
+		set_hudmessage(
+			255,
+			255,
+			255,
+			HUD_X,
+			HUD_Y + 0.18,
+			0,
+			0.0,
+			HUD_HOLD_TIME,
+			0.0,
+			0.0,
+			4
+		)
+
+		ShowSyncHudMsg(
+			iPlayer,
+			g_iSyncIP,
+			"IP DEL SERVIDOR: %s",
+			szServerIP
 		)
 	}
 }
