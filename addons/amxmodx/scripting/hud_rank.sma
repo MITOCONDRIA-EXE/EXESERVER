@@ -170,8 +170,7 @@ announceRankUp(id, iRank)
 		new szTargetName[32]
 		get_user_name(iTarget, szTargetName, charsmax(szTargetName))
 
-		new szServerIP[32]
-		get_user_ip(0, szServerIP, charsmax(szServerIP), 1)
+		new const szServerIP[] = "45.235.98.65:27029"
 
 		set_hudmessage(
 			0,
