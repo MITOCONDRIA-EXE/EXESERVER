@@ -7,6 +7,6 @@ public plugin_init() {
 }
 
 public fw_GetGameDescription() {
-    forward_return(FMV_STRING, "eXe ARG OFICIAL")
+    forward_return(FMV_STRING, "[eXe.ARG] OFICIAL")
     return FMRES_SUPERCEDE
 }
