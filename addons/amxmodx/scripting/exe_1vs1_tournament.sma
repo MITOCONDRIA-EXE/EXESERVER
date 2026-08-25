@@ -3,7 +3,7 @@
  * Counter-Strike 1.6 / AMX Mod X 1.10+
  *
  * Simple 1vs1 duel between two players chosen by an admin.
- * First to 100 kills wins. Side switch every 20 rounds.
+ * First to 12 kills wins. Side switch every 6 rounds.
  * All other players are forced to spectator.
  *
  * Commands:
@@ -25,10 +25,9 @@
 #include <hamsandwich>
 
 #define PLUGIN_NAME    "EXE 1VS1 Duel"
-#define PLUGIN_VERSION "1.0.0"
+#define PLUGIN_VERSION "1.1.0"
 #define PLUGIN_AUTHOR  "EXE"
 
-#define MAX_PLAYERS 32
 #define MAX_NAME_LEN 32
 
 #define TEAM_T 1
@@ -74,6 +73,10 @@ public plugin_init()
     register_clcmd("say /1v1status", "say1v1status")
     register_clcmd("say_team /1v1status", "say1v1status")
 
+    // Bloqueo para evitar que usen la tecla M o comandos de equipo durante el duelo
+    register_clcmd("jointeam", "cmdBlockJoinTeam")
+    register_clcmd("chooseteam", "cmdBlockJoinTeam")
+
     register_event("DeathMsg", "eventDeath", "a")
     register_logevent("eventRoundStart", 2, "1=Round_Start")
     register_logevent("eventRoundEnd", 2, "1=Round_End")
@@ -94,6 +97,17 @@ public client_disconnected(id)
 
     if (id == g_playerA || id == g_playerB)
         handleForfeit(id)
+}
+
+public cmdBlockJoinTeam(id)
+{
+    // Si hay un duelo activo y el jugador no forma parte de los duelistas, se le bloquea el cambio de equipo
+    if (g_state == DUEL_RUNNING && id != g_playerA && id != g_playerB)
+    {
+        client_print_color(id, print_team_default, "^4[eXe]^1 No podes unirte a un equipo mientras hay un duelo en curso.")
+        return PLUGIN_HANDLED
+    }
+    return PLUGIN_CONTINUE
 }
 
 public cmdStart(id, level, cid)
@@ -117,9 +131,18 @@ public say1v1(id)
         return PLUGIN_HANDLED
     }
 
-    new arg1[8], arg2[8]
-    read_argv(1, arg1, charsmax(arg1))
-    read_argv(2, arg2, charsmax(arg2))
+    new args[64], cmd[16], arg1[8], arg2[8]
+    read_args(args, charsmax(args))
+    remove_quotes(args)
+    
+    // Parsea adecuadamente los argumentos enviados por el chat "/1v1 2 3"
+    parse(args, cmd, charsmax(cmd), arg1, charsmax(arg1), arg2, charsmax(arg2))
+
+    if (!arg1[0] || !arg2[0])
+    {
+        client_print_color(id, print_team_default, "^4[eXe]^1 Uso correcto: ^3/1v1 <id1> <id2>")
+        return PLUGIN_HANDLED
+    }
 
     startDuelArgs(id, str_to_num(arg1), str_to_num(arg2))
     return PLUGIN_HANDLED
