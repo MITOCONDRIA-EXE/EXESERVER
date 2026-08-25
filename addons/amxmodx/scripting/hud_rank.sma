@@ -13,7 +13,6 @@
 new g_iSyncTitle
 new g_iSyncStats
 new g_iSyncRango
-new g_iSyncIP
 
 new g_iRankIndex[33]
 
@@ -85,7 +84,6 @@ public plugin_init()
 	g_iSyncTitle = CreateHudSyncObj()
 	g_iSyncStats = CreateHudSyncObj()
 	g_iSyncRango = CreateHudSyncObj()
-	g_iSyncIP = CreateHudSyncObj()
 
 	set_task(2.0, "ShowRankHUD", _, _, _, "b")
 	set_task(2.0, "checkRankUp", _, _, _, "b")
@@ -170,8 +168,6 @@ announceRankUp(id, iRank)
 		new szTargetName[32]
 		get_user_name(iTarget, szTargetName, charsmax(szTargetName))
 
-		new const szServerIP[] = "45.235.98.65:27029"
-
 		set_hudmessage(
 			0,
 			255,
@@ -236,27 +232,6 @@ announceRankUp(id, iRank)
 			g_iSyncRango,
 			"Rango: %s",
 			szRank
-		)
-
-		set_hudmessage(
-			255,
-			255,
-			255,
-			HUD_X,
-			HUD_Y + 0.18,
-			0,
-			0.0,
-			HUD_HOLD_TIME,
-			0.0,
-			0.0,
-			4
-		)
-
-		ShowSyncHudMsg(
-			iPlayer,
-			g_iSyncIP,
-			"IP DEL SERVIDOR: %s",
-			szServerIP
 		)
 	}
 }
