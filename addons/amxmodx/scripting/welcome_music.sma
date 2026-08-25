@@ -3,7 +3,7 @@
 #include <fakemeta>
 #include <hamsandwich>
 
-new const SOUND[] = "misc/welcome.wav"
+new const SOUND[] = "misc/welcomexe.wav"
 
 new g_pWelcome
 new g_pDelay
@@ -15,7 +15,7 @@ public plugin_init()
 {
 	register_plugin("Welcome Music", "4.0", "MITO")
 	g_pWelcome = create_cvar("welcome_music", "1")
-	g_pDelay = create_cvar("welcome_delay", "0.8")
+	g_pDelay = create_cvar("welcome_delay", "0.2")
 	g_pMinTime = create_cvar("welcome_mintime", "3.0")
 	register_forward(FM_PlayerPreThink, "fw_PlayerPreThink")
 	RegisterHam(Ham_Spawn, "player", "fw_PlayerSpawn", 1)
