@@ -707,17 +707,21 @@ format_top15(id, sBuffer[MAX_BUFFER_LENGTH + 1])
 	ucfirst(lEff)
 	ucfirst(lAcc)
 
-	iLen = formatex(sBuffer, charsmax(sBuffer), "<meta charset=utf-8><body bgcolor=#000000><font color=#FFB000><pre>")
-	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "%2s %-22.22s %6s %6s %6s %6s %4s %4s %4s^n", "#", "Nick", lKills, lDeaths, lHits, lShots, "HS", lEff, lAcc)
+	iLen = formatex(sBuffer, charsmax(sBuffer), "<meta charset=utf-8><style>html,body{margin:0;padding:5px;background:#000;color:#FFB000;font-family:sans-serif;font-size:11px;}table{width:100%%;border-collapse:collapse;}th{border-bottom:1px solid #FFB000;padding:4px;text-align:right;}th.left,td.left{text-align:left;}td{padding:3px 4px;text-align:right;}</style><table>")
+
+	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "<tr><th class=left>#</th><th class=left>Nick</th><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th>HS</th><th>%s</th><th>%s</th></tr>", lKills, lDeaths, lHits, lShots, lEff, lAcc)
 
 	for (new i = 0; i < iMax && charsmax(sBuffer) - iLen > 0; i++)
 	{
 		get_stats(i, izStats, izBody, t_sName, charsmax(t_sName))
 		replace_string(t_sName, charsmax(t_sName), "<", "[")
 		replace_string(t_sName, charsmax(t_sName), ">", "]")
-		iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "%2d %-22.22s %6d %6d %6d %6d %4d %3.0f%% %3.0f%%^n", i + 1, t_sName, izStats[STATSX_KILLS],
-						izStats[STATSX_DEATHS], izStats[STATSX_HITS], izStats[STATSX_SHOTS], izStats[STATSX_HEADSHOTS], effec(izStats), accuracy(izStats))
+
+		iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "<tr><td class=left>%d</td><td class=left>%s</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td><td>%3.0f%%</td><td>%3.0f%%</td></tr>", 
+			i + 1, t_sName, izStats[STATSX_KILLS], izStats[STATSX_DEATHS], izStats[STATSX_HITS], izStats[STATSX_SHOTS], izStats[STATSX_HEADSHOTS], effec(izStats), accuracy(izStats))
 	}
+
+	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "</table>")
 }
 
 // Get and format rank stats.
@@ -740,7 +744,7 @@ format_rankstats(id, sBuffer[MAX_BUFFER_LENGTH + 1], iMyId = 0)
 	ucfirst(lAcc)
 
 	iRankPos = get_user_stats(id, izStats, izBody)
-	iLen = formatex(sBuffer, charsmax(sBuffer), "<meta charset=utf-8><body bgcolor=#000000><font color=#FFB000><pre>")
+	iLen = formatex(sBuffer, charsmax(sBuffer), "<meta charset=utf-8><style>html,body{margin:0;padding:0;background:#000;color:#FFB000;width:100%%;}table{width:100%%;}pre{font-family:monospace;font-size:12px;margin:0;padding:5px;}</style><table border=0 cellspacing=0 cellpadding=0><tr><td><pre>")
 	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "%L %L^n^n", id, (!iMyId || iMyId == id) ? "YOUR" : "PLAYERS", id, "RANK_IS", iRankPos, get_statsnum())
 	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "%6s: %d  (%d with hs)^n%6s: %d^n%6s: %d^n%6s: %d^n%6s: %d^n%6s: %0.2f%%^n%6s: %0.2f%%^n^n",
 					lKills, izStats[STATSX_KILLS], izStats[STATSX_HEADSHOTS], lDeaths, izStats[STATSX_DEATHS], lHits, izStats[STATSX_HITS], lShots, izStats[STATSX_SHOTS],
@@ -756,6 +760,8 @@ format_rankstats(id, sBuffer[MAX_BUFFER_LENGTH + 1], iMyId = 0)
 	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "%10s:^n%10s: %d^n%10s: %d^n%10s: %d^n%10s: %d^n%10s: %d^n%10s: %d^n%10s: %d", "HITS",
 					L_BODY_PART[HIT_HEAD], izBody[HIT_HEAD], L_BODY_PART[HIT_CHEST], izBody[HIT_CHEST], L_BODY_PART[HIT_STOMACH], izBody[HIT_STOMACH], L_BODY_PART[HIT_LEFTARM], izBody[HIT_LEFTARM], L_BODY_PART[HIT_RIGHTARM],
 					izBody[HIT_RIGHTARM], L_BODY_PART[HIT_LEFTLEG], izBody[HIT_LEFTLEG], L_BODY_PART[HIT_RIGHTLEG], izBody[HIT_RIGHTLEG])
+
+	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "</pre></td></tr></table>")
 }
 
 // Get and format stats.
@@ -780,7 +786,7 @@ format_stats(id, sBuffer[MAX_BUFFER_LENGTH + 1])
 
 	get_user_wstats(id, 0, izStats, izBody)
 
-	iLen = formatex(sBuffer, charsmax(sBuffer), "<meta charset=utf-8><body bgcolor=#000000><font color=#FFB000><pre>")
+	iLen = formatex(sBuffer, charsmax(sBuffer), "<meta charset=utf-8><style>html,body{margin:0;padding:0;background:#000;color:#FFB000;width:100%%;}table{width:100%%;}pre{font-family:monospace;font-size:12px;margin:0;padding:5px;}</style><table border=0 cellspacing=0 cellpadding=0><tr><td><pre>")
 	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "%6s: %d  (%d with hs)^n%6s: %d^n%6s: %d^n%6s: %d^n%6s: %d^n%6s: %0.2f%%^n%6s: %0.2f%%^n^n",
 					lKills, izStats[STATSX_KILLS], izStats[STATSX_HEADSHOTS], lDeaths, izStats[STATSX_DEATHS], lHits, izStats[STATSX_HITS], lShots, izStats[STATSX_SHOTS],
 					lDamage, izStats[STATSX_DAMAGE], lEff, effec(izStats), lAcc, accuracy(izStats))
@@ -795,6 +801,8 @@ format_stats(id, sBuffer[MAX_BUFFER_LENGTH + 1])
 							izStats[STATSX_HITS], izStats[STATSX_SHOTS], izStats[STATSX_DAMAGE], accuracy(izStats))
 		}
 	}
+
+	iLen += formatex(sBuffer[iLen], charsmax(sBuffer) - iLen, "</pre></td></tr></table>")
 }
 
 // Format round end stats
