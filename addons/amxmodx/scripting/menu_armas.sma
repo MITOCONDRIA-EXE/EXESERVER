@@ -193,4 +193,15 @@ public task_give_combo(id)
 
     cs_set_user_bpammo(id, gCombos[combo][WC_CSW1], gCombos[combo][WC_Ammo1])
     cs_set_user_bpammo(id, gCombos[combo][WC_CSW2], gCombos[combo][WC_Ammo2])
+
+    rg_remove_items_by_slot(id, GRENADE_SLOT)
+
+    give_item(id, "weapon_hegrenade")
+    give_item(id, "weapon_flashbang")
+    give_item(id, "weapon_flashbang")
+    give_item(id, "weapon_smokegrenade")
+
+    cs_set_user_bpammo(id, CSW_HEGRENADE, 1)
+    cs_set_user_bpammo(id, CSW_FLASHBANG, 2)
+    cs_set_user_bpammo(id, CSW_SMOKEGRENADE, 1)
 }

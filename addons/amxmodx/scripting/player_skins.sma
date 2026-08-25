@@ -5,7 +5,7 @@
 #include <cstrike>
 #include <engine>
 
-#define MAX_SKINS 14
+#define MAX_SKINS 20
 
 enum _:SkinData {
 	SkinName[32],
@@ -29,7 +29,13 @@ new const g_Skins[MAX_SKINS][SkinData] = {
 	{ "Tactical Black GIGN",  "tactical_black_gign",    1, ADMIN_BAN,          "(Admin TT)"   },
 	{ "Tactical Black Urban", "tactical_black_urban",   1, ADMIN_BAN,          "(Admin TT)"   },
 	{ "Neo Matrix",           "urban_neo",              2, ADMIN_RCON,         "(Owner CT)"   },
-	{ "Agent Smith",          "urban_smith",            1, ADMIN_RCON,         "(Owner TT)"   }
+	{ "Agent Smith",          "urban_smith",            1, ADMIN_RCON,         "(Owner TT)"   },
+	{ "Morena",               "morena_ct",              2, ADMIN_BAN,          "(Admin CT)"   },
+	{ "Admin Girl",           "admin_girl_tr",          1, ADMIN_BAN,          "(Admin TT)"   },
+	{ "ACS Girl CT",          "acs_girl_ct",            2, ADMIN_RESERVATION,  "(VIP CT)"     },
+	{ "ACS Girl TT",          "acs_girl_tt",            1, ADMIN_RESERVATION,  "(VIP TT)"     },
+	{ "Spartan Girl CT",      "Spartan_Girls_CT",       2, ADMIN_RESERVATION,  "(VIP CT)"     },
+	{ "Spartan Girl TR",      "Spartan_Girls_TR",       1, ADMIN_RESERVATION,  "(VIP TT)"     }
 }
 
 new g_iSelected[33]
@@ -53,7 +59,8 @@ public plugin_init()
 		precache_model(szPath)
 
 		formatex(szPath, charsmax(szPath), "models/player/%s/%sT.mdl", g_Skins[i][SkinModel], g_Skins[i][SkinModel])
-		precache_model(szPath)
+		if (file_exists(szPath))
+			precache_model(szPath)
 	}
 }
 
